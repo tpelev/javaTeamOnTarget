@@ -1,0 +1,31 @@
+public static void regNewUser(String userName, String passworrd, String salt) {
+
+		EntityManager em = entityManager.createEntityManager();
+
+		UserData user = new UserData(userName, passworrd, salt, 0);
+		em.getTransaction().begin();
+		em.persist(user);
+		em.getTransaction().commit();
+		em.close();
+	}
+
+	public static List<UserData> showAllUser() {
+		EntityManager em = entityManager.createEntityManager();
+		List<UserData> user = null;
+		em.getTransaction().begin();
+		Query query = em.createQuery("Select u from UserData");
+		user = query.getResultList();
+		em.close();
+		return user;
+
+	}
+
+	public static UserData showUserByUserName(String name) {
+		EntityManager em = entityManager.createEntityManager();
+		em.getTransaction().begin();
+		UserData user = em.find(UserData.class, name);
+		em.close();
+		return user;
+	}
+
+	public static String hasing(String variableThatYouWhatToHash) {
