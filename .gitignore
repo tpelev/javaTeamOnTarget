@@ -1,2 +1,4 @@
 /TestingJoblessDB/build/*
 /TestingJoblessDB/build
+/TestingJoblessDB/.classpath
+/TestingJoblessDB/.project
