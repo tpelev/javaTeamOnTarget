@@ -25,7 +25,7 @@ public class Invoice implements Serializable {
 	private double discount;
 
 	@Column(name="DUE_PAYMENT")
-	private byte duePayment;
+	private boolean duePayment;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="EVENT_DATE")
@@ -36,10 +36,10 @@ public class Invoice implements Serializable {
 	private Date invoiceDate;
 
 	@Column(name="IS_CASH")
-	private byte isCash;
+	private boolean isCash;
 
 	@Column(name="IS_PAYED")
-	private byte isPayed;
+	private boolean isPayed;
 
 	@Column(name="LATE_PAYMENT")
 	private int latePayment;
@@ -92,11 +92,11 @@ public class Invoice implements Serializable {
 		this.discount = discount;
 	}
 
-	public byte getDuePayment() {
+	public boolean getDuePayment() {
 		return this.duePayment;
 	}
 
-	public void setDuePayment(byte duePayment) {
+	public void setDuePayment(boolean duePayment) {
 		this.duePayment = duePayment;
 	}
 
@@ -116,19 +116,19 @@ public class Invoice implements Serializable {
 		this.invoiceDate = invoiceDate;
 	}
 
-	public byte getIsCash() {
+	public boolean getIsCash() {
 		return this.isCash;
 	}
 
-	public void setIsCash(byte isCash) {
+	public void setIsCash(boolean isCash) {
 		this.isCash = isCash;
 	}
 
-	public byte getIsPayed() {
+	public boolean getIsPayed() {
 		return this.isPayed;
 	}
 
-	public void setIsPayed(byte isPayed) {
+	public void setIsPayed(boolean isPayed) {
 		this.isPayed = isPayed;
 	}
 

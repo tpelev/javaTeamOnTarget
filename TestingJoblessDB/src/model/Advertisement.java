@@ -29,16 +29,16 @@ public class Advertisement implements Serializable {
 	private Date expirationDate;
 
 	@Column(name="IS_APPROVED")
-	private byte isApproved;
+	private boolean isApproved;
 
 	@Column(name="IS_EXPIRED")
-	private byte isExpired;
+	private boolean isExpired;
 
 	@Column(name="IS_PAID")
-	private byte isPaid;
+	private boolean isPaid;
 
 	@Column(name="IS_VIP")
-	private byte isVip;
+	private boolean isVip;
 
 	private double price;
 
@@ -94,35 +94,35 @@ public class Advertisement implements Serializable {
 		this.expirationDate = expirationDate;
 	}
 
-	public byte getIsApproved() {
+	public boolean getIsApproved() {
 		return this.isApproved;
 	}
 
-	public void setIsApproved(byte isApproved) {
+	public void setIsApproved(boolean isApproved) {
 		this.isApproved = isApproved;
 	}
 
-	public byte getIsExpired() {
+	public boolean getIsExpired() {
 		return this.isExpired;
 	}
 
-	public void setIsExpired(byte isExpired) {
+	public void setIsExpired(boolean isExpired) {
 		this.isExpired = isExpired;
 	}
 
-	public byte getIsPaid() {
+	public boolean getIsPaid() {
 		return this.isPaid;
 	}
 
-	public void setIsPaid(byte isPaid) {
+	public void setIsPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
 
-	public byte getIsVip() {
+	public boolean getIsVip() {
 		return this.isVip;
 	}
 
-	public void setIsVip(byte isVip) {
+	public void setIsVip(boolean isVip) {
 		this.isVip = isVip;
 	}
 
