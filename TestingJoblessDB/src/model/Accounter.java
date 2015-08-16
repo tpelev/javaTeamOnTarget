@@ -10,7 +10,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="accounters")
-@NamedQuery(name="Accounter.findAll", query="SELECT a FROM Accounter a")
+
+@NamedQueries({
+	@NamedQuery(name="Accounter.findAll", query="SELECT a FROM Accounter a"),
+    @NamedQuery(name = "Accounter.findById", query = "SELECT a FROM Accounter a WHERE a.id = :id"),
+    @NamedQuery(name = "Accounter.findByLoginName", query = "SELECT a FROM Accounter a WHERE a.loginName = :loginName")
+})
 public class Accounter implements Serializable {
 	private static final long serialVersionUID = 1L;
 

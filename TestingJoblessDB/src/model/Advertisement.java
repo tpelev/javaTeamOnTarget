@@ -11,7 +11,20 @@ import java.util.Date;
  */
 @Entity
 @Table(name="advertisements")
-@NamedQuery(name="Advertisement.findAll", query="SELECT a FROM Advertisement a")
+@NamedQueries({
+	@NamedQuery(name = "Advertisement.findAllVip", query = "SELECT a FROM Advertisement a WHERE a.isVip = true"),
+	@NamedQuery(name = "Advertisement.findAllNonVip", query = "SELECT a FROM Advertisement a WHERE a.isVip = false"),
+    @NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"),
+    @NamedQuery(name = "Advertisement.findById", query = "SELECT a FROM Advertisement a WHERE a.id = :id"),
+    @NamedQuery(name = "Advertisement.findByTitle", query = "SELECT a FROM Advertisement a WHERE a.title = :title"),
+    @NamedQuery(name = "Advertisement.findByTest", query = "SELECT a FROM Advertisement a WHERE a.test = :test"),
+    @NamedQuery(name = "Advertisement.findByPrice", query = "SELECT a FROM Advertisement a WHERE a.price = :price"),
+    @NamedQuery(name = "Advertisement.findByActivityDays", query = "SELECT a FROM Advertisement a WHERE a.activityDays = :activityDays"),
+    @NamedQuery(name = "Advertisement.findByExpirationDate", query = "SELECT a FROM Advertisement a WHERE a.expirationDate = :expirationDate"),
+    @NamedQuery(name = "Advertisement.findByIsApproved", query = "SELECT a FROM Advertisement a WHERE a.isApproved = :isApproved"),
+    @NamedQuery(name = "Advertisement.findByIsPaid", query = "SELECT a FROM Advertisement a WHERE a.isPaid = :isPaid"),
+    @NamedQuery(name = "Advertisement.findByIsExpired", query = "SELECT a FROM Advertisement a WHERE a.isExpired = :isExpired")
+})
 public class Advertisement implements Serializable {
 	private static final long serialVersionUID = 1L;
 

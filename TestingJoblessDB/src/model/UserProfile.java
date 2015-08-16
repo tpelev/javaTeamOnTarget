@@ -10,7 +10,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="user_profiles")
-@NamedQuery(name="UserProfile.findAll", query="SELECT u FROM UserProfile u")
+@NamedQueries({
+    @NamedQuery(name = "UserProfile.findAll", query = "SELECT u FROM UserProfile u"),
+    @NamedQuery(name = "UserProfile.findById", query = "SELECT u FROM UserProfile u WHERE u.id = :id"),
+    @NamedQuery(name = "UserProfile.findByFirstName", query = "SELECT u FROM UserProfile u WHERE u.firstName = :firstName"),
+    @NamedQuery(name = "UserProfile.findByLastName", query = "SELECT u FROM UserProfile u WHERE u.lastName = :lastName"),
+    @NamedQuery(name = "UserProfile.findByAllNames", query = "SELECT u FROM UserProfile u WHERE u.firstName = :firstName AND u.lastName = :lastName")})
 public class UserProfile implements Serializable {
 	private static final long serialVersionUID = 1L;
 

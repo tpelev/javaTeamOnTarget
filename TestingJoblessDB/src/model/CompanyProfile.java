@@ -11,7 +11,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="company_profiles")
-@NamedQuery(name="CompanyProfile.findAll", query="SELECT c FROM CompanyProfile c")
+@NamedQueries({
+    @NamedQuery(name = "CompanyProfile.findAll", query = "SELECT c FROM CompanyProfile c"),
+    @NamedQuery(name = "CompanyProfile.findById", query = "SELECT c FROM CompanyProfile c WHERE c.id = :id"),
+    @NamedQuery(name = "CompanyProfile.findByCompanyName", query = "SELECT c FROM CompanyProfile c WHERE c.companyName = :companyName"),
+    @NamedQuery(name = "CompanyProfile.findByCompanyType", query = "SELECT c FROM CompanyProfile c WHERE c.companyType = :companyType"),
+    @NamedQuery(name = "CompanyProfile.findByStatus", query = "SELECT c FROM CompanyProfile c WHERE c.status = :status")
+})
 public class CompanyProfile implements Serializable {
 	private static final long serialVersionUID = 1L;
 

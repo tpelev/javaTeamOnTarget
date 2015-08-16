@@ -10,7 +10,11 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Owner.findAll", query="SELECT o FROM Owner o")
+@NamedQueries({
+    @NamedQuery(name = "Owner.findAll", query = "SELECT o FROM Owner o"),
+    @NamedQuery(name = "Owner.findById", query = "SELECT o FROM Owner o WHERE o.id = :id"),
+    @NamedQuery(name = "Owner.findByCompanyName", query = "SELECT o FROM Owner o WHERE o.companyName = :companyName")
+})
 public class Owner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
