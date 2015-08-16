@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Ads</title>
+</head>
+<body>
+     <h:form>
+ <h2 align ="center"> Welcome to the ad panel! </h2>
+            <h3 align ="center"> You can edit,publish,delete or change ad status here!</h3>
+            <h3 align = "center"> 
+         
+		<h:dataTable border="1" align="center" style="padding: 2x;border:3px solid black;width: 60%">
+		<div style="width:100%; overflow-x: hidden; max-height: 150px;">
+		<h:column>
+              <f:facet name="header">
+                  <h:outputText value="Category"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+          <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Title"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Content"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Test"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Price"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Activity duration"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Expiration date"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Place"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="VIP"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column><h:column>
+              <f:facet name="header">
+                  <h:outputText value="Approved"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Paid"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Expired"/>
+              </f:facet>
+                  <h:outputText />
+               </h:column>
+               <h:column>
+              <f:facet name="header">
+                  <h:outputText value="Option"/>
+              </f:facet>
+                  <h:commandButton action="UpdateAd.xhtml" value="Update"></h:commandButton>
+                  <h:commandButton value="Delete"> </h:commandButton>
+               </h:column>
+                  </div>
+		</h:dataTable>
+	
+		</h3>
+</h:form>
+
+</body>
+</html>

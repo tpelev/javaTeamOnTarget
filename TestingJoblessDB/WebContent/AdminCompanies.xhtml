@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+
+<body>
+	<h:form method="POST">
+		<h2 align="center">Welcome to the ad panel!</h2>
+		<h3 align="center">You can edit,publish,delete or change ad
+			status here!</h3>
+		<h3 align="center">
+
+			<h:dataTable border="1" align="center"
+				style="padding: 2x;border:3px solid black;width: 60%"
+				value="#{test.profile}" var="prof">
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Company name" />
+					</f:facet>
+					<h:outputText id="test" value="#{prof.companyName}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Address" />
+					</f:facet>
+					<h:outputText value="#{prof.adress}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="MOL" />
+					</f:facet>
+					<h:outputText value="#{prof.mol}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="EIK" />
+					</f:facet>
+					<h:outputText value="#{prof.eik}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Email" />
+					</f:facet>
+					<h:outputText value="#{prof.email}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+
+						<h:outputText value="Company type" />
+					</f:facet>
+					<h:outputText value="#{prof.companyType}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Status" />
+					</f:facet>
+					<h:outputText value="#{prof.status}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Approved" />
+					</f:facet>
+					<h:commandButton action="#{test.showAllCompanies}" value="Submit">
+						<f:actionListener   target="#{test.profile}" value="#{prof}" />
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+
+		</h3>
+	</h:form>
+	<h:form>
+
+		<h:commandButton action="#{test.showAllCompanies}" value="Submit" />
+	</h:form>
+</body>
+</html>
