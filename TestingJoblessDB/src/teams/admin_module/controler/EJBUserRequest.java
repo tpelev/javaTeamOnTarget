@@ -33,4 +33,12 @@ public class EJBUserRequest {
 
 		return list;
 	}
+	public void update (int id ,String firstName,String lastName,String email){
+		
+		UserProfile profile = entityManager.find(UserProfile.class, id);
+		profile.setFirstName(firstName);
+		profile.setLastName(lastName);
+		profile.setEmail(email);
+		entityManager.flush();
+	}
 }
