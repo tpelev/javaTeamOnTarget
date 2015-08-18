@@ -5,74 +5,164 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<title>Service JPA</title>
-	<body>
-		Owner's first Name:
-		<h:outputText value="firstName" />
-		<br></br> Owner's address:
-		<h:outputText value="address" />
-		<br></br> MOL:
-		<h:outputText value="mol" />
-		<br></br> EIK:
-		<h:outputText value="eik" />
-		<br></br> E-mail:
-		<h:outputText value="email" />
-		<br></br> IBAN:
-		<h:outputText value="iban" />
-		<br></br> BIC:
-		<h:outputText value="bic" />
-		<br></br> PhoneNumber:
-		<h:outputText value="phoneNumber" />
-		<br></br>
-	</body>
+</h:head>
+<h:body>
 
-	<select name="companies">
-		<option value="">None</option>
-		<option value="company1">company1</option>
-		<option value="company2">company2</option>
-		<option value="company3">company3</option>
-		<option value="company4">company4</option>
-		<option value="company5">company5</option>
-	</select>
+	<h:form>Supplier:
+		<br></br>
+
+		<table style="width: 50%" border="1">
+			<tr>
+				<th>Company name</th>
+				<td><h:outputText
+						value="#{ownerBean.ownerInformation.companyName}" /></td>
+			</tr>
+			<tr>
+				<th>Address</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.adress}" /></td>
+			</tr>
+			<tr>
+				<th>MOL</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.mol}" /></td>
+			</tr>
+			<tr>
+				<th>EIK</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.eik}" /></td>
+			</tr>
+			<tr>
+				<th>E-mail</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.email}" /></td>
+			</tr>
+			<tr>
+				<th>IBAN</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.iban}" /></td>
+			</tr>
+			<tr>
+				<th>BIC</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.bic}" /></td>
+			</tr>
+			<tr>
+				<th>Phone number</th>
+				<td><h:outputText
+						value="#{ownerBean.ownerInformation.phoneNumber}" /></td>
+			</tr>
+		</table>
+	</h:form>
+
 	<br></br>
-	<br></br>
-	Owner's first Name:
-		<h:outputText value="firstName" />
-	<br></br> Owner's address:
-		<h:outputText value="address" />
-	<br></br> MOL:
-		<h:outputText value="mol" />
-	<br></br> EIK:
-		<h:outputText value="eik" />
-	<br></br> E-mail:
-		<h:outputText value="email" />
-	<br></br>
-	<br></br>Qunatity: 1
+
+	<h:form>
+		<h:selectOneMenu id="test" value="#{invoiceBean.selectedItem}">
+			<f:selectItems value="#{invoiceBean.showAllCompaniesSelectOneMenu}" />
+		</h:selectOneMenu>
+		<br> </br>
+
+		<h:commandButton action="#{invoiceBean.toCompanyByID}" value="Load" />
+
+		<br></br>
+		<br></br>
+	</h:form>
+	<h:form>
+
+		<h:dataTable id="company" value="#{invoiceBean.companyProfile}"
+			var="company" border="1" styleClass="order-table"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value="#{company.companyName}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Address" />
+				</f:facet>
+				<h:outputText value="#{company.adress}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="MOL" />
+				</f:facet>
+				<h:outputText value="#{company.mol}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="EIK" />
+				</f:facet>
+				<h:outputText value="#{company.eik}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="E-mail" />
+				</f:facet>
+				<h:outputText value="#{company.email}" />
+			</h:column>
+
+		</h:dataTable>
+<h:form>
+<br></br>
+VIP Advertisments<h:selectOneMenu id="discount" value="">
+			<f:selectItem itemValue="0" itemLabel="firstAdv" />
+			<f:selectItem itemValue="0.1" itemLabel="secondAdv" />
+			<f:selectItem itemValue="0.2" itemLabel="thirdAdv" />
+		</h:selectOneMenu>
+
+</h:form>
+	</h:form>
+	<h:form>
+		<br></br>Qunatity: 1
 		<br></br>Price: 100
 		<br></br>Tax: 20%
 		<br></br>Tax Amount: 20
 		<br></br>Discount:
-		<select name="discount">
-		<option value="0%">0%</option>
-		<option value="10%">10%</option>
-		<option value="20%">20%</option>
-	</select>
-	<br></br>
-	<br></br>
-		Final Price:
-		<h:outputText value="#{Main.priceCalculator}" />
-	<br></br>
-		Deadline: 5 days!
-		<form>
-		<input type="checkbox" name="vehicle" value="Cash">You paing in Cash?</input><br></br>
-		</form>
-		<form>
-		<input type="checkbox" name="vehicle" value="Payed">Did you allready payed?</input><br></br>
-		</form>
-		
-		<h:form>
-		<h:commandButton value="Submit" action="exportToXLTable" />
-		<h:commandButton value="Home" action="index.xhtml" />
+		<h:selectOneMenu id="discount" value="#{invoiceBean.discount}">
+			<f:selectItem itemValue="0" itemLabel="0%" />
+			<f:selectItem itemValue="0.1" itemLabel="10%" />
+			<f:selectItem itemValue="0.2" itemLabel="20%" />
+		</h:selectOneMenu>
+		<h:commandButton id="test" action="#{invoiceBean.calculateTotalPrice}"
+			value="Calculate">
+			<f:ajax execute="discount" render="result"></f:ajax>
+		</h:commandButton>
+		<br></br>
+
+		<br></br>
+	Total price: <h:outputText id="result"
+			value="#{invoiceBean.totalPrice}" />
+
 	</h:form>
-		
-</h:head>
+	<br></br>
+Deadline: 5 days
+<br></br>
+	<br></br>
+
+Ways of payment: 
+	<h:form action="">
+		<input type="radio" name="cash" value="true">Cash</input>
+		<input type="radio" name="cash" value="false">Bank<br></br></input>
+	</h:form>
+	<br></br>
+
+Is it paid? <form action="">
+		<input type="radio" name="paid" value="true">Yes</input> <input
+			type="radio" name="paid" value="false">No <br></br></input>
+	</form>
+	<br></br>
+	<h:form>
+		<h:commandButton type="submit" value="Submit" />
+		<br></br>
+		<br></br>
+	</h:form>
+	<h:form>
+
+		<h:commandButton value="Cancel" action="/account/AccountMainJSF.xhtml" />
+	</h:form>
+
+</h:body>
 </html>

@@ -12,13 +12,13 @@ import java.util.Date;
 @Entity
 @Table(name="invoices")
 @NamedQueries({
-	@NamedQuery(name = "Invoice.findAllLatePayment", query = "SELECT i FROM Invoice i WHERE i.duePayment = true"),
+	@NamedQuery(name = "Invoice.findAllLatePayment", query = "SELECT i FROM Invoice i WHERE i.duePayment = :duePayment"),
 	@NamedQuery(name = "Invoice.findAllByPeriod", query = "SELECT i FROM Invoice i WHERE i.invoiceDate >= :invoiceDate AND i.invoiceDate <= :invoiceDate2"),
-	@NamedQuery(name = "Invoice.findAllWaitingPayments", query = "SELECT i FROM Invoice i WHERE i.isPayed = false"),
+	@NamedQuery(name = "Invoice.findAllWaitingPayments", query = "SELECT i FROM Invoice i WHERE i.isPayed = :isPayed"),
     @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
     @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),
     @NamedQuery(name = "Invoice.findByInvoiceDate", query = "SELECT i FROM Invoice i WHERE i.invoiceDate = :invoiceDate"),
-    @NamedQuery(name = "Invoice.findByCompanyId", query = "SELECT i FROM Invoice i WHERE i.companyProfile = :companyId")
+    @NamedQuery(name = "Invoice.findByCompanyId", query = "SELECT i FROM Invoice i  WHERE i.companyProfile.id=:id")
 })
 public class Invoice implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -1,5 +1,6 @@
 package teams.accounting_module;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
@@ -31,18 +32,12 @@ public class InvoiceEJB {
 		return invList;
 	}
 	
-	
-	
 	//get invoices by day
 	public List<Invoice> showAllInvoicesByDay(String invDate){
 		List<Invoice> invList = null;
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null;
-		try {
-			date = dateFormat.parse(invDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		Date date = formatStringToDate(invDate);
+
 		Query query = entityManager.createNamedQuery("Invoice.findByInvoiceDate");
 		query.setParameter("invoiceDate", date);
 		
@@ -56,16 +51,10 @@ public class InvoiceEJB {
 		List<Invoice> invList = null;
 		String endDate = getLastDayFromMonth(month, year);
 		String firstDate = getFirstDayOfMonth(month, year);
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date firDate = null;
-		Date lastDate = null;
-		try {
-			firDate = dateFormat.parse(firstDate);
-			lastDate = dateFormat.parse(endDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		
+		Date firDate = formatStringToDate(firstDate);
+		Date lastDate = formatStringToDate(endDate);
+
 		Query query = entityManager.createNamedQuery("Invoice.findAllByPeriod");
 		query.setParameter("invoiceDate", firDate);
 		query.setParameter("invoiceDate2", lastDate);
@@ -76,25 +65,22 @@ public class InvoiceEJB {
 	}
 	
 	//get invoices by CompanyProfile id
-	public List<Invoice> showAllInvoicesByCompani(int compProfil){
-		List<Invoice> invList = null;
+	@SuppressWarnings("unchecked")
+	public List<Invoice> showAllInvoicesByCompani(int id){
+		List<Invoice> invList = new ArrayList<Invoice>();
 
 		Query query = entityManager.createNamedQuery("Invoice.findByCompanyId");
-		query.setParameter("companyId", compProfil);
+		query.setParameter("id", id);
 		invList = query.getResultList();	
 		
 		
 		return invList;
 	}
 	
-	//get CompanyProfile by name
-	public List<CompanyProfile> AllCompaniesByName(String compName){
-		List<CompanyProfile> invList = null;
-
-		Query query = entityManager.createNamedQuery("CompanyProfile.findByCompanyName");
-		query.setParameter("companyName", compName);
-		invList = query.getResultList();		
-		return invList;
+	//get CompanyProfile by id
+	public CompanyProfile allCompaniesByName(int compid){
+		CompanyProfile company = entityManager.find(CompanyProfile.class, compid);	
+		return company;
 	}
 
 	//get invoices by expecting payments (by isPayed)
@@ -121,17 +107,9 @@ public class InvoiceEJB {
 	//get invoices by period
 	public List<Invoice> showAllInvoicesByPeriod(String startDate, String endDate){
 		List<Invoice> invList = null;
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date firstDate = null;
-		Date lastDate = null;
-		try {
-			firstDate = dateFormat.parse(startDate);
-			lastDate = dateFormat.parse(endDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
+
+		Date firstDate = formatStringToDate(startDate);
+		Date lastDate = formatStringToDate(endDate);
 		Query query = entityManager.createNamedQuery("Invoice.findAllByPeriod");
 		query.setParameter("invoiceDate", firstDate);
 		query.setParameter("invoiceDate2", lastDate);
@@ -143,15 +121,8 @@ public class InvoiceEJB {
 	
 	//add new Invoice
 	public void addInvoice(int advID, Owner ownerObj, CompanyProfile company,double discount, boolean isPayed, boolean isCash ){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date currDate = null;
 		String currentDateStr = getCurrentDate();
-		
-		try {
-			currDate = dateFormat.parse(currentDateStr);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		Date currDate = formatStringToDate(currentDateStr);
 		
 		Invoice invoiceObj = new Invoice();
 		invoiceObj.setInvoiceDate(currDate);
@@ -188,29 +159,26 @@ public class InvoiceEJB {
 	//set Due Payment to payed or Not Payed
 	private void updateInvoiceByLatePayment(){
 		List<Invoice> invList = null;
-		invList = showAllExpectingPayments();
+		invList = showAllExpectingPayments(); //get non payd invoices
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String currentDateStr = getCurrentDate();
 		Date currDate = null;
 		Date endDate = null;
-		
+
 		for (int i = 0; i < invList.size(); i++) {
 			Date off = invList.get(i).getInvoiceDate();
+
 			String reportDate = dateFormat.format(off);
 			String lastDay = calculateEndDay(reportDate, 5);
 
-			try {
-				currDate = dateFormat.parse(currentDateStr);
-				endDate = dateFormat.parse(lastDay);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-						
+			currDate = formatStringToDate(currentDateStr);
+			endDate = formatStringToDate(lastDay);
+			
 			int result = endDate.compareTo(currDate);
 			if(result<0){
 				invList.get(i).setDuePayment(true);
-				entityManager.flush(); //? tuk ili w karq na for-a
+				entityManager.flush(); // updating the information
 			}
 		}
 		
@@ -229,17 +197,18 @@ public class InvoiceEJB {
 		
 		return dateFormat.format(date);
 	}
-
 	
 	//calculate end day
 	private String calculateEndDay(String date, int days) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date2 = null;
-		try {
-			date2 = dateFormat.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+//		Date date2 = null;
+//		try {
+//			date2 = dateFormat.parse(date);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+		
+		Date date2 = formatStringToDate(date);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date2);
 		cal.add(Calendar.DATE, days);
@@ -283,5 +252,17 @@ public class InvoiceEJB {
 	private double calculateTotalPrice(double price, double taxAmount, double discount){
 		double discAmount = (price+taxAmount)*discount;
 		return (price+taxAmount)-discAmount;
+	}
+	
+	//convert from String to Date
+	private Date formatStringToDate(String date){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date2 = null;
+		try {
+			date2 = dateFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date2;
 	}
 }

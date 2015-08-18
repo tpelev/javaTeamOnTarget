@@ -49,6 +49,11 @@ public class CompanyProfile implements Serializable {
 	@ManyToOne
 	private Company company;
 
+	@Override
+	public String toString() {
+		return   id + " "+ companyName;
+	}
+
 	//bi-directional many-to-one association to Invoice
 	@OneToMany(mappedBy="companyProfile", fetch=FetchType.EAGER)
 	private List<Invoice> invoices;

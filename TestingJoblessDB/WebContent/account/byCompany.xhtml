@@ -11,15 +11,18 @@
 	<h:form>
 		<h1>Show invoices by company</h1>
 		<p>Enter year, month and click "Load"</p>
-		<h:selectOneMenu id="test" value="#{invoiceBean.companyProfile}">
-			<f:selectItems value="#{invoiceBean.showAllCompaniesSelectOneMenu}" />
-		</h:selectOneMenu>
+		<h:form>
+			<h:selectOneMenu id="test" value="#{invoiceBean.selectedItem}">
+				<f:selectItems value="#{invoiceBean.showAllCompaniesSelectOneMenu}" />
+			</h:selectOneMenu>
+			<br> </br>
 
-		<h:commandButton action="#{invoiceBean.allInvoicesByCompany}"
-			value="Load" />
-
-		<br> </br>
+			<h:commandButton action="#{invoiceBean.allInvoicesByCompany}"
+				value="Load" />
+		</h:form>
 	</h:form>
+	<br> </br>
+
 	<br></br>
 	<br></br>
 	<h:form>

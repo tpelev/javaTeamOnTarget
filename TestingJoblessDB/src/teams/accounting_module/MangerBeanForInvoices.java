@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 
+import model.entity.Advertisement;
 import model.entity.CompanyProfile;
 import model.entity.Invoice;
 
@@ -15,9 +16,12 @@ public class MangerBeanForInvoices {
 
 	@EJB
 	private InvoiceEJB ejbInvoice;
+	@EJB
+	private AdvertisementEJB ejbAdvertisements;
 	private CompanyProfile companyProfile;
 	private List<Invoice> invoiceList = new ArrayList<>();
 	private List<CompanyProfile> compList = new ArrayList<CompanyProfile>();
+	private List<Advertisement> advertisementList = new ArrayList<>();
 	private String day;
 	private String month;
 	private String year;
@@ -26,14 +30,10 @@ public class MangerBeanForInvoices {
 	private String yearEnd;
 	private Invoice invoiceObj;
 	private String selectedItem;
+	private String selectedItemAdv;
+	private String totalPrice;
+	private String discount;
 
-	public String getSelectedItem() {
-		return selectedItem;
-	}
-
-	public void setSelectedItem(String selectedItem) {
-		this.selectedItem = selectedItem;
-	}
 
 	// add All invoices to List
 	public List<Invoice> getAllInvoices() {
@@ -65,18 +65,11 @@ public class MangerBeanForInvoices {
 
 	// add All invoices by company to List
 	public List<Invoice> allInvoicesByCompany() {
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-		//takeCompaniesProfile();
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" + companyProfile.getId());
-		int id = companyProfile.getId();
-//		int id = Integer.valueOf(selectedItem.indexOf(0));
-		System.out.println(id + "JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+		String[] temp = selectedItem.split(" ");
+		int id = Integer.valueOf(temp[0]);
+
 		invoiceList = ejbInvoice.showAllInvoicesByCompani(id);
-		System.out.println("============================================================================================" + invoiceList.size());
-		for (CompanyProfile companyProfile : compList) {
-			System.out.println(companyProfile + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		}
-		
+
 		return invoiceList;
 	}
 
@@ -107,27 +100,45 @@ public class MangerBeanForInvoices {
 	// to refresh the xhtml page
 	public String showAllInvoices() {
 		invoiceList = ejbInvoice.showAllInvoices();
-		// invoiceList = ejbInvoice.showAllLatePayments();
-		// invoiceList = ejbInvoice.showAllExpectingPayments();
 		return "Companies.xhtml";
 	}
 
-	// get All Companies Profiles
-//	private void takeCompaniesProfile() {
-//		
-//		compList = ejbInvoice.showAllCompaniesByName(getSelectedItem());
-//		setCompanyProfile(compList.get(0));
-//	}
-
-	// method for dynamic Select One Menu
+	// method for dynamic Select One Menu for CompanyProfiles
 	public List<SelectItem> getShowAllCompaniesSelectOneMenu() {
-
 		List<SelectItem> items = new ArrayList<SelectItem>();
 		List<CompanyProfile> companies = ejbInvoice.showAllCompanies();
 		for (CompanyProfile comp : companies) {
 			items.add(new SelectItem(comp));
 		}
 		return items;
+	}
+	
+	// method for dynamic Select One Menu for Advertisements
+	public List<SelectItem> getShowAllAdvertisementsSelectOneMenu() {
+		List<SelectItem> items = new ArrayList<SelectItem>();
+		CompanyProfile compObj = toCompanyByID();
+		List<Advertisement> adverts = ejbAdvertisements.showAllVipNonPayedAdvertisement(compObj.getId());
+		for (Advertisement adv : adverts) {
+			items.add(new SelectItem(adv));
+		}
+		return items;
+	}
+
+	// get CompanyProfile by id after Select One menu
+	public CompanyProfile toCompanyByID() {
+		String[] temp = selectedItem.split(" ");
+		int id = Integer.valueOf(temp[0]);
+
+		companyProfile = ejbInvoice.allCompaniesByName(id);
+		return companyProfile;
+	}
+
+	public String calculateTotalPrice() {
+		double disc = Double.valueOf(discount);
+		
+		double discAmount = (100 + 20)*disc;
+		totalPrice = String.valueOf((100 + 20) - discAmount);
+		return totalPrice;
 	}
 
 	private String getDayString(String dayT, String monthT, String yearT) {
@@ -141,6 +152,7 @@ public class MangerBeanForInvoices {
 		return finalDayString;
 	}
 
+	//Getters And Setters for fields...
 	public String goTo() {
 		return getSelectedItem();
 	}
@@ -232,5 +244,59 @@ public class MangerBeanForInvoices {
 	public void setCompList(List<CompanyProfile> compList) {
 		this.compList = compList;
 	}
+	
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
+	public String getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+
+	public String getSelectedItem() {
+		return selectedItem;
+	}
+
+	public void setSelectedItem(String selectedItem) {
+		this.selectedItem = selectedItem;
+	}
+
+	
+	public AdvertisementEJB getEjbAdvertisements() {
+		return ejbAdvertisements;
+	}
+
+	
+	public void setEjbAdvertisements(AdvertisementEJB ejbAdvertisements) {
+		this.ejbAdvertisements = ejbAdvertisements;
+	}
+
+	
+	public List<Advertisement> getAdvertisementList() {
+		return advertisementList;
+	}
+
+	
+	public void setAdvertisementList(List<Advertisement> advertisementList) {
+		this.advertisementList = advertisementList;
+	}
+
+	
+	public String getSelectedItemAdv() {
+		return selectedItemAdv;
+	}
+
+	
+	public void setSelectedItemAdv(String selectedItemAdv) {
+		this.selectedItemAdv = selectedItemAdv;
+	}
+		
 }

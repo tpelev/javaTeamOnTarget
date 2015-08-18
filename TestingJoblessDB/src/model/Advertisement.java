@@ -12,8 +12,8 @@ import java.util.Date;
 @Entity
 @Table(name="advertisements")
 @NamedQueries({
-	@NamedQuery(name = "Advertisement.findAllVip", query = "SELECT a FROM Advertisement a WHERE a.isVip = true"),
-	@NamedQuery(name = "Advertisement.findAllNonVip", query = "SELECT a FROM Advertisement a WHERE a.isVip = false"),
+	@NamedQuery(name = "Advertisement.findAllVip", query = "SELECT a FROM Advertisement a WHERE a.isVip = :isVip"),
+	@NamedQuery(name = "Advertisement.findAllnVipAndPayedByCompany", query = "SELECT a FROM Advertisement a WHERE a.isVip = :isVip AND a.isPaid = :isPayed AND a.companyProfile.id = :id"),
     @NamedQuery(name = "Advertisement.findAll", query = "SELECT a FROM Advertisement a"),
     @NamedQuery(name = "Advertisement.findById", query = "SELECT a FROM Advertisement a WHERE a.id = :id"),
     @NamedQuery(name = "Advertisement.findByTitle", query = "SELECT a FROM Advertisement a WHERE a.title = :title"),
@@ -187,4 +187,10 @@ public class Advertisement implements Serializable {
 		this.place = place;
 	}
 
+	@Override
+	public String toString() {
+		return id + " " + title;
+	}
+
+	
 }
