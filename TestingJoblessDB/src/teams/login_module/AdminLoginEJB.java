@@ -25,4 +25,19 @@ public class AdminLoginEJB {
 		}
 		return admin;
 	}
+	public boolean validateUserNameAndPassword(String userName, String password){
+		try {
+			Admin admin = getAdminUserName(userName);
+			//hashing
+			if (admin.getLoginPassword().equals(password)) {
+				return true;
+			}
+			else{
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}	
+	}
+
 }
