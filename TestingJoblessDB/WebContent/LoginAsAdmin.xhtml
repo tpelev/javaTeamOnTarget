@@ -11,29 +11,26 @@
 <body>
 
 <h:form >
-           <h2 align="center"><b>Welcome to Administrator Login Form</b></h2>
+           <h2 align="center"><b>Welcome to Accounting Login Form</b></h2>
            
           <p align="center">
           <h:outputText value ="Username : "></h:outputText>
-            <h:inputText id="username"></h:inputText>
+            <h:inputText id="username" value="#{LoginAsAdminB.adminUserName}"></h:inputText> 
             <h:message for="username"> </h:message>
             <br/>
             <br/>
             
              <h:outputText value ="Password : "></h:outputText>
-            <h:inputSecret id="pass1" ></h:inputSecret>
-            <h:message for="pass1"> </h:message>
+            <h:inputSecret id="pass"  value="#{LoginAsAdminB.pass}" ></h:inputSecret>
+            <h:message for="pass"> </h:message>
             <br/>
             <br/>
             
-            <h:outputText value ="Password : "></h:outputText>
-            <h:inputText id="pass2" ></h:inputText>
-            <h:message for="pass2"> </h:message>
-            <br/>
-            <br/>
+       
             
-            <h:commandButton style="height: 50px;width: 200px " action ="ADS.xhtml" value="Login" /> <br />
+            <h:commandButton style="height: 50px;width: 200px " action ="#{LoginAsAdminB.loginAdmin}" value="Login" /> <br />
             <h:commandButton style="height: 50px;width: 200px " action ="MainPage.xhtml" value="Back to main" /> 
+            
           </p>
         </h:form>
 

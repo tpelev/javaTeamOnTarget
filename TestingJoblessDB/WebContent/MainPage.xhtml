@@ -13,17 +13,20 @@
            <h2 align="center"><b>Welcome to Jobless Web Application</b></h2>
             <h3 align="center"> Please choose an option :</h3>
       
-          <p>
-            <h:commandButton style="height: 50px;width: 200px " action ="LoginAsAdmin.xhtml" value="Login as admin"/>    
-            <h:commandButton style="height: 50px;width: 200px" action ="Users.xhtml" value="Login as account"/>
-            <h:commandButton style="height: 50px;width: 200px" action ="Companies.xhtml" value="Login as user"/>
-            <h:commandButton style="height: 50px;width: 200px" action ="Pricing.xhtml" value="Login as company"/> <br />
+          <h3 align="center">
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsAdmin.xhtml" value="Login as admin"/>
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsAccount.xhtml" value="Login as account"/>
+          </h3>
+          <h3 align="center">  
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsUser.xhtml" value="Login as user"/>
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsCompany.xhtml" value="Login as company"/> <br />
+            <br/>
             <h:commandButton style="height: 50px;width: 200px" action ="Pricing.xhtml" value="Continue as guest"/>
-           
-          </p>
+           </h3>
+          
             <p>
-             <h3 align="center">To register as user,<a href="UserRegister.xhtml"> click here.</a></h3>
-             <h3 align="center">To register as company, <a href="CompanyRegister.xhtml">click here.</a></h3>
+             <h3 align="center">To register as user,<a href="RegisterAsUser.xhtml"> click here.</a></h3>
+             <h3 align="center">To register as company, <a href="RegisterAsCompany.xhtml">click here.</a></h3>
             </p>
         
         </h:form>
