@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name="invoices")
 @NamedQueries({
 	@NamedQuery(name = "Invoice.findAllLatePayment", query = "SELECT i FROM Invoice i WHERE i.duePayment = true"),
-	@NamedQuery(name = "Invoice.findAllByPeriod", query = "SELECT i FROM Invoice i WHERE i.invoiceDate >= :invoiceDate AND i.invoiceDate >= :invoiceDate2"),
+	@NamedQuery(name = "Invoice.findAllByPeriod", query = "SELECT i FROM Invoice i WHERE i.invoiceDate >= :invoiceDate AND i.invoiceDate <= :invoiceDate2"),
 	@NamedQuery(name = "Invoice.findAllWaitingPayments", query = "SELECT i FROM Invoice i WHERE i.isPayed = false"),
     @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),
     @NamedQuery(name = "Invoice.findById", query = "SELECT i FROM Invoice i WHERE i.id = :id"),

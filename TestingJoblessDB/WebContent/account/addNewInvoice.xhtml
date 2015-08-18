@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Service JPA</title>
+	<body>
+		Owner's first Name:
+		<h:outputText value="firstName" />
+		<br></br> Owner's address:
+		<h:outputText value="address" />
+		<br></br> MOL:
+		<h:outputText value="mol" />
+		<br></br> EIK:
+		<h:outputText value="eik" />
+		<br></br> E-mail:
+		<h:outputText value="email" />
+		<br></br> IBAN:
+		<h:outputText value="iban" />
+		<br></br> BIC:
+		<h:outputText value="bic" />
+		<br></br> PhoneNumber:
+		<h:outputText value="phoneNumber" />
+		<br></br>
+	</body>
+
+	<select name="companies">
+		<option value="">None</option>
+		<option value="company1">company1</option>
+		<option value="company2">company2</option>
+		<option value="company3">company3</option>
+		<option value="company4">company4</option>
+		<option value="company5">company5</option>
+	</select>
+	<br></br>
+	<br></br>
+	Owner's first Name:
+		<h:outputText value="firstName" />
+	<br></br> Owner's address:
+		<h:outputText value="address" />
+	<br></br> MOL:
+		<h:outputText value="mol" />
+	<br></br> EIK:
+		<h:outputText value="eik" />
+	<br></br> E-mail:
+		<h:outputText value="email" />
+	<br></br>
+	<br></br>Qunatity: 1
+		<br></br>Price: 100
+		<br></br>Tax: 20%
+		<br></br>Tax Amount: 20
+		<br></br>Discount:
+		<select name="discount">
+		<option value="0%">0%</option>
+		<option value="10%">10%</option>
+		<option value="20%">20%</option>
+	</select>
+	<br></br>
+	<br></br>
+		Final Price:
+		<h:outputText value="#{Main.priceCalculator}" />
+	<br></br>
+		Deadline: 5 days!
+		<form>
+		<input type="checkbox" name="vehicle" value="Cash">You paing in Cash?</input><br></br>
+		</form>
+		<form>
+		<input type="checkbox" name="vehicle" value="Payed">Did you allready payed?</input><br></br>
+		</form>
+		
+		<h:form>
+		<h:commandButton value="Submit" action="exportToXLTable" />
+		<h:commandButton value="Home" action="index.xhtml" />
+	</h:form>
+		
+</h:head>
+</html>

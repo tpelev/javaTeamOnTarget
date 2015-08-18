@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import model.Invoice;
+import model.entity.Invoice;
 
 public class TestAccountingModule {
 
