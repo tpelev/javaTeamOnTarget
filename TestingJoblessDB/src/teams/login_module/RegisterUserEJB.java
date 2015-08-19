@@ -20,6 +20,7 @@ public class RegisterUserEJB {
 	private EntityManager em;
 
 	public void addUser(String firstName, String lastName, String email, String loginName, String loginPassword,
+		
 			String sault, String token) {
 		UserProfile userProfile = new UserProfile();
 		User user = new User();
