@@ -1,0 +1,43 @@
+package teams.login_module;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import model.Accounter;
+import model.Admin;
+import model.User;
+
+/**
+ * Session Bean implementation class AccountEJB
+ */
+@Stateless
+
+public class AccountEJB {
+
+	@PersistenceContext
+	private EntityManager em;
+    
+	public Accounter getAccountUserName(String userName){
+		Query query = em.createQuery("SELECT a FROM Accounter a WHERE a.loginName = '"+userName+"'");
+		Accounter accounter = (Accounter)query.getSingleResult();
+		return accounter;
+	}
+	
+	public boolean validateUserNameAndPassword(String userName, String password){
+		try {	
+			Accounter account = getAccountUserName(userName);
+			//hashing
+			if (account.getLoginPassword().equals(password)) {
+				return true;
+			}
+			else{
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}	
+	}
+
+}
