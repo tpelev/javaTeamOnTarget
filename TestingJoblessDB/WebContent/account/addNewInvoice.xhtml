@@ -52,23 +52,29 @@
 	<br></br>
 
 	<h:form>
+
 		<h:selectOneMenu id="test" value="#{invoiceBean.selectedItem}">
 			<f:selectItems value="#{invoiceBean.showAllCompaniesSelectOneMenu}" />
 		</h:selectOneMenu>
-		<br> </br>
 
 		<h:commandButton action="#{invoiceBean.toCompanyByID}" value="Load" />
 
 		<br></br>
 		<br></br>
 	</h:form>
-	<h:form>
 
+	<h:form>
 		<h:dataTable id="company" value="#{invoiceBean.companyProfile}"
 			var="company" border="1" styleClass="order-table"
 			headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-even-row">
 
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Number" />
+				</f:facet>
+				<h:outputText value="#{company.id}" />
+			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Name" />
@@ -105,23 +111,44 @@
 			</h:column>
 
 		</h:dataTable>
-<h:form>
-<br></br>
-VIP Advertisments<h:selectOneMenu id="discount" value="">
-			<f:selectItem itemValue="0" itemLabel="firstAdv" />
-			<f:selectItem itemValue="0.1" itemLabel="secondAdv" />
-			<f:selectItem itemValue="0.2" itemLabel="thirdAdv" />
-		</h:selectOneMenu>
 
-</h:form>
+		<br></br>
+		<br></br>
+
+		VIP Advertisments	
+		<h:selectOneMenu id="advSelect" value="#{invoiceBean.selectedItemAdv}">
+			<f:selectItems
+				value="#{invoiceBean.showAllAdvertisementsSelectOneMenu}" />
+		</h:selectOneMenu>
 	</h:form>
 	<h:form>
+		<br></br>
+
+		<br></br>
+		Please enter company number:		<h:inputText id="compNum"
+			value="#{invoiceBean.selectedItem}"></h:inputText>
+		<br></br>
+		<br></br>
+		Please enter Advertisment number:		<h:inputText id="numberAdv"
+			value="#{invoiceBean.selectedItemAdv}"></h:inputText>
+		<br></br>
+		<br></br>
+	Event date <br></br>Year:	<h:inputText id="year"
+			value="#{invoiceBean.year}">
+		</h:inputText>
+
+		Month:	<h:inputText id="month" value="#{invoiceBean.month}">
+		</h:inputText>
+
+		Day:	<h:inputText id="day" value="#{invoiceBean.day}">
+		</h:inputText>
+		<br></br>
 		<br></br>Qunatity: 1
 		<br></br>Price: 100
 		<br></br>Tax: 20%
 		<br></br>Tax Amount: 20
-		<br></br>Discount:
-		<h:selectOneMenu id="discount" value="#{invoiceBean.discount}">
+		<br></br>Discount:	<h:selectOneMenu id="discount"
+			value="#{invoiceBean.discount}">
 			<f:selectItem itemValue="0" itemLabel="0%" />
 			<f:selectItem itemValue="0.1" itemLabel="10%" />
 			<f:selectItem itemValue="0.2" itemLabel="20%" />
@@ -136,26 +163,32 @@ VIP Advertisments<h:selectOneMenu id="discount" value="">
 	Total price: <h:outputText id="result"
 			value="#{invoiceBean.totalPrice}" />
 
-	</h:form>
-	<br></br>
+
+		<br></br>
 Deadline: 5 days
 <br></br>
-	<br></br>
+		<br></br>
 
 Ways of payment: 
-	<h:form action="">
-		<input type="radio" name="cash" value="true">Cash</input>
-		<input type="radio" name="cash" value="false">Bank<br></br></input>
-	</h:form>
-	<br></br>
+	
+		<h:selectOneRadio value="#{invoiceBean.isCash}">
+			<f:selectItem itemValue="true" itemLabel="Cash" />
+			<f:selectItem itemValue="false" itemLabel="Bank" />
+		</h:selectOneRadio>
 
-Is it paid? <form action="">
-		<input type="radio" name="paid" value="true">Yes</input> <input
-			type="radio" name="paid" value="false">No <br></br></input>
-	</form>
-	<br></br>
-	<h:form>
-		<h:commandButton type="submit" value="Submit" />
+
+		<br></br>
+
+Is it paid? 
+		<h:selectOneRadio value="#{invoiceBean.isPaid}">
+			<f:selectItem itemValue="true" itemLabel="Yes" />
+			<f:selectItem itemValue="false" itemLabel="No" />
+		</h:selectOneRadio>
+
+		<br></br>
+
+		<h:commandButton type="submit" value="Submit"
+			action="#{invoiceBean.addInvoice}" />
 		<br></br>
 		<br></br>
 	</h:form>
@@ -163,6 +196,5 @@ Is it paid? <form action="">
 
 		<h:commandButton value="Cancel" action="/account/AccountMainJSF.xhtml" />
 	</h:form>
-
 </h:body>
 </html>

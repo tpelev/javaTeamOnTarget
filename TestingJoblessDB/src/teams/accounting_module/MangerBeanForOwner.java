@@ -12,11 +12,13 @@ public class MangerBeanForOwner {
 	private OwnerEJB ejbOwner;
 	private Owner owner;
 	
+	//return Owner information
 	public Owner getOwnerInformation(){
 		owner = ejbOwner.getOwnerInformation(1);
 		return owner;
 	}
 	
+	//Getters and Setters
 	public OwnerEJB getEjbOwner() {
 		return ejbOwner;
 	}

@@ -23,8 +23,7 @@
 				itemLabel="Show invoices by period" />
 			<f:selectItem itemValue="/account/byCompany.xhtml"
 				itemLabel="Show invoices by company" />
-			<f:selectItem itemValue="/account/isPaid.xhtml"
-				itemLabel="Show expecting payments" />
+			<f:selectItem itemValue="/account/isPaid.xhtml" itemLabel="Show expecting payments" />
 			<f:selectItem itemValue="/account/duePay.xhtml"
 				itemLabel="Show due invoices" />
 		</h:selectOneMenu>
@@ -33,9 +32,7 @@
 	</h:form>
 
 	<h:form action="/account/addNewInvoice.xhtml">
-		<br></br>
-		<h:commandButton value="Add new invoice"
-			action="/account/addNewInvoice.xhtml" />
+		<br></br><h:commandButton value="Add new invoice" action="/account/addNewInvoice.xhtml"/>
 	</h:form>
 
 </body>

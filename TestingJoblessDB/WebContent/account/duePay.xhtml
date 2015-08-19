@@ -9,7 +9,7 @@
 </h:head>
 
 <h:body>
-	<h1>Is Paid</h1>
+	<h1>Late Payments</h1>
 	<h:form>
 		<h:dataTable id="duepay"
 			value="#{invoiceBean.allInvoicesByLatePayments}" var="invoices"
@@ -127,16 +127,39 @@
 				</f:facet>
 				<h:outputText value="#{invoices.duePayment}" />
 			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="See/Expand" />
+				</f:facet>
+				<h:commandButton value="See" action="/account/see.xhtml">
+					<f:param name="id" value="#{invoices.id}" />
+					<f:param name="cName"
+						value="#{invoices.companyProfile.companyName}" />
+					<f:param name="address" value="#{invoices.companyProfile.adress}" />
+					<f:param name="mol" value="#{invoices.companyProfile.mol}" />
+					<f:param name="eik" value="#{invoices.companyProfile.eik}" />
+					<f:param name="email" value="#{invoices.companyProfile.email}" />
+					<f:param name="discount" value="#{invoices.discount}" />
+					<f:param name="totalPrice" value="#{invoices.totalPrice}" />
+					<f:param name="isCash" value="#{invoices.isCash}" />
+					<f:param name="isPaid" value="#{invoices.isPayed}" />
+					<f:param name="invoiceDate" value="#{invoices.invoiceDate}" />
+					<f:param name="eventDate" value="#{invoices.eventDate}" />
+				</h:commandButton>
+			</h:column>
 
 		</h:dataTable>
-	</h:form>
-	
-	<h:form>
-		<br> <h:commandButton value="Export" /> </br>
+		<br></br>
+		<b>Enter file name:</b>
+		<br><h:inputText id="fileName" value="#{invoiceBean.fileName}">
+			</h:inputText> </br>
+
+		<br> <h:commandButton value="Export"
+				action="#{invoiceBean.exportToExcelByDuePay}" /> </br>
 
 		<br></br>
 	</h:form>
-	
+
 	<h:form>
 		<br></br>
 		<h:commandButton value="Home" action="/account/AccountMainJSF.xhtml" />

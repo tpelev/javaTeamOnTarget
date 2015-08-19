@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.ejb.Singleton;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -18,6 +19,7 @@ import model.entity.Invoice;
 import model.entity.Owner;
 
 @Singleton
+@SessionScoped
 public class InvoiceEJB {
 	
 	@PersistenceContext
@@ -120,29 +122,19 @@ public class InvoiceEJB {
 	}
 	
 	//add new Invoice
-	public void addInvoice(int advID, Owner ownerObj, CompanyProfile company,double discount, boolean isPayed, boolean isCash ){
+	public void addInvoice(Invoice invoiceObj){
 		String currentDateStr = getCurrentDate();
 		Date currDate = formatStringToDate(currentDateStr);
 		
-		Invoice invoiceObj = new Invoice();
 		invoiceObj.setInvoiceDate(currDate);
-		invoiceObj.setOwner(ownerObj);
-		invoiceObj.setCompanyProfile(company);
-		invoiceObj.setAdvId(advID);
 		invoiceObj.setQuantity(1);
-		invoiceObj.setDiscount(discount);
 		double price = 100;
 		invoiceObj.setPrice(price);
 		double tax = 0.2;
 		invoiceObj.setTax(tax);
 		double taxAmmount = price * tax;
 		invoiceObj.setTaxAmmount(taxAmmount);
-		double totalPrice = calculateTotalPrice(price, taxAmmount, discount);
-		invoiceObj.setTotalPrice(totalPrice);
-		invoiceObj.setEventDate(currDate);
 		invoiceObj.setLatePayment(5);
-		invoiceObj.setIsCash(isCash);
-		invoiceObj.setIsPayed(isPayed);
 		invoiceObj.setDuePayment(false);
 		
 		entityManager.persist(invoiceObj);
@@ -249,13 +241,8 @@ public class InvoiceEJB {
 		return date;
 	}
 	
-	private double calculateTotalPrice(double price, double taxAmount, double discount){
-		double discAmount = (price+taxAmount)*discount;
-		return (price+taxAmount)-discAmount;
-	}
-	
 	//convert from String to Date
-	private Date formatStringToDate(String date){
+	public Date formatStringToDate(String date){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date2 = null;
 		try {

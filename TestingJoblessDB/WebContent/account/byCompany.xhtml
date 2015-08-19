@@ -10,8 +10,8 @@
 <h:body>
 	<h:form>
 		<h1>Show invoices by company</h1>
-		<p>Enter year, month and click "Load"</p>
-		<h:form>
+		<p>Choose company and click "Load"</p>
+	
 			<h:selectOneMenu id="test" value="#{invoiceBean.selectedItem}">
 				<f:selectItems value="#{invoiceBean.showAllCompaniesSelectOneMenu}" />
 			</h:selectOneMenu>
@@ -19,13 +19,10 @@
 
 			<h:commandButton action="#{invoiceBean.allInvoicesByCompany}"
 				value="Load" />
-		</h:form>
-	</h:form>
 	<br> </br>
 
 	<br></br>
-	<br></br>
-	<h:form>
+
 		<h:dataTable id="duepay" value="#{invoiceBean.invoiceList}"
 			var="invoices" border="1" styleClass="order-table"
 			headerClass="order-table-header"
@@ -137,10 +134,12 @@
 			</h:column>
 
 		</h:dataTable>
-
-		<br> <h:commandButton value="Export" /> </br>
-
-		<br></br>
+		<br></br><b>Enter file name:</b>
+					<br><h:inputText id="fileName" 
+			value="#{invoiceBean.fileName}">
+		</h:inputText>
+		</br>
+		<br> <h:commandButton value="Export" action="#{invoiceBean.exportToExcelByCompany}"/> </br>
 	</h:form>
 	<br></br>
 

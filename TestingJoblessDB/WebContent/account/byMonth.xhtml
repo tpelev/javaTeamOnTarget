@@ -24,8 +24,6 @@
 			action="#{invoiceBean.allInvoicesByMonth}" />
 		<br></br>
 		<br></br>
-	</h:form>
-	<h:form>
 		<h:dataTable id="bymonth" value="#{invoiceBean.invoiceList}"
 			var="invoices" border="1" styleClass="order-table"
 			headerClass="order-table-header"
@@ -137,8 +135,12 @@
 			</h:column>
 
 		</h:dataTable>
-
-		<br> <h:commandButton value="Export" /> </br>
+		<br><b>Enter file name:</b></br>
+					<br><h:inputText id="fileName" 
+			value="#{invoiceBean.fileName}">
+		</h:inputText>
+		</br>
+		<br> <h:commandButton value="Export" action="#{invoiceBean.exportToExcelByMonth}"/> </br>
 
 		<br></br>
 	</h:form>

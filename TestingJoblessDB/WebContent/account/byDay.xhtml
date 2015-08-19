@@ -23,10 +23,8 @@
 			requiredMessage="Please enter day" value="#{invoiceBean.day}">
 		</h:inputText>
 		<h:commandButton action="#{invoiceBean.allInvoicesByDay}" value="Load" />
-	</h:form>
-	<br></br>
-	<br></br>
-	<h:form>
+		<br></br>
+		<br></br>
 		<h:dataTable id="duepay" value="#{invoiceBean.invoiceList}"
 			var="invoices" border="1" styleClass="order-table"
 			headerClass="order-table-header"
@@ -123,7 +121,7 @@
 				<h:outputText value="#{invoices.latePayment}" />
 			</h:column>
 
-		<h:column>
+			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Paid" />
 				</f:facet>
@@ -138,9 +136,11 @@
 			</h:column>
 
 		</h:dataTable>
-
-		<br> <h:commandButton value="Export" /> </br>
-
+		<br></br><b>Enter file name:</b>
+		<br><h:inputText id="fileName" value="#{invoiceBean.fileName}">
+			</h:inputText> </br>
+		<br> <h:commandButton value="Export"
+				action="#{invoiceBean.exportToExcelByDay}" /> </br>
 		<br></br>
 	</h:form>
 	<br></br>
