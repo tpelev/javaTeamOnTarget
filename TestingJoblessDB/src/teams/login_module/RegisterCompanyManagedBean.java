@@ -1,11 +1,21 @@
 package teams.login_module;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
+import javax.faces.validator.ValidatorException;
+
 
 @ManagedBean(name = "RegisterCompany")
 @SessionScoped
+@FacesValidator("RegisterCompany")
 public class RegisterCompanyManagedBean {
 	@EJB
 	private RegisterCompanyEJB company;
@@ -17,85 +27,121 @@ public class RegisterCompanyManagedBean {
 	private String mol;
 	private String loginName;
 	private String loginPassword;
-	private String loginPassword2;
 	private String sault;
 	private String token;
-	
-	public void addCompany(){
+	private String messagge;
+
+	public void addCompany() {
 		if (!company.companyExists(loginName)) {
-			if (this.loginPassword.equals(this.loginPassword2)){
-				company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik,
-						this.mol, this.loginName, this.loginPassword, this.sault, this.token);
-			}
+				company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik, this.mol,
+						this.loginName, this.loginPassword, this.sault, this.token);
 		}
 	}
+
+	public void isExists(FacesContext f, UIComponent c, Object obj) {
+		if (company.companyExists(this.loginName)) {		
+			throw new ValidatorException(new FacesMessage("Username already exists!"));
+		}
+
+	}
+
+	public void validEmail(FacesContext f, UIComponent c, Object obj) {
+		EmailValidator ev = new EmailValidator();
+		ev.validate(f, c, obj);
+	}
+	
+	public void validPass(FacesContext f, UIComponent c, Object obj){
+		ConfirmPasswordValidator confirmPass = new ConfirmPasswordValidator();
+		confirmPass.validate(f, c, obj);
+	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
 	public String getCompanyType() {
 		return companyType;
 	}
+
 	public void setCompanyType(String companyType) {
 		this.companyType = companyType;
 	}
+
 	public String getAdress() {
 		return adress;
 	}
+
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getEik() {
 		return eik;
 	}
+
 	public void setEik(String eik) {
 		this.eik = eik;
 	}
+
 	public String getMol() {
 		return mol;
 	}
+
 	public void setMol(String mol) {
 		this.mol = mol;
 	}
+
 	public String getLoginName() {
 		return loginName;
 	}
+
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
 	}
+
 	public String getLoginPassword() {
 		return loginPassword;
 	}
+
 	public void setLoginPassword(String loginPassword) {
 		this.loginPassword = loginPassword;
 	}
-	public String getLoginPassword2() {
-		return loginPassword2;
-	}
-	public void setLoginPassword2(String loginPassword2) {
-		this.loginPassword2 = loginPassword2;
-	}
+
+
 	public String getSault() {
 		return sault;
 	}
+
 	public void setSault(String sault) {
 		this.sault = sault;
 	}
+
 	public String getToken() {
 		return token;
 	}
+
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
+
+	public String getMessagge() {
+		return messagge;
+	}
+
+	public void setMessagge(String messagge) {
+		this.messagge = messagge;
+	}
 
 }
