@@ -30,7 +30,7 @@ public class LoginAsAdminMenagedBean {
 			session.setAttribute("admin", userName);
 			return "admin";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Incorect admin name or password!", "Please enter correct user name and password"));
 			return "LoginAsAdmin";
 		}
