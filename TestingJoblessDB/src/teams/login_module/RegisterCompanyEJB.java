@@ -50,8 +50,7 @@ public class RegisterCompanyEJB {
 
 	public boolean companyExists(String userName) {
 		boolean companyExists = false;
-		Query query = em.createQuery("Select c from Company c where c.loginName= '" + userName + "'");
-	
+		Query query = em.createQuery("Select c from Company c where c.loginName= '" + userName + "'");	
 		List<Company> company = new ArrayList<>();
 		company = query.getResultList();
 		if (!company.isEmpty()) {
