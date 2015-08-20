@@ -8,31 +8,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
 </head>
-<body>
+<body bgcolor="rgb(150,125,50)">
 
 <h:form >
-           <h2 align="center"><b>Welcome to User Login Form</b></h2>
+           <h2 align="center"><b> <font color="white">Welcome to User Login Form </font></b></h2>
            
           <p align="center">
-          <h:outputText value ="Username : "></h:outputText>
-            <h:inputText id="username"></h:inputText>
+          
+          <h:outputText style="color: white; margin-left: 0px ;" value ="Username : "></h:outputText>
+            <h:inputText style="margin-left: 50px ;"
+            id="username" value="#{LoginAsUser.userUserName}"></h:inputText>
             <h:message for="username"> </h:message>
             <br/>
             <br/>
             
-             <h:outputText value ="Password : "></h:outputText>
-            <h:inputSecret id="pass1" ></h:inputSecret>
+             <h:outputText style="color: white; margin-left: 0px ;" value ="Password : "></h:outputText>
+            <h:inputSecret style="margin-left: 50px ;"
+            id="pass1" value="#{LoginAsUser.passUser}" ></h:inputSecret>
             <h:message for="pass1"> </h:message>
             <br/>
             <br/>
             
-            <h:outputText value ="Password : "></h:outputText>
-            <h:inputText id="pass2" ></h:inputText>
-            <h:message for="pass2"> </h:message>
-            <br/>
-            <br/>
-            
-            <h:commandButton style="height: 50px;width: 200px " action ="ADS.xhtml" value="Login" /> <br />
+            <h:commandButton style="height: 50px;width: 200px " action ="#{LoginAsUser.loginUser}" value="Login" />
+            <br /> <br />
             <h:commandButton style="height: 50px;width: 200px " action ="MainPage.xhtml" value="Back to main" /> 
           </p>
         </h:form>
