@@ -9,38 +9,38 @@
 <title>Company Registration Form</title>
 
 </head>
-<body>
+<body bgcolor="#660000">
 
 	<h:form>
 
 		<h2 align="center">
-			<b>Welcome to Company Registration Form</b>
+			<b><font color="white">Welcome to Company Registration Form</font></b>
 		</h2>
 		<h4 align="center">
-			<b>Please fill in all the fields:</b>
+			<b><font color="white">Please fill in all the fields:</font></b>
 		</h4>
 
-			<h:outputText style="height: 50px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;margin-left: 100px ;color:white; "
 			value="Company Name : "></h:outputText>
 	 
-			<h:inputText style="width: 200px;margin-left: 100px ;"
+			<h:inputText style="width: 200px;margin-left: 90px ;"
 			 id="companyName" value="#{RegisterCompany.companyName}"
 				required="true"></h:inputText>
 			<br /> <br />
 			
-			<h:outputText style="height: 50px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;margin-left: 100px ;color:white;"
 			value="Company Type : "></h:outputText>
    
-			<h:inputText style="width: 200px;margin-left: 107px ;"
+			<h:inputText style="width: 200px;margin-left: 97px ;"
 			id="companyType" value="#{RegisterCompany.companyType}"
 				required="true"></h:inputText>
 			<br /> <br />
 			
   
-			<h:outputText style="height: 50px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;margin-left: 100px ;color:white;"
 			value="Address : "></h:outputText>
 	
-			<h:inputText style="width: 200px;margin-left: 163px ;"
+			<h:inputText style="width: 200px;margin-left: 153px ;"
 			 id="address" value="#{RegisterCompany.adress}"
 				required="true"></h:inputText>
 				
@@ -48,41 +48,41 @@
 			
 			<h:panelGrid columns="3">	
 
-			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;color:white;"
 			value="Enter your email : "></h:outputText>
 	
-		    <h:inputText style="width: 200px;margin-left: 90px ;"
+		    <h:inputText style="width: 200px;margin-left: 80px ;"
 		    id="email" value="#{RegisterCompany.email}" 
 					required="true" label="Email Address">
 					
 					<f:validator validatorId="validEmail" />
 				</h:inputText>
-		    <h:message style ="margin-left:50px;color:red;" for="email"  />
+		    <h:message style ="margin-left:30px;color:red;" for="email"   />
 			</h:panelGrid>
 				<br /> 
 
    
-			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;color:white;"
 			 value="EIK : "></h:outputText>
 	
-			<h:inputText style="width: 200px;margin-left: 200px ;"
+			<h:inputText style="width: 200px;margin-left: 190px ;"
 			id="eik" value="#{RegisterCompany.eik}" required="true"></h:inputText>
 		
 			<br /> <br />
 	   
-			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;color:white;"
 			value="MOL : "></h:outputText>
 		
 		
-			<h:inputText style="width: 200px;margin-left: 190px ;"
+			<h:inputText style="width: 200px;margin-left: 180px ;"
 			id="mol" value="#{RegisterCompany.mol}" required="true"></h:inputText>
 		
 			<br /> <br />
 			
-			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;color:white;"
 			value="Enter Username : "></h:outputText>
 		
-			<h:inputText style="width: 200px;margin-left: 95px ;"
+			<h:inputText style="width: 200px;margin-left: 85px ;"
 			id="user" value="#{RegisterCompany.loginName}"
 				validator="#{RegisterCompany.isExists}">
 				<f:ajax event="blur" execute="@this" render="userError" />
@@ -94,10 +94,10 @@
 			
 			
 			<h:panelGrid columns="3">	
-		    <h:outputText style="height: 50px;width: 200px;margin-left: 100px ;"
+		    <h:outputText style="height: 50px;width: 200px;margin-left: 100px ;color:white;"
 			for="password" value="Password:" /> 
 		
-			<h:inputSecret style="width: 200px;margin-left: 154px ;"
+			<h:inputSecret style="width: 200px;margin-left: 144px ;"
 			id="password" value="#{RegisterCompany.loginPassword}"
 				>
 				<f:validator validatorId="confirmPasswordValidator" />
@@ -110,10 +110,10 @@
 			</h:panelGrid>
           	<br /> 
 
-			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;"
+			<h:outputText style="height: 50px;width: 200px;margin-left: 100px ;color:white;"
 			 for="confirm" value="Confirm Password : " /> 
 	
-			<h:inputSecret style="width: 200px;margin-left: 81px ;"
+			<h:inputSecret style="width: 200px;margin-left: 71px ;"
 			id="confirm" binding="#{confirmPassword}"
 				>
 				<f:ajax event="keyup" execute="password confirm"
