@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Jobless Web Application</title>
+</head>
+<body>
+ <h:form>
+           <h2 align="center"><b>Welcome to Jobless Web Application</b></h2>
+            <h3 align="center"> Please choose an option :</h3>
+      
+          <h3 align="center">
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsAdmin.xhtml" value="Login as admin"/>
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsAccount.xhtml" value="Login as account"/>
+          </h3>
+          <h3 align="center">  
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsUser.xhtml" value="Login as user"/>
+            <h:commandButton style="height: 50px;width: 200px" action ="LoginAsCompany.xhtml" value="Login as company"/> <br />
+            <br/>
+            <h:commandButton style="height: 50px;width: 200px" action ="index.xhtml" value="Continue as guest"/>
+           </h3>
+          
+            <p>
+             <h3 align="center">To register as user,<a href="RegisterAsUser.xhtml"> click here.</a></h3>
+             <h3 align="center">To register as company, <a href="RegisterAsCompany.xhtml">click here.</a></h3>
+            </p>
+        
+        </h:form>
+
+
+
+
+
+
+
+</body>
+</html>
