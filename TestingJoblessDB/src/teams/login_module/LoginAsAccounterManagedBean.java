@@ -1,10 +1,14 @@
 package teams.login_module;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import model.Accounter;
+import model.Company;
 
 @ManagedBean(name = "LoginAsAccounter")
 @SessionScoped
@@ -15,7 +19,7 @@ public class LoginAsAccounterManagedBean {
 	public String accounterUserName;
 	private String passAccounter;
 
-	public void loginAccounter() {
+	public String loginAccounter() {
 
 		String userName = this.getAccounterUserName();
 
@@ -24,12 +28,20 @@ public class LoginAsAccounterManagedBean {
 
 		try {
 			Accounter test = accounter.getAccountUserName(accounterUserName);
-			if (pass1.equals(test.getLoginPassword())) {
-				System.out.println("Success!! Welcome accounter!");
+			String hashedPass = accounter.hashing(userName, pass1);
+			if (hashedPass.equals(test.getLoginPassword())) {
+				HttpSession session = SessionBean.getSession();
+				session.setAttribute("account", userName);
+				return "account";
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Incorect Accounter name or password!", "Please enter correct user name and password"));
+				return "LoginAsAccount";
 			}
-
 		} catch (Exception e) {
-			// TODO: handle exception
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Incorect Accounter name or password!", "Please enter correct user name and password"));
+			return "LoginAsAccount";
 		}
 	}
 
@@ -48,7 +60,5 @@ public class LoginAsAccounterManagedBean {
 	public void setPassAccounter(String passAccounter) {
 		this.passAccounter = passAccounter;
 	}
-	
-	
-	
+
 }

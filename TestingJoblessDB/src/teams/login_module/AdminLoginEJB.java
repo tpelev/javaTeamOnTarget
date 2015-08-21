@@ -6,6 +6,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+
 import model.Admin;
 
 @Stateless
@@ -38,6 +43,13 @@ public class AdminLoginEJB {
 		} catch (Exception e) {
 			return false;
 		}	
+	}
+	public String hashing(String loginName, String loginPassword){
+		HashFunction hash = Hashing.sha256();
+		String salt = hash.newHasher().putString(loginName, Charsets.UTF_8).hash().toString();
+		String pass = hash.newHasher().putString(loginPassword, Charsets.UTF_8).hash().toString();
+		HashCode hs = hash.newHasher().putString(pass, Charsets.UTF_8).putString(salt, Charsets.UTF_8).hash();
+		return hs.toString();
 	}
 
 }

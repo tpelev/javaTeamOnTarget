@@ -9,6 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+
 import model.Advertisement;
 import model.Company;
 import model.CompanyProfile;
@@ -57,5 +62,18 @@ public class RegisterCompanyEJB {
 			companyExists = true;
 		}
 		return companyExists;
+	}
+	public String hashing(String loginName, String loginPassword){
+		HashFunction hash = Hashing.sha256();
+		String salt = hash.newHasher().putString(loginName, Charsets.UTF_8).hash().toString();
+		String pass = hash.newHasher().putString(loginPassword, Charsets.UTF_8).hash().toString();
+		HashCode hs = hash.newHasher().putString(pass, Charsets.UTF_8).putString(salt, Charsets.UTF_8).hash();
+		return hs.toString();
+	}
+	
+	public Company getCompanyUserName(String userName){
+		Query query = em.createQuery("SELECT c FROM Company c WHERE c.loginName = '"+userName+"'");
+		Company company = (Company) query.getSingleResult();
+		return company;
 	}
 }

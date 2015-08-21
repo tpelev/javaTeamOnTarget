@@ -1,0 +1,25 @@
+
+<!-- Validating user input -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Test</title>
+</h:head>
+<h:body>
+	<h:form>
+	 <h1>Test</h1>
+         <p>Please fill in all fields and click Save</p>
+	<h:dataTable value="#{test.questions}" var="question">	
+	<h:column>			
+				<h:outputText value="#{question.questionNum}"/>	<br />			
+				<h:inputTextarea cols="30" rows="4" value="#{question.questionDescription}"/>		
+				</h:column>	
+		</h:dataTable>
+         <h:commandButton  value="Save" action="#{test.saveInDB}"/>
+</h:form>
+<h:outputText value="#{test.result}"/>	
+</h:body>
+</html>

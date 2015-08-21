@@ -1,21 +1,28 @@
 package teams.login_module;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import model.User;
+import teams.user_module.indexBean;
 
 @ManagedBean(name = "LoginAsUser")
 @SessionScoped
 public class LoginAsUserMenagedBean {
 	@EJB
-	private UserEJB user;
+	private RegisterUserEJB user;
+	@ManagedProperty(value = "#{index}")
+	private indexBean indexBean;
 
 	public String userUserName;
 	private String passUser;
 
-	public void loginUser() {
+	public String loginUser() {
 
 		String userName = this.getUserUserName();
 
@@ -24,12 +31,22 @@ public class LoginAsUserMenagedBean {
 
 		try {
 			User test = user.getAdminUserName(userUserName);
-			if (pass1.equals(test.getLoginPassword())) {
-				System.out.println("Success!! Welcome user!");
+			String hashedPass = user.hashing(userName, pass1);
+			if (hashedPass.equals(test.getLoginPassword())) {
+				HttpSession session = SessionBean.getSession();
+				session.setAttribute("user", userName);
+				indexBean.setLogged(true);
+				return "index.xhtml";
+			}else{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Incorect User name or password!", "Please enter correct user name and password"));
+				return "LoginAsUser";
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Incorect User name or password!", "Please enter correct user name and password"));
+			return "LoginAsUser";
 		}
 	}
 
@@ -49,4 +66,13 @@ public class LoginAsUserMenagedBean {
 		this.passUser = passUser;
 	}
 
+	public indexBean getIndexBean() {
+		return indexBean;
+	}
+
+	public void setIndexBean(indexBean indexBean) {
+		this.indexBean = indexBean;
+	}
+
+	
 }

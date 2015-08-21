@@ -18,28 +18,21 @@ public class ConfirmPasswordValidator implements Validator {
 	        String confirm = (String) component.getAttributes().get("confirm");
 
 	        if (password == null || confirm == null) {
-	        	FacesMessage msg1 = 
-	    				new FacesMessage("Password null.", 
-	    						"Please enter password.");
-	    			msg1.setSeverity(FacesMessage.SEVERITY_ERROR);
-	    			throw new ValidatorException(msg1); // Just ignore and let required="true" do its job.
+	            FacesMessage msg1 = new FacesMessage("Password null", "Please enter password");
+	            msg1.setSeverity(FacesMessage.SEVERITY_ERROR);
+	            throw new ValidatorException(msg1);
 	        }
 
 	        if (!password.equals(confirm)) {
-	        	FacesMessage msg = 
-	    				new FacesMessage("Password mismatch.", 
-	    						"Passwords don't match.");
-	    			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-	    			throw new ValidatorException(msg);
+	        	FacesMessage msg = new FacesMessage("Password missmatch", "Passwords don't match");
+	            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+	            throw new ValidatorException(msg);
 	        }
-	        
-	        if (password.length()<5 ) {
-	        	FacesMessage msg5 = 
-	    				new FacesMessage("Password short.", 
-	    						"Password is too short.");
-	    			msg5.setSeverity(FacesMessage.SEVERITY_ERROR);
-	    			throw new ValidatorException(msg5);
-	        }
+	        if (password.length() < 5) {
+	        	FacesMessage msg5 = new FacesMessage("Password short", "Password is too short");
+	            msg5.setSeverity(FacesMessage.SEVERITY_ERROR);
+	            throw new ValidatorException(msg5);
+			}
 		
 	}
 

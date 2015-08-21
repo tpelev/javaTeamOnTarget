@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<title>Registration Form</title>
+</head>
+<body>
+	<h:form>
+		<h:outputLabel value="#{index.selected.title}" />
+		<br />
+		<h:outputLabel value="#{index.selected.category.categorieName}" />
+		<br />
+		<h:outputLabel value="#{index.selected.companyProfile.companyName}" />
+		<br />
+		<h:outputLabel value="#{index.selected.place.placesName}" />
+		<br />
+		<h:outputText value="#{index.selected.content}" />
+
+		<h:dataTable value="#{index.questions}" var="question">
+			<h:column>
+				<h:outputText value="#{question.questionNum} " />
+			</h:column>
+			<br/>
+			<h:column>
+				<h:outputText value="#{question.questionDescription}" />
+			</h:column>
+			<br />
+			<h:column>
+				<h:inputText cols="30" rows="4" value="#{question.answer}" />
+			</h:column>
+		</h:dataTable>
+
+		<h:commandButton value="Send" action="#{index.sendTest}" />
+		<h:outputText value="#{index.selected.test}" />
+		<br />
+		<a
+			href="mailto://#{index.selected.companyProfile.email}?subject=#{index.selected.title}">
+			Send Email </a>
+		<br />
+		<h:commandButton value="Test" action="#{index.getTest}" />
+	</h:form>
+	<h:form>
+		<h:commandButton  value="Create CV"/>
+		<h:commandButton   value="Create Cover Letter" />
+	</h:form>
+</body>
+</html>

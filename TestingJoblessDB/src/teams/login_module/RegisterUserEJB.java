@@ -8,6 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+
 import model.User;
 import model.UserProfile;
 
@@ -20,13 +25,12 @@ public class RegisterUserEJB {
 	private EntityManager em;
 
 	public void addUser(String firstName, String lastName, String email, String loginName, String loginPassword,
-		
 			String sault, String token) {
 		UserProfile userProfile = new UserProfile();
 		User user = new User();
 		user.setLoginName(loginName);
 		user.setLoginPassword(loginPassword);
-		user.setSault("blabla");
+		user.setSault("");
 		user.setToken("");
 		em.persist(user);
 		userProfile.setFirstName(firstName);
@@ -46,5 +50,18 @@ public class RegisterUserEJB {
 			userExists = true;
 		}
 		return userExists;
+	}
+	
+	public String hashing(String loginName, String loginPassword){
+		HashFunction hash = Hashing.sha256();
+		String salt = hash.newHasher().putString(loginName, Charsets.UTF_8).hash().toString();
+		String pass = hash.newHasher().putString(loginPassword, Charsets.UTF_8).hash().toString();
+		HashCode hs = hash.newHasher().putString(pass, Charsets.UTF_8).putString(salt, Charsets.UTF_8).hash();
+		return hs.toString();
+	}
+	public User getAdminUserName(String userName){
+		Query query = em.createQuery("SELECT u FROM User u WHERE u.loginName = '"+userName+"'");
+		User user = (User) query.getSingleResult();
+		return user;
 	}
 }

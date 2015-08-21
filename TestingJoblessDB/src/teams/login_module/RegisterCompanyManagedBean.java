@@ -31,12 +31,18 @@ public class RegisterCompanyManagedBean {
 	private String token;
 	private String messagge;
 
-	public void addCompany() {
+	public String addCompany() {
 		if (!company.companyExists(loginName)) {
 				company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik, this.mol,
-						this.loginName, this.loginPassword, this.sault, this.token);
+						this.loginName, company.hashing(loginName, loginPassword), this.sault, this.token);
+				return "LoginAsCompany.xhtml";
+		}else{
+			return "RegisterAsCompany.xhtml";
 		}
+		
 	}
+	
+	
 
 	public void isExists(FacesContext f, UIComponent c, Object obj) {
 		if (company.companyExists(this.loginName)) {		

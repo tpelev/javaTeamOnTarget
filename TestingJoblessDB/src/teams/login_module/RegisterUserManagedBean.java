@@ -8,6 +8,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
+import com.google.common.base.Charsets;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+
 @ManagedBean(name = "RegisterUser")
 @SessionScoped
 public class RegisterUserManagedBean {
@@ -21,14 +26,18 @@ public class RegisterUserManagedBean {
 	private String sault;
 	private String token;
 
-	public void addUser() {
+	public String addUser() {
 		if (!registerUser.userExists(this.loginName)) {
-			registerUser.addUser(this.firstName, this.lastName, this.email, this.loginName, this.loginPassword,
+			registerUser.addUser(this.firstName, this.lastName, this.email, this.loginName, 
+					registerUser.hashing(getLoginName(), getLoginPassword()),
 					this.sault, this.token);
-
+			return "LoginAsUser.xhtml";
+		}else{
+			return "RegisterAsUser.xhtml";
 		}
 
 	}
+	
 	public void isExists(FacesContext f, UIComponent c, Object obj) {
 		if (registerUser.userExists(this.loginName)) {		
 			throw new ValidatorException(new FacesMessage("Username already exists!"));
