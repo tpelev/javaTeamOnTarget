@@ -430,9 +430,50 @@ generated automatically and are common for each slider. */
 				<div class="accordion-separator"></div></li>
 			<li><input type="radio" name="select" class="accordion-select" />
 				<div class="accordion-title">
-					<span>Title</span>
+					<span>Administration Help Tab</span>
 				</div>
-				<div class="accordion-content">Content</div>
+				<div class="accordion-content">
+					<h4>Find all the information needed to operate with Administration module.</h4>
+					<h4>- Administration Panel options</h4>
+					<p>Tree options are available for redirecting to other panels
+						AdvertismentPanel, CompanyPanel and UserPanel.</p>
+					<h4>-First option AdvertismentPanel</h4>
+					<p>When the first one, called “See all Ads”, is clicked it
+						evokes event that displays a table with ads. Every ad has four
+						buttons – update, publish, delete and make VIP.When pressed update
+						it evokes event that open ".xhtml" file that have fields for
+						updating the Ad and suitable button. Upon pressing it, a database
+						connection is ensured and new values for the corresponding
+						Advertisment are set. The second button is “publish”. Every ad has
+						validation time. The expiration date is calculated by taking the
+						activity days and adding the current date plus one more day. This
+						information is set in the field “Expired”. Also the field
+						“Approved” becomes “true”. The button “delete” erase the ads. When
+						clicked, it evokes event that delete the ad through its id.
+						Advertisment with expired date can be checked through “Expired
+						Ads” if there are Expired then make the field "isExpired" to
+						"true", located at the bottom of the screen.</p>
+					<h4>-Second option CompanyPanel</h4>
+
+					<p>All information for the companies is shown. When pressed
+						update it evokes event that open ".xhtml" file that have fields
+						for updating the CompanyProfile and suitable button. Upon pressing
+						it, a database connection is ensured and new values for the
+						corresponding CompanyProfile. Company existence should be checked.
+						There are two possibilities for that – 1 for approval and 2 for
+						disapproval. When the status is 1, then the company is legal and
+						the company can publish ads. If the company is checked and the
+						administrator has not confirmed the existence of ad, the status
+						becomes 2 and the “disapproved” button should be clicked so the
+						company can not publish ads.</p>
+
+					<h4>-Third option UserPanel</h4>
+					<p>All information for the users is shown.When pressed update
+						it evokes event that open ".xhtml" file that have fields for
+						updating the UserProfile and suitable button. Upon pressing it, a
+						database connection is ensured and new values for the
+						corresponding UserProfile are set.</p>
+				</div>
 				<div class="accordion-separator"></div></li>
 		</ul>
 	</div>

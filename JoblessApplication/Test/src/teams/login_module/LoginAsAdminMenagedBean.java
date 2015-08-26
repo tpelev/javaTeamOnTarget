@@ -36,7 +36,7 @@ public class LoginAsAdminMenagedBean {
 			if (hashedPass.equals(test.getLoginPassword())) {
 				HttpSession session = SessionBean.getSession();
 				session.setAttribute("admin", userName);
-				return "Admin";
+				return "AdminPanel";
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Incorrect Administrator name or password!", "Please enter correct user name and password"));
