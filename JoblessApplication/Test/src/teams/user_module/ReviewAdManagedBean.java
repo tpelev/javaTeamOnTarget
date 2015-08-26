@@ -43,12 +43,12 @@ public class ReviewAdManagedBean {
 	private List<Category> categories;
 
 	// pages
-	private List<Advertisement> currentAds;// ads on page
+	private List<Advertisement> currentAds; // ads on page
 	private List<Advertisement> allAds;
-	private int records; // num of ads on page
+	private static final int RECORDS = 10; // number of ads on page
 	private int pageIndex; // current page
 	private int recordsTotal; // all ads
-	private int pages;// all pages
+	private int pages; // all pages
 	private boolean isNextDisable;
 	private boolean isPrevDisable;
 
@@ -64,190 +64,6 @@ public class ReviewAdManagedBean {
 	private List<Test> questions;
 	private String cv;
 	private String cl;
-
-	@PostConstruct
-	public void init() {
-		Place p = new Place();
-		p.setPlacesName("All");
-		places = queries.allPlaces();
-		places.add(p);
-		CompanyProfile cp = new CompanyProfile();
-		cp.setCompanyName("All");
-		companies = queries.allCompanies();
-		companies.add(cp);
-		Category category = new Category();
-		category.setCategorieName("All");
-		categories = queries.allCategories();
-		categories.add(category);
-		allAds = queries.showAllAdAproved();
-		initFirstPage();
-	}
-
-	// changing pages
-	private void initFirstPage() {
-		records = 10;
-		pageIndex = 1;
-		recordsTotal = allAds.size();
-		pages = recordsTotal / records;
-
-		if (recordsTotal % records > 0) {
-			pages++;
-		}
-		if (pages == 0) {
-			pages = 1;
-		}
-
-		if ((pageIndex == pages) && (pageIndex == 1)) {
-			setPrevDisable(true);
-			setNextDisable(true);
-		} else {
-			setPrevDisable(true);
-			setNextDisable(false);
-		}
-		updateModel();
-	}
-
-	public void updateModel() {
-		int fromIndex = getFirst();
-		int toIndex = getFirst() + records;
-
-		if (toIndex > this.recordsTotal) {
-			toIndex = this.recordsTotal;
-		}
-
-		currentAds = allAds.subList(fromIndex, toIndex);
-	}
-
-	public void next() {
-		if (pageIndex < pages) {
-			pageIndex++;
-			setPrevDisable(false);
-			if (this.pageIndex == pages) {
-				setNextDisable(true);
-			}
-		}
-		updateModel();
-	}
-
-	public void prev() {
-		if (pageIndex > 1) {
-			pageIndex--;
-			setNextDisable(false);
-			if (pageIndex == 1) {
-				setPrevDisable(true);
-			}
-		}
-		updateModel();
-	}
-
-	public int getFirst() {
-		return (pageIndex * records) - records;
-	}
-
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
-	}
-
-	// end changing pages
-
-	public void search() {
-		String isVipStr = String.valueOf(isVip);
-		allAds = queries.searchAds(keyword, selectedPlace, selectedCategory,
-				selectedCompany, isVipStr);
-		initFirstPage();
-	}
-
-	// select ad
-	public String selectAd() {
-		if (!isLogged) {
-			return "guest_view_ad.xhtml?faces-redirect=true";
-		}
-		if (selected.getIsVip() && !selected.getTest().equals("")) {
-			fillTest();
-			return "vip_ad_view_test.xhtml?faces-redirect=true";
-		}
-		return "logged_view_ad.xhtml?faces-redirect=true";
-	}
-
-	private void fillTest() {
-		String test = selected.getTest();
-
-		JSONArray jArray = new JSONArray(test);
-		questions = new ArrayList<Test>();
-
-		for (int i = 0; i < jArray.length(); i++) {
-			JSONObject explrObject = jArray.getJSONObject(i);
-			Test t = new Test();
-			t.setQuestionNum(explrObject.getString("questionNum"));
-			t.setQuestionDescription(explrObject
-					.getString("questionDescription"));
-			questions.add(t);
-		}
-	}
-
-	public String sendTest() {
-
-		String companyEmail = selected.getCompanyProfile().getEmail();
-		UserProfile userProf = queries.getUserProfileByUsername(getUserName());
-
-		String to = companyEmail;
-		String from = "awwwwws@gmail.com";
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Name: " + userProf.getFirstName() + " "
-				+ userProf.getLastName() + "\n");
-		sb.append("Email: " + userProf.getEmail() + "\n");
-		sb.append("TEST: \n");
-		for (Test test : questions) {
-			sb.append(test.getQuestionNum() + test.getQuestionDescription()
-					+ "\n" + test.getAnswer() + "\n");
-		}
-		sb.append("CV: \n");
-		sb.append(cv + "\n");
-		sb.append("CL: \n");
-		sb.append(cl + "\n");
-		try {
-			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(), from, to);
-		} catch (MessagingException mex) {
-			return "email_sent_error.xhtml?faces-redirect=true";
-		}
-		return "email_sent_successfully.xhtml?faces-redirect=true";
-	}
-
-	public String sendCVandCL() {
-
-		String companyEmail = selected.getCompanyProfile().getEmail();
-		UserProfile userProf = queries.getUserProfileByUsername(getUserName());
-
-		String to = companyEmail;
-		String from = "awwwwws@gmail.com";
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Name: " + userProf.getFirstName() + " "
-				+ userProf.getLastName() + "\n");
-		sb.append("Email: " + userProf.getEmail() + "\n");
-		sb.append("CV: \n");
-		sb.append(cv + "\n");
-		sb.append("CL: \n");
-		sb.append(cl + "\n");
-		try {
-			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(), from, to);
-		} catch (MessagingException mex) {
-			return "email_sent_error.xhtml?faces-redirect=true";
-		}
-		return "email_sent_successfully.xhtml?faces-redirect=true";
-	}
-
-	private void sendEmail(String subject, String text, String from, String to)
-			throws MessagingException {
-		Message message = new MimeMessage(mailSession);
-		message.setFrom(new InternetAddress(from));
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-		message.setSubject(subject);
-		message.setText(text);
-		Transport.send(message);
-		System.out.println("message sent successfully....");
-	}
 
 	// end - select ad
 
@@ -389,6 +205,255 @@ public class ReviewAdManagedBean {
 
 	public void setLogged(boolean isLogged) {
 		this.isLogged = isLogged;
+	}
+
+	// End of setters and getters
+
+	/**
+	 * A Method Called after the constructor and injections being done. Post
+	 * Construct methods have void arguments and return void. Method may be
+	 * public, protected, private, or package private. If the method throws an
+	 * unchecked exception, the JSF implementation must not put the managed bean
+	 * into service and no further methods on that managed bean instance will be
+	 * called.
+	 * 
+	 * @author Damain
+	 */
+
+	@PostConstruct
+	public void init() {
+		Place p = new Place();
+		p.setPlacesName("All");
+		places = queries.allPlaces();
+		places.add(p);
+		CompanyProfile cp = new CompanyProfile();
+		cp.setCompanyName("All");
+		companies = queries.allCompanies();
+		companies.add(cp);
+		Category category = new Category();
+		category.setCategorieName("All");
+		categories = queries.allCategories();
+		categories.add(category);
+		allAds = queries.showAllAdAproved();
+		initFirstPage();
+	}
+
+	// changing pages
+	/**
+	 * Method showing the initial ads.
+	 * 
+	 * @author tina 
+	 */
+
+	private void initFirstPage() {
+		pageIndex = 1;
+		recordsTotal = allAds.size();
+		pages = recordsTotal / RECORDS;
+
+		if (recordsTotal % RECORDS > 0) {
+			pages++;
+		}
+		if (pages == 0) {
+			pages = 1;
+		}
+
+		if ((pageIndex == pages) && (pageIndex == 1)) {
+			setPrevDisable(true);
+			setNextDisable(true);
+		} else {
+			setPrevDisable(true);
+			setNextDisable(false);
+		}
+		updateModel();
+	}
+
+	private void updateModel() {
+		int fromIndex = getFirst();
+		int toIndex = getFirst() + RECORDS;
+
+		if (toIndex > this.recordsTotal) {
+			toIndex = this.recordsTotal;
+		}
+
+		currentAds = allAds.subList(fromIndex, toIndex);
+	}
+
+	public void next() {
+		if (pageIndex < pages) {
+			pageIndex++;
+			setPrevDisable(false);
+			if (this.pageIndex == pages) {
+				setNextDisable(true);
+			}
+		}
+		updateModel();
+	}
+
+	public void prev() {
+		if (pageIndex > 1) {
+			pageIndex--;
+			setNextDisable(false);
+			if (pageIndex == 1) {
+				setPrevDisable(true);
+			}
+		}
+		updateModel();
+	}
+
+	private int getFirst() {
+		return (pageIndex * RECORDS) - RECORDS;
+	}
+
+	// end changing pages
+	/**
+	 * Search Method. Run a query and populates the list with ads Refreshes the
+	 * list with shown ads as side effect
+	 * 
+	 * @author tina 
+	 */
+	public void search() {
+		String isVipStr = String.valueOf(isVip);
+		allAds = queries.searchAds(keyword, selectedPlace, selectedCategory,
+				selectedCompany, isVipStr);
+		initFirstPage();
+	}
+
+	/**
+	 * Fills the test of the ad by taking the questions from the database
+	 * 
+	 * @author tina
+	 */
+	private void fillTest() {
+		String test = selected.getTest();
+
+		JSONArray jArray = new JSONArray(test);
+		questions = new ArrayList<Test>();
+
+		for (int i = 0; i < jArray.length(); i++) {
+			JSONObject explrObject = jArray.getJSONObject(i);
+			Test t = new Test();
+			t.setQuestionNum(explrObject.getString("questionNum"));
+			t.setQuestionDescription(explrObject
+					.getString("questionDescription"));
+			questions.add(t);
+		}
+	}
+
+	/**
+	 * Select the ad view based on user status and ad type.
+	 * 
+	 * @return The corresponding view. guest_view_ad.xhtml if the user is a
+	 *         Guest vip_ad_view_test.xhtml is returned if the user is logged
+	 *         and the ad has a test. logged_view_ad.xhtml is returned if the
+	 *         user is logged and the ad doesn't have a test.
+	 *         
+	 * @author Martin
+	 */
+	public String selectAd() {
+		if (!isLogged) {
+			return "guest_view_ad.xhtml?faces-redirect=true";
+		}
+		if (selected.getIsVip() && !selected.getTest().equals("")) {
+			fillTest();
+			return "vip_ad_view_test.xhtml?faces-redirect=true";
+		}
+		return "logged_view_ad.xhtml?faces-redirect=true";
+	}
+
+	/**
+	 * Sends the answers written by the user to the company via email
+	 * 
+	 * @return The corresponding view. email_sent_error.xhtml will be returned
+	 *         if there was an error. email_sent_successfully.xhtml if
+	 *         everything went successfully
+	 *     
+	 * @author Metodi
+	 */
+	public String sendTest() {
+
+		String companyEmail = selected.getCompanyProfile().getEmail();
+		UserProfile userProf = queries.getUserProfileByUsername(getUserName());
+
+		String to = companyEmail;
+		String from = "awwwwws@gmail.com";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name: " + userProf.getFirstName() + " "
+				+ userProf.getLastName() + "\n");
+		sb.append("Email: " + userProf.getEmail() + "\n");
+		sb.append("TEST: \n");
+		for (Test test : questions) {
+			sb.append(test.getQuestionNum() + test.getQuestionDescription()
+					+ "\n" + test.getAnswer() + "\n");
+		}
+		sb.append("CV: \n");
+		sb.append(cv + "\n");
+		sb.append("CL: \n");
+		sb.append(cl + "\n");
+		try {
+			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(),
+					from, to);
+		} catch (MessagingException mex) {
+			return "email_sent_error.xhtml?faces-redirect=true";
+		}
+		return "email_sent_successfully.xhtml?faces-redirect=true";
+	}
+
+	/**
+	 * Sends cover letter and CV to the company with the data added by the user
+	 * 
+	 * @return The corresponding view. email_sent_error.xhtml will be returned
+	 *         if there was an error. email_sent_successfully.xhtml if
+	 *         everything went successfully
+	 *         
+	 * @author Sneja
+	 */
+	public String sendCVandCL() {
+
+		String companyEmail = selected.getCompanyProfile().getEmail();
+		UserProfile userProf = queries.getUserProfileByUsername(getUserName());
+
+		String to = companyEmail;
+		String from = "awwwwws@gmail.com";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Name: " + userProf.getFirstName() + " "
+				+ userProf.getLastName() + "\n");
+		sb.append("Email: " + userProf.getEmail() + "\n");
+		sb.append("CV: \n");
+		sb.append(cv + "\n");
+		sb.append("CL: \n");
+		sb.append(cl + "\n");
+		try {
+			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(),
+					from, to);
+		} catch (MessagingException mex) {
+			return "email_sent_error.xhtml?faces-redirect=true";
+		}
+		return "email_sent_successfully.xhtml?faces-redirect=true";
+	}
+
+	/**
+	 * Sends an email form the specified sender with the given subject and text
+	 * to the specified receiver
+	 * 
+	 * @param subject
+	 * @param text
+	 * @param from
+	 * @param to
+	 * @throws MessagingException
+	 * 
+	 * @author Damian
+	 */
+	private void sendEmail(String subject, String text, String from, String to)
+			throws MessagingException {
+		Message message = new MimeMessage(mailSession);
+		message.setFrom(new InternetAddress(from));
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		message.setSubject(subject);
+		message.setText(text);
+		Transport.send(message);
+		System.out.println("message sent successfully....");
 	}
 
 }

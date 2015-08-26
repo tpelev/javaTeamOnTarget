@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
-<link rel="stylesheet" type="text/css" href="styleBlue.css" />
+<link rel="stylesheet" type="text/css" href="resources/styleBlue.css" />
 <title>Advert</title>
 </head>
 <body>
@@ -29,19 +29,17 @@
 		<h:outputText value="#{index.selected.content}" />
 		<br /> <br />
 	</p>
-	<div align="center">
-		<h:panelGrid align="center" columns="2">
+	<div id = "mainContainer">
+		<h:panelGrid columns="2">
 			<br />
 			<h:form>
 				<h:commandButton class="buttons"
-					action="index.xhtml?faces-redirect=true" value="Back"
-					style="width: 107px; height: 39px; " />
+					action="index.xhtml?faces-redirect=true" value="Back" />
 			</h:form>
 			<br />
 			<h:form>
-				<h:commandButton class="buttons"
-					action="cv_cl_view_ad.xhtml?faces-redirect=true" value="Apply"
-					style="width: 105px; height: 39px; " />
+				<h:commandButton class="buttons" 
+					action="cv_cl_view_ad.xhtml?faces-redirect=true" value="Apply" />
 			</h:form>
 		</h:panelGrid>
 	</div>

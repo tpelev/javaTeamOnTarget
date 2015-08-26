@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
-<link rel="stylesheet" type="text/css" href="styleBlue.css" />
+<link rel="stylesheet" type="text/css" href="resources/styleBlue.css" />
 <title>Success</title>
 </head>
 <body>
@@ -15,8 +15,8 @@
 		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
 	</h:form>
 	<h2>Info sent successfully.</h2>
-	<div align = "center">
-	<h:panelGrid columns="2">
+	<div id = "mainContainer" align = "center">
+	<h:panelGrid columns="1">
 	<br/>
 		<h:form>
 			<h:commandButton class="buttons"

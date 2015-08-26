@@ -40,7 +40,7 @@
 		
 			<h:inputText id="keyword" value="#{index.keyword}" />
 
-			<h:commandButton class = "buttons" id="searchId" value="search"
+			<h:commandButton class="buttons" id="searchId" value="search"
 				action="#{index.search}">
 				<f:ajax execute="companies categories places vip keyword searchId"
 					render="adTable prev next" />
@@ -74,29 +74,32 @@
 				<f:facet name="header">
 					<h:outputText value="Type" />
 				</f:facet>
-				<h:outputText style = "color: red; font-weight: bold" value="VIP" rendered="#{adv.isVip}" />
+				<h:outputText style="color: red; font-weight: bold" value="VIP"
+					rendered="#{adv.isVip}" />
 				<h:outputText value="not vip" rendered="#{!adv.isVip}" />
 			</h:column>
 
 			<h:column id="action">
-				<h:commandButton class = "buttons" value="view" action="#{index.selectAd}">
+				<h:commandButton class="buttons" value="view"
+					action="#{index.selectAd}">
 					<f:setPropertyActionListener target="#{index.selected}"
 						value="#{adv}" />
 				</h:commandButton>
 			</h:column>
 		</h:dataTable>
-		<div  width = "100px" height = "50px" align = "right">
-		<br/>
-		<h:panelGrid columns="2" cellspacing="2">
-			<h:commandButton class = "buttons" id="prev" value="prev"
-				disabled="#{index.prevDisable}" action="#{index.prev}">
-				<f:ajax execute="prev" render="adTable next prev" />
-			</h:commandButton>
-			<h:commandButton class = "buttons" id="next" value="next" align="right"
-				disabled="#{index.nextDisable}" action="#{index.next}">
-				<f:ajax execute="next" render="adTable prev next" />
-			</h:commandButton>
-		</h:panelGrid>
+		<div width="100px" height="50px" align="right">
+			<br />
+			<h:panelGrid columns="2" cellspacing="2">
+				<h:commandButton class="buttons" id="prev" value="prev"
+					disabled="#{index.prevDisable}" action="#{index.prev}">
+					<f:ajax execute="prev" render="adTable next prev" />
+				</h:commandButton>
+				<h:commandButton class="buttons" id="next" value="next"
+					align="right" disabled="#{index.nextDisable}"
+					action="#{index.next}">
+					<f:ajax execute="next" render="adTable prev next" />
+				</h:commandButton>
+			</h:panelGrid>
 		</div>
 	</h:form>
 </h:body>

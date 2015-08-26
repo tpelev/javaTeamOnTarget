@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
-<link rel="stylesheet" type="text/css" href="styleRed.css" />
+<link rel="stylesheet" type="text/css" href="resources/styleRed.css" />
 <title>Success</title>
 </head>
 <body>
@@ -15,15 +15,11 @@
 		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
 	</h:form>
 	<h2>Successfully Created Advert</h2>
-	<div align="center">
-		<h:panelGrid columns="2">
+	<div id = "mainContainer">
+		<h:panelGrid columns="1">
 			<h:form>
 				<h:commandButton class="buttons"
-					action="MainPage.xhtml?faces-redirect=true" value="Back" />
-			</h:form>
-			<h:form>
-				<h:commandButton class="buttons"
-					action="vip.xhtml?faces-redirect=true" value="Create new advert" />
+					action="vip.xhtml?faces-redirect=true" value="Create new ad" />
 			</h:form>
 		</h:panelGrid>
 	</div>

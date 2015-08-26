@@ -7,27 +7,28 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-	<link rel="stylesheet" type="text/css" href="styleRed.css" />
+	<link rel="stylesheet" type="text/css" href="resources/styleRed.css" />
 	<title>Create Ad</title>
 </h:head>
 <body>
-<h:form>
+	<h:form>
 		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
 	</h:form>
 	<h2>
-		<h:outputText value="Create new Ad"></h:outputText>
+		<h:outputText value="Create new advertisement"></h:outputText>
 	</h2>
-	<br />
 	<h:form>
-		<div align="center">
-			<h:panelGrid columns="3" cellspacing="2">
+	<div  id="mainContainer" >
+		<h:panelGrid columns="1">			
 				<h:commandButton class="buttons" value="VIP with test"
 					action="#{createAd.setVipWithTest}" />
 				<h:commandButton class="buttons" value="VIP without test"
 					action="#{createAd.setVipWithoutTest}" />
 				<h:commandButton class="buttons" value="Regular"
-					action="#{createAd.setRegularAd}" />
-			</h:panelGrid>
+					action="#{createAd.setRegularAd}" />	
+				<h:commandButton class="buttons" value="Active ads"
+					action="#{createAd.activeAdvertsAndRedirect}" />		
+		</h:panelGrid>
 		</div>
 	</h:form>
 	<br />
