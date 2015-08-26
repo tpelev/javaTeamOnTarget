@@ -6,39 +6,74 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Account Main</title>
-
+	<style>
+.myButton {
+	-moz-box-shadow: 3px 2px 0px 0px #91b8b3;
+	-webkit-box-shadow: 3px 2px 0px 0px #91b8b3;
+	box-shadow: 3px 2px 0px 0px #91b8b3;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87
+		), color-stop(1, #6c7c7c));
+	background: -moz-linear-gradient(top, #768d87 5%, #768d87 100%);
+	background: -webkit-linear-gradient(top, #768d87 5%, #768d87 100%);
+	background: -o-linear-gradient(top, #768d87 5%, #768d87 100%);
+	background: -ms-linear-gradient(top, #768d87 5%, #768d87 100%);
+	background: linear-gradient(to bottom, #768d87 5%, #768d87 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87',
+		endColorstr='#f6c593', GradientType=0);
+	background-color: #f6c593;
+	-moz-border-radius: 32px;
+	-webkit-border-radius: 32px;
+	border-radius: 32px;
+	display: inline-block;
+	cursor: pointer;
+	color: white;
+	font-family: Arial;
+	font-size: 17px;
+	padding: 7px 20px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #2b665e;
+	text-align: center;
+}
+</style>
 </h:head>
 <body bgcolor="#f6c593">
-	<h:form method="post">
-		<br />Please choose:
-		<p />
-		<h:selectOneMenu id="accMenu" value="#{invoiceBean.selectedItem}">
-			<f:selectItem itemValue="showAllInvoices.xhtml"
-				itemLabel="Show all invoices" />
-			<f:selectItem itemValue="byDay.xhtml"
-				itemLabel="Show invoices by day" />
-			<f:selectItem itemValue="byMonth.xhtml"
-				itemLabel="Show invoices by month" />
-			<f:selectItem itemValue="byPeriod.xhtml"
-				itemLabel="Show invoices by period" />
-			<f:selectItem itemValue="byCompany.xhtml"
-				itemLabel="Show invoices by company" />
-			<f:selectItem itemValue="isPaid.xhtml"
-				itemLabel="Show expecting payments" />
-			<f:selectItem itemValue="duePay.xhtml" itemLabel="Show due invoices" />
-		</h:selectOneMenu>
-		<p />
-		<h:commandButton value="Continue" action="#{invoiceBean.goTo}" />
-	</h:form>
+	<center>
+		<h:form method="post">
+			<br />
+			<h1>Please choose:</h1>
+			<p />
+			<h:selectOneMenu id="accMenu" value="#{invoiceBean.selectedItem}"
+				style="height:30px; width:200px">
+				<f:selectItem itemValue="showAllInvoices.xhtml"
+					itemLabel="Show all invoices" />
+				<f:selectItem itemValue="byDay.xhtml"
+					itemLabel="Show invoices by day" />
+				<f:selectItem itemValue="byMonth.xhtml"
+					itemLabel="Show invoices by month" />
+				<f:selectItem itemValue="byPeriod.xhtml"
+					itemLabel="Show invoices by period" />
+				<f:selectItem itemValue="byCompany.xhtml"
+					itemLabel="Show invoices by company" />
+				<f:selectItem itemValue="isPaid.xhtml"
+					itemLabel="Show expecting payments" />
+				<f:selectItem itemValue="duePay.xhtml" itemLabel="Show due invoices" />
+			</h:selectOneMenu>
+			<p />
+			<h:commandButton class="myButton" value="Continue" action="#{invoiceBean.goTo}"
+				style="height:30px; width:150px" />
+		</h:form>
 
-	<h:form action="addNewInvoice.xhtml">
-		<br></br>
-		<h:commandButton value="Add new invoice" action="addNewInvoice.xhtml" />
-	</h:form>
-	<h:form>
-		<br></br>
-		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
-	</h:form>
+		<h:form action="addNewInvoice.xhtml">
+			<br></br>
+			<h:commandButton class="myButton" value="New invoice" action="addNewInvoice.xhtml"
+				style="height:30px; width:150px" />
+		</h:form>
+		<h:form>
+			<br></br>
+			<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"
+				style="font-size:25px;"></h:commandLink>
+		</h:form>
+	</center>
 </body>
 </html>
 

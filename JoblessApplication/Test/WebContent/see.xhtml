@@ -8,6 +8,9 @@
 </h:head>
 <h:body bgcolor="#f6c593">
 	<h:form>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout" style="font-size:25px;"></h:commandLink>
+	</h:form>
+	<h:form>
 		<dd>
 			<h2>
 				Invoice Number:
@@ -145,13 +148,10 @@
 		<br></br>
 		<br></br>
 		<input type="button" onclick="window.print(); return false;"
-			value="Print" />
+			value="Print" style="height:30px; width:80px" />
 		<br></br>
 		<br></br>
-		<h:commandButton value="Home" action="AccountMainJSF.xhtml" />
-	</h:form>
-	<h:form>
-		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+		<h:commandButton value="Home" action="AccountMainJSF.xhtml" style="height:30px; width:80px"/>
 	</h:form>
 </h:body>
 </html>
