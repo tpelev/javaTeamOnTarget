@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
-<link rel="stylesheet" type="text/css" href="styleIndex.css" />
+<link rel="stylesheet" type="text/css" href="resources/styleIndex.css" />
 <title>Welcome</title>
 </head>
 <h:body>
@@ -79,7 +79,7 @@
 			</h:column>
 
 			<h:column id="action">
-				<h:commandButton value="view" action="#{index.selectAd}">
+				<h:commandButton class = "buttons" value="view" action="#{index.selectAd}">
 					<f:setPropertyActionListener target="#{index.selected}"
 						value="#{adv}" />
 				</h:commandButton>
