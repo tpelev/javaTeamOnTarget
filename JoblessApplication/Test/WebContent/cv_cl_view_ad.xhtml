@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="styleBlue.css" />
+	<title>CV</title>
+</h:head>
+<body>
+	<h:form align="center">
+		<p>Please write CV and CL</p>
+		<p>CV</p>
+		<h:inputTextarea align="center" cols="60" rows="10"
+			value="#{index.cv}" />
+		<p>CL</p>
+		<h:inputTextarea align="center" cols="60" rows="10"
+			value="#{index.cl}" />
+		<div align="center">
+			<p />
+			<h:commandButton class="buttons" value="Send"
+				action="#{index.sendCVandCL}" />
+			<p />
+			<h:commandButton class="buttons"
+				action="logged_view_ad.xhtml?faces-redirect=true" value="Back" />
+		</div>
+	</h:form>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Users panel</title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:commandButton style="height: 20px;width: 150px "
+			action="Admin.xhtml" value="Admin home page">
+		</h:commandButton>
+
+		<h:form align="right">
+			<h:commandButton style="height: 20px;width: 150px "
+				action="#{LoginAsAdminB.logout}" value="Log out"></h:commandButton>
+		</h:form>
+	</h:form>
+
+	<h:form>
+		<h1 align="center">Welcome to company panel!</h1>
+		<h:panelGroup rendered="#{companies.dtmdl.rowCount > 0}">
+			<h4 align="center">
+          <h:commandLink action="#{companies.previous}"
+				value="#{msg.Previous} #{companies.pagination.pageSize}"
+				rendered="#{companies.pagination.hasPreviousPage}"> Previous</h:commandLink> &nbsp;
+				<h:outputText
+				value="#{companies.pagination.pageFirstItem + 1}..#{companies.pagination.pageLastItem + 1}/#{companies.pagination.itemsCount}" /> &nbsp;
+          <h:commandLink action="#{companies.next}"
+				value="#{msg.Next} #{companies.pagination.pageSize}"
+				rendered="#{companies.pagination.hasNextPage}"> Next</h:commandLink> &nbsp;
+				
+				</h4>
+				<h3 align="center">
+   <h:dataTable value="#{companies.dtmdl}" var="company"
+				styleClass="table" headerClass="headers" border="1" cellspacing="0"
+				cellpadding="5" frame="box">
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{company.id}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Company name</f:facet>
+					<h:outputText value="#{company.companyName}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Adress</f:facet>
+					<h:outputText value="#{company.adress}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">MOL</f:facet>
+					<h:outputText value="#{company.mol}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">EIK</f:facet>
+					<h:outputText value="#{company.eik}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{company.email}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Company type</f:facet>
+					<h:outputText value="#{company.companyType}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Status</f:facet>
+					<h:outputText value="#{company.status}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Options</f:facet>
+					<h:commandButton value="Edit" style="width:100px;height:150"
+						action="#{companies.sendToUpdate(company)}" />
+					<br />
+					<h:commandButton style="width:100px;height:150" value="Approve"
+						action="#{companies.updateAproval(company)}" />
+					<br />
+					<h:commandButton style="width:100px;height:150"
+						value="Disapprove" action="#{companies.notAproval(company)}" />
+				</h:column>
+			</h:dataTable>
+			</h3>
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Login As Admin</title>
+<style>
+.myButton {
+	-moz-box-shadow: 3px 2px 0px 0px #91b8b3;
+	-webkit-box-shadow: 3px 2px 0px 0px #91b8b3;
+	box-shadow: 3px 2px 0px 0px #91b8b3;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87
+		), color-stop(1, #6c7c7c));
+	background: -moz-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background: -webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background: -o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background: -ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87',
+		endColorstr='#6c7c7c', GradientType=0);
+	background-color: #768d87;
+	-moz-border-radius: 28px;
+	-webkit-border-radius: 28px;
+	border-radius: 28px;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 17px;
+	padding: 7px 25px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #2b665e;
+	text-align: center;
+}
+
+.myButton:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c
+		), color-stop(1, #768d87));
+	background: -moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background: -webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background: -o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background: -ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c',
+		endColorstr='#768d87', GradientType=0);
+	background-color: #6c7c7c;
+}
+
+.myButton:active {
+	position: relative;
+	top: 1px;
+}
+
+.resetButton {
+	width: 100px;
+	height: auto;
+	font-size: small;
+}
+
+#mainContainer {
+	width: 40%;
+	height: 100%;
+	margin: auto;
+}
+
+span {
+	text-align: left;
+}
+
+input, select {
+	text-align: left;
+	float: right;
+	width: 50%;
+}
+
+#outer {
+	width: 0px;
+}
+
+ul {
+	list-style-type: none;
+}
+</style>
+</head>
+<body bgcolor="#6495ED">
+
+	<h:form>
+		<h2 align="center">
+			<b><font color="white">Welcome to Admin Login Form</font></b>
+			<h:messages style="color:red" />
+		</h2>
+		<div id="mainContainer">
+
+			<div>
+				<h:outputText style="color: white;" value="Username : "></h:outputText>
+				<h:inputText style="width: 200px;" id="username"
+					value="#{LoginAsAdminB.adminUserName}">
+				</h:inputText>
+				<p:message for="username">
+					<h:message for="username"></h:message>
+				</p:message>
+				<br />
+			</div>
+			<br />
+
+			<div>
+				<h:outputText style="color: white;" value="Password : "></h:outputText>
+				<h:inputSecret style="width: 200px;" id="pass1"
+					value="#{LoginAsAdminB.pass}"></h:inputSecret>
+				<h:message for="pass1">
+				</h:message>
+				<br />
+			</div>
+			<br />
+
+			<h:commandButton class="myButton" style="height: 50px;width: 150px;"
+				action="#{LoginAsAdminB.loginAdmin}" value="Login" />
+			<br /> <br /> <br />
+			<f:event listener="#{LoginAsAdminB.validate}" type="postValidate"></f:event>
+		</div>
+	</h:form>
+
+	<h:form>
+		<div id="mainContainer">
+			<h:commandButton class="myButton" style="height: 50px;width: 150px;"
+				action="MainPage.xhtml" value="Back to main" />
+					<br />
+	<br />
+	<br />
+		</div>
+	</h:form>
+
+	<h:form>
+		<div id="mainContainer">
+			<h:commandButton class="myButton" style="height: 50px;width: 150px;" action="HelpMenu.html"
+				value="Get help here" />
+		</div>
+	</h:form>
+
+</body>
+</html>

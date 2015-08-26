@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Jobless Web Application</title>
+<style>
+ .myButton {
+	-moz-box-shadow: 3px 2px 0px 0px #91b8b3;
+	-webkit-box-shadow: 3px 2px 0px 0px #91b8b3;
+	box-shadow: 3px 2px 0px 0px #91b8b3;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #768d87), color-stop(1, #6c7c7c));
+	background:-moz-linear-gradient(top, #768d87 5%, #768d87 100%);
+	background:-webkit-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-o-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:-ms-linear-gradient(top, #768d87 5%, #6c7c7c 100%);
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#768d87', endColorstr='#6c7c7c',GradientType=0);
+	background-color:#768d87;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:7px 25px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2b665e;
+	text-align: center;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #6c7c7c), color-stop(1, #768d87));
+	background:-moz-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-webkit-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-o-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:-ms-linear-gradient(top, #6c7c7c 5%, #768d87 100%);
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6c7c7c', endColorstr='#768d87',GradientType=0);
+	background-color:#6c7c7c;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+.resetButton{
+	width: 100px;
+	height: auto;
+	font-size: small;
+	
+}
+</style>
+</head>
+<body bgcolor="#CAECF0">
+ <h:form>
+           <h2 align="center"><b>Welcome to Jobless Web Application</b></h2>
+            <h3 align="center"> Please choose an option :</h3>
+      
+          <h3 align="center">
+            <h:commandButton class="myButton" style="height: 50px;width: 200px;color: #FFFFFF;" action ="LoginAsAdmin.xhtml" value="Login as admin"/>
+            <h:commandButton class="myButton" style="height: 50px;width: 200px;color: #FFFFFF;" action ="LoginAsAccount.xhtml" value="Login as account"/>
+          </h3>
+          <h3 align="center">  
+            <h:commandButton  class="myButton" style="height: 50px;width: 200px;color: #FFFFFF;" action ="LoginAsUser.xhtml" value="Login as user"/>
+            <h:commandButton  class="myButton" style="height: 50px;width: 200px;color: #FFFFFF;" action ="LoginAsCompany.xhtml" value="Login as company"/> <br />
+            <br/>
+            <h:commandButton  class="myButton" style="height: 50px;width: 200px" action ="index.xhtml" value="Continue as guest"/>
+           </h3>
+          
+            <p>
+            <h3 align="center">
+              <font color="rgb(150,125,50)"><span class="register">To register as user,</span><a href="RegisterAsUser.xhtml"> click here.
+              </a></font>
+            </h3>
+             
+            <h3 align="center">
+             <font color="#660000"><span class="register">To register as company,</span> <a href="RegisterAsCompany.xhtml">click here.
+             </a></font>
+            </h3>
+            <h3 align="center">
+             <font color="#660000"><span>If you don't know what to do, </span> <a href="HelpMenu.html">check out our help page.
+             </a></font>
+            </h3>
+            </p>
+        
+        </h:form>
+
+
+
+
+
+
+<script src="resources/prettyText/jquery-2.1.4.js"></script>
+<script src="resources/prettyText/jquery.lettering-0.6.1.min.js"></script>
+<script src="resources/prettyText/jquery.textillate.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/prettyText/animate.css"></link>
+<script>
+
+	$(document).ready(function() {
+		$('b').textillate({ in: { effect: 'bounceIn' } });
+		$('.register').textillate({ in: { effect: 'fadeInLeftBig', delay: 70, type: 'word' } });
+	});
+</script>
+</body>
+</html>

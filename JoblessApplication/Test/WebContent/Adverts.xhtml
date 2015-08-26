@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Users panel</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h:commandButton
+			style="height: 20px;width: 150px "
+			action="Admin.xhtml" value="Admin home page">
+		</h:commandButton>
+
+		<h:form align="right">
+			<h:commandButton
+				style="height: 20px;width: 150px "
+				action="#{LoginAsAdminB.logout}" value="Log out"></h:commandButton>
+		</h:form>
+	</h:form>
+
+
+	<h:form>
+		<h1 align="center">Welcome to the advertisement panel!</h1>
+		<h:panelGroup rendered="#{adverts.dtmdl.rowCount > 0}">
+			<h4 align="center">
+				<h:commandButton styleClass="buttonClass"
+					action="#{adverts.previous}" value="Previous"
+					rendered="#{adverts.pagination.hasPreviousPage}">
+				</h:commandButton>
+				&nbsp;
+				<h:outputText
+					value="#{adverts.pagination.pageFirstItem + 1}..#{adverts.pagination.pageLastItem + 1}/#{adverts.pagination.itemsCount}" />
+				&nbsp;
+				<h:commandButton styleClass="buttonClass" action="#{adverts.next}"
+					value="Next" rendered="#{adverts.pagination.hasNextPage}">
+				</h:commandButton>
+				&nbsp;
+			</h4>
+			<h3 align="center">
+
+				<h:dataTable style="width:80%" value="#{adverts.dtmdl}"
+					var="advertisement" styleClass="table" headerClass="headers"
+					border="1" cellspacing="0" cellpadding="5" frame="border">
+					<h:column headerClass="column1">
+						<f:facet name="header">ID</f:facet>
+						<h:outputText value="#{advertisement.id}"></h:outputText>
+					</h:column>
+					<h:column headerClass="column2">
+						<f:facet name="header">Title</f:facet>
+						<h:outputText value="#{advertisement.category.categorieName}"></h:outputText>
+					</h:column>
+					<h:column headerClass="column3">
+						<f:facet name="header">Content</f:facet>
+						<h:outputText value="#{advertisement.content}"></h:outputText>
+					</h:column>
+					<h:column headerClass="column4">
+						<f:facet name="header">Test</f:facet>
+						<h:outputText value="#{advertisement.test}"></h:outputText>
+					</h:column>
+					<h:column headerClass="column4">
+						<f:facet name="header">Price</f:facet>
+						<h:outputText value="#{advertisement.price}"></h:outputText>
+					</h:column>
+					<h:column headerClass="column5">
+						<f:facet name="header">Activity days</f:facet>
+						<h:outputText value="#{advertisement.activityDays}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Expiration date</f:facet>
+						<h:outputText value="#{advertisement.expirationDate}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Place</f:facet>
+						<h:outputText value="#{advertisement.place.placesName}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Is vip</f:facet>
+						<h:outputText value="#{advertisement.isVip}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Is aproved</f:facet>
+						<h:outputText value="#{advertisement.isApproved}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Is paid</f:facet>
+						<h:outputText value="#{advertisement.isPaid}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Is expired</f:facet>
+						<h:outputText value="#{advertisement.isExpired}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">Option</f:facet>
+						<h:commandButton value="Edit" style="width:100px;height:30"
+							action="#{adverts.sendToUpdateAdv(advertisement)}" />
+						<br />
+						<h:commandButton value="Approve" style="width:100px;height:150"
+							action="#{adverts.publishAdv(advertisement)}" />
+						<br />
+						<h:commandButton value="MakeViP" style="width:100px;height:150"
+							action="#{adverts.makeVip(advertisement)}" />
+					</h:column>
+				</h:dataTable>
+			</h3>
+		</h:panelGroup>
+	</h:form>
+	<h:form>
+		<h:commandButton align="center" value="Expired Ads" action="#{adverts.chekForExpire}" />
+	</h:form>
+</h:body>
+</html>

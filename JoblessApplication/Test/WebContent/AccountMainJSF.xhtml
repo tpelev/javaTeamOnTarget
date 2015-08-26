@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Account Main</title>
+
+</h:head>
+<body bgcolor="#f6c593">
+	<h:form method="post">
+		<br />Please choose:
+		<p />
+		<h:selectOneMenu id="accMenu" value="#{invoiceBean.selectedItem}">
+			<f:selectItem itemValue="showAllInvoices.xhtml"
+				itemLabel="Show all invoices" />
+			<f:selectItem itemValue="byDay.xhtml"
+				itemLabel="Show invoices by day" />
+			<f:selectItem itemValue="byMonth.xhtml"
+				itemLabel="Show invoices by month" />
+			<f:selectItem itemValue="byPeriod.xhtml"
+				itemLabel="Show invoices by period" />
+			<f:selectItem itemValue="byCompany.xhtml"
+				itemLabel="Show invoices by company" />
+			<f:selectItem itemValue="isPaid.xhtml"
+				itemLabel="Show expecting payments" />
+			<f:selectItem itemValue="duePay.xhtml" itemLabel="Show due invoices" />
+		</h:selectOneMenu>
+		<p />
+		<h:commandButton value="Continue" action="#{invoiceBean.goTo}" />
+	</h:form>
+
+	<h:form action="addNewInvoice.xhtml">
+		<br></br>
+		<h:commandButton value="Add new invoice" action="addNewInvoice.xhtml" />
+	</h:form>
+	<h:form>
+		<br></br>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+	</h:form>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+
+<body background="BGFROMKIDROCK.jpeg">
+<h:form>
+		<h:commandButton
+					style="font-family:tangerine;font-size: 12px;color:#D6D1E6;background-color:#476A90;height: 20px;width: 150px "
+					action="AdminPanel.xhtml" value="Back to Admin home page">
+		    </h:commandButton>
+	</h:form>
+	<h:form>
+		<font face="Tangerine" color="#D6D1E6"> <i>
+			<h1 align="center">Welcome to the pricing panel!</h1>
+			<h2 align="center">You can view our ad packages here!</h2> 
+			<h2 align="center">
+
+
+				<table bgcolor="#132332" align="center" border="1"
+					style="padding: 2x; border: 3px solid black; width: 80%">
+					<tr>
+						<th>Plan</th>
+						<th>Free Advertising</th>
+						<th>VIP Advertising</th>
+					</tr>
+
+					<tr>
+						<th>Duration</th>
+						<td>Your advertising will be visible for 30 days.</td>
+						<td>Your advertising will be with priority(first on the page)
+							and visible for 30 days.</td>
+					</tr>
+					<tr>
+						<th>Price</th>
+						<td>Free</td>
+						<td>100 lv./ad</td>
+					</tr>
+
+					<tr>
+						<th>Discount</th>
+						<td>There are no discounts for this plan</td>
+						<td>Regular customers can get a 10% discount from the price.</td>
+					</tr>
+				</table>
+			</h2>
+		</i></font>
+	</h:form>
+	<h:form>
+	<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+	</h:form>
+	
+</body>
+</html>

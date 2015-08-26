@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<link rel="stylesheet" type="text/css" href="styleBlue.css" />
+<title>Advert</title>
+</head>
+<body>
+<h:form>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+	</h:form>
+	<p>
+		<h2>
+			<h:outputLabel value="#{index.selected.title}" />
+		</h2>
+		<h:outputLabel
+			value="Category:   #{index.selected.category.categorieName}" />
+		<br /> <br />
+		<h:outputLabel
+			value="Company:   #{index.selected.companyProfile.companyName}" />
+		<br /> <br />
+		<h:outputLabel value="Place:   #{index.selected.place.placesName}" />
+		<br /> <br />
+		<h:outputText value="#{index.selected.content}" />
+		<br /> <br />
+	</p>
+	<div align="center">
+		<h:panelGrid align="center" columns="2">
+			<br />
+			<h:form>
+				<h:commandButton class="buttons"
+					action="index.xhtml?faces-redirect=true" value="Back"
+					style="width: 107px; height: 39px; " />
+			</h:form>
+			<br />
+			<h:form>
+				<h:commandButton class="buttons"
+					action="cv_cl_view_ad.xhtml?faces-redirect=true" value="Apply"
+					style="width: 105px; height: 39px; " />
+			</h:form>
+		</h:panelGrid>
+	</div>
+</body>
+</html>
