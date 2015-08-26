@@ -5,20 +5,33 @@ import javax.faces.bean.ManagedBean;
 
 import model.entity.Owner;
 
+
+/**
+ * ManagedBean class using {@link OwnerEJB} methods
+ * needet to set Owner information in JSFs (HTML pages)
+ * 
+ * @author Kaloyan Tsvetkov
+ */
 @ManagedBean(name = "ownerBean")
 public class MangerBeanForOwner {
-
+	/* Class Fields */
 	@EJB
 	private OwnerEJB ejbOwner;
 	private Owner owner;
 	
-	//return Owner information
+	/**
+	 * Method to get Owner information fom DataBase
+	 * calling  OwnerEJB getOwnerInformation(int) method
+	 * {@link OwnerEJB}
+	 * @return Owner Object
+	 * @author Kaloyan Tsvetkov
+	 */
 	public Owner getOwnerInformation(){
-		owner = ejbOwner.getOwnerInformation(1);
+		setOwner(ejbOwner.getOwnerInformation(1)); //call OwnerEJB getOwnerInformation(int) method
 		return owner;
 	}
 	
-	//Getters and Setters
+	/* Getters and Setters */
 	public OwnerEJB getEjbOwner() {
 		return ejbOwner;
 	}

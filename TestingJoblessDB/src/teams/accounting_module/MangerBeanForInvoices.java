@@ -1,27 +1,38 @@
 package teams.accounting_module;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 import model.entity.Advertisement;
 import model.entity.CompanyProfile;
 import model.entity.Invoice;
 import model.entity.Owner;
+import pagination.EjbInvoiceItem;
+import pagination.PaginationHelper;
 
+/**
+ * ManagedBean class using {@link InvoiceEJB} methods
+ * 
+ * @author Kaloyan Tsvetkov
+ */
 @ManagedBean(name = "invoiceBean")
 public class MangerBeanForInvoices {
-
+	/* Class private members */
 	@EJB
 	private InvoiceEJB ejbInvoice;
 	@EJB
 	private AdvertisementEJB ejbAdvertisements;
 	@EJB
 	private OwnerEJB ejbOwner;
+	@EJB
+	private EjbInvoiceItem itembean;
 	private CompanyProfile companyProfile;
 	private List<Invoice> invoiceList = new ArrayList<>();
 	private List<CompanyProfile> compList = new ArrayList<CompanyProfile>();
@@ -43,8 +54,16 @@ public class MangerBeanForInvoices {
 	private String isPaid;
 	private boolean isPaidBoolean;
 	private String fileName;
-	
-	//constructor
+	private String mssg;
+	private PaginationHelper pagination;
+	private int selectedItemIndex;
+	@SuppressWarnings("rawtypes")
+	private DataModel dtmdl = null;
+	private Invoice invoice;
+
+	/**
+	 * Constructor
+	 */
 	public MangerBeanForInvoices() {
 		this.ejbInvoice = new InvoiceEJB();
 		this.ejbAdvertisements = new AdvertisementEJB();
@@ -58,30 +77,28 @@ public class MangerBeanForInvoices {
 
 	// add All invoices to List
 	public List<Invoice> getAllInvoices() {
-		invoiceList = ejbInvoice.showAllInvoices();
-		return invoiceList;
+		setInvoiceList(ejbInvoice.showAllInvoices());
+		return getInvoiceList();
 	}
 
 	// add All invoices by day to List
 	public List<Invoice> allInvoicesByDay() {
-		invoiceList = ejbInvoice.showAllInvoicesByDay(getDayString(getDay(),
-				getMonth(), getYear()));
-		return invoiceList;
+		setInvoiceList(ejbInvoice.showAllInvoicesByDay(getDayString(getDay(), getMonth(), getYear())));
+		return getInvoiceList();
 	}
 
 	// add All invoices by Month to List
 	public List<Invoice> allInvoicesByMonth() {
-		invoiceList = ejbInvoice.showAllInvoicesByMonth(Integer.valueOf(month),
-				Integer.valueOf(year));
-		return invoiceList;
+		setInvoiceList(ejbInvoice.showAllInvoicesByMonth(Integer.valueOf(month), Integer.valueOf(year)));
+		return getInvoiceList();
 	}
 
 	// add All invoices by Period to List
 	public List<Invoice> allInvoicesByPeriod() {
 		String startDay = getDayString(day, month, year);
 		String endDay = getDayString(dayEnd, monthEnd, yearEnd);
-		invoiceList = ejbInvoice.showAllInvoicesByPeriod(startDay, endDay);
-		return invoiceList;
+		setInvoiceList(ejbInvoice.showAllInvoicesByPeriod(startDay, endDay));
+		return getInvoiceList();
 	}
 
 	// add All invoices by company to List
@@ -89,21 +106,21 @@ public class MangerBeanForInvoices {
 		String[] temp = selectedItem.split(" ");
 		int id = Integer.valueOf(temp[0]);
 
-		invoiceList = ejbInvoice.showAllInvoicesByCompani(id);
+		setInvoiceList(ejbInvoice.showAllInvoicesByCompani(id));
 		setIdComp(id);
-		return invoiceList;
+		return getInvoiceList();
 	}
 
 	// get All invoices by Expecting payment
 	public List<Invoice> getAllInvoicesByExpectingPayments() {
-		invoiceList = ejbInvoice.showAllExpectingPayments();
-		return invoiceList;
+		setInvoiceList(ejbInvoice.showAllExpectingPayments());
+		return getInvoiceList();
 	}
 
 	// get All invoices by Late payment
 	public List<Invoice> getAllInvoicesByLatePayments() {
-		invoiceList = ejbInvoice.showAllLatePayments();
-		return invoiceList;
+		setInvoiceList(ejbInvoice.showAllLatePayments());
+		return getInvoiceList();
 	}
 
 	// add new Invoice
@@ -111,40 +128,43 @@ public class MangerBeanForInvoices {
 		calculateTotalPrice();
 		choiceCash();
 		choicePaid();
-		
+
 		String[] temp = selectedItem.split(" ");
 		int id = Integer.valueOf(temp[0]);
-		
+
 		CompanyProfile compTemp = ejbInvoice.allCompaniesByName(id);
 		Date evDate = ejbInvoice.formatStringToDate(getDayString(day, month, year));
 		double totPrice = Double.valueOf(totalPrice);
 		double disc = Double.valueOf(discount);
 		Owner owner = ejbOwner.getOwnerInformation(1);
-		
+
 		Invoice invoiceTemp = new Invoice();
 		invoiceTemp.setIsCash(isCashPaid);
 		invoiceTemp.setIsPayed(isPaidBoolean);
-		invoiceTemp.setTotalPrice(totPrice);	
-		invoiceTemp.setEventDate(evDate);		
+		invoiceTemp.setTotalPrice(totPrice);
+		invoiceTemp.setEventDate(evDate);
 		invoiceTemp.setDiscount(disc);
 		invoiceTemp.setCompanyProfile(compTemp);
 		invoiceTemp.setOwner(owner);
-		
-		temp = selectedItemAdv.split(" ");
-		id = Integer.valueOf(temp[0]);
-		invoiceTemp.setAdvId(id);
+
+		String[] tempAdv = selectedItemAdv.split(" ");
+		int idAdv = Integer.valueOf(tempAdv[0]);
+		invoiceTemp.setAdvId(idAdv);
 		ejbInvoice.addInvoice(invoiceTemp);
+		ejbAdvertisements.updateAdvertToHasInvoice(idAdv);
 	}
 
 	// update invoice
-	public void updateInvoice() {
-		ejbInvoice.updateInvoiceByIsPayed(invoiceObj, invoiceObj.getIsPayed());
-	}
+	public void updateInvoice(Invoice invoice) {
+		if (invoice.getIsPayed()) {
+			return;
+		} else {
+			int temp = invoice.getId();
+			int idAdv = invoice.getAdvId();
+			ejbInvoice.updateInvoiceByIsPayed(temp);
+			ejbAdvertisements.updateAdvertToIsPayed(idAdv);
+		}
 
-	// to refresh the xhtml page
-	public String showAllInvoices() {
-		invoiceList = ejbInvoice.showAllInvoices();
-		return "Companies.xhtml";
 	}
 
 	// method for dynamic Select One Menu for CompanyProfiles
@@ -160,8 +180,7 @@ public class MangerBeanForInvoices {
 	// method for dynamic Select One Menu for Advertisements
 	public List<SelectItem> getShowAllAdvertisementsSelectOneMenu() {
 		List<SelectItem> items = new ArrayList<SelectItem>();
-		List<Advertisement> adverts = ejbAdvertisements
-				.showAllVipNonPayedAdvertisement(getIdComp());
+		List<Advertisement> adverts = ejbAdvertisements.showAllVipNonPayedAdvertisement(getIdComp());
 		for (Advertisement adv : adverts) {
 			items.add(new SelectItem(adv));
 		}
@@ -169,26 +188,22 @@ public class MangerBeanForInvoices {
 	}
 
 	// get CompanyProfile by id after Select One menu
-	public CompanyProfile toCompanyByID() {
+	public void toCompanyByID() {
 		String[] temp = selectedItem.split(" ");
 
 		int id = Integer.valueOf(temp[0]);
-
-		companyProfile = ejbInvoice.allCompaniesByName(id);
+		setCompanyProfile(ejbInvoice.allCompaniesByName(id));
 		setIdComp(companyProfile.getId());
-		return companyProfile;
 	}
 
-	//calculating total price
-	public String calculateTotalPrice() {
+	// calculating total price
+	public void calculateTotalPrice() {
 		double disc = Double.valueOf(discount);
-
 		double discAmount = (100 + 20) * disc;
-		totalPrice = String.valueOf((100 + 20) - discAmount);
-		return totalPrice;
+		setTotalPrice(String.valueOf((100 + 20) - discAmount));
 	}
 
-	//create a date(String format) from all fields
+	// create a date(String format) from all fields
 	private String getDayString(String dayT, String monthT, String yearT) {
 		if (monthT.length() == 1) {
 			monthT = "0" + monthT;
@@ -200,62 +215,145 @@ public class MangerBeanForInvoices {
 		return finalDayString;
 	}
 
-	//from string to boolean Cash
-	public boolean choiceCash() {
+	// from string to boolean Cash
+	private void choiceCash() {
 		if (isCash.equalsIgnoreCase("true")) {
-			isCashPaid = true;
-			return isCashPaid;
+			setCashPaid(true);
 		} else {
-			isCashPaid = false;
-			return isCashPaid;
+			setCashPaid(false);
 		}
 	}
 
-	//from string to boolean Paid
-	public boolean choicePaid() {
+	// from string to boolean Paid
+	private void choicePaid() {
 		if (isPaid.equalsIgnoreCase("true")) {
-			isPaidBoolean = true;
-			return isPaidBoolean;
+			setPaidBoolean(true);
 		} else {
-			isPaidBoolean = false;
-			return isPaidBoolean;
+			setPaidBoolean(false);
 		}
 	}
 
 	
-	//export to excel
-	public void exportToExcelShowAll(){
+	// Methods needed for export filters result to excel
+	public void exportToExcelShowAll() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(getInvoiceList());
+		generateMssgForFile(export.generateSimpleExcelReport(getAllInvoices()));
 	}
-	public void exportToExcelByCompany(){
+
+	public void exportToExcelByCompany() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(allInvoicesByCompany());
+		generateMssgForFile(export.generateSimpleExcelReport(allInvoicesByCompany()));
 	}
-	public void exportToExcelByDay(){
+
+	public void exportToExcelByDay() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(allInvoicesByDay());
+		generateMssgForFile(export.generateSimpleExcelReport(allInvoicesByDay()));
 	}
-	public void exportToExcelByMonth(){
+
+	public void exportToExcelByMonth() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(allInvoicesByMonth());
+		generateMssgForFile(export.generateSimpleExcelReport(allInvoicesByMonth()));
 	}
-	public void exportToExcelByPeriod(){
+
+	public void exportToExcelByPeriod() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(allInvoicesByPeriod());
+		generateMssgForFile(export.generateSimpleExcelReport(allInvoicesByPeriod()));
 	}
-	public void exportToExcelByDuePay(){
+
+	public void exportToExcelByDuePay() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(getAllInvoicesByLatePayments());
+		generateMssgForFile(export.generateSimpleExcelReport(getAllInvoicesByLatePayments()));
 	}
-	public void exportToExcelByExpectingPayments(){
+
+	public void exportToExcelByExpectingPayments() {
 		Export export = new Export(getFileName());
-		export.generateSimpleExcelReport(getAllInvoicesByExpectingPayments());
+		generateMssgForFile(export.generateSimpleExcelReport(getAllInvoicesByExpectingPayments()));
+	}
+
+	// method to generate a message for result of Export
+	private void generateMssgForFile(boolean successExport) {
+		if (successExport) {
+			setMssg(fileName + ".xls has been successfully written to Desktop");
+		} else {
+			setMssg(fileName + ".xls has NOT been successfully written to Desktop");
+		}
+	}
+
+	
+	//method needed for pagination
+	public PaginationHelper getPagination() {
+
+		if (pagination == null) {
+
+			pagination = new PaginationHelper(10) {
+				@Override
+				public int getItemsCount() {
+					return itembean.count();
+				}
+
+				@SuppressWarnings({ "rawtypes", "unchecked" })
+				@Override
+				public DataModel createPageDataModel() {
+
+					return new ListDataModel(
+							itembean.findRange(new int[] { getPageFirstItem(), getPageFirstItem() + getPageSize() }));
+				}
+			};
+		}
+		return pagination;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public DataModel getdtmdl() {
+		if (dtmdl == null) {
+			dtmdl = getPagination().createPageDataModel();
+		}
+		return dtmdl;
+	}
+
+	private void recreateModel() {
+		dtmdl = null;
+	}
+
+	@SuppressWarnings("unused")
+	private void recreatePagination() {
+		pagination = null;
+	}
+
+	@SuppressWarnings("unused")
+	private void updateCurrentItem() {
+		int count = itembean.count();
+		if (selectedItemIndex >= count) {
+
+			// selected index cannot be bigger than number of items:
+			selectedItemIndex = count - 1;
+
+			// go to previous page if last page disappeared:
+			if (pagination.getPageFirstItem() >= count) {
+
+				pagination.previousPage();
+			}
+		}
+		if (selectedItemIndex >= 0) {
+			invoice = itembean.findRange(new int[] { selectedItemIndex, selectedItemIndex + 1 }).get(0);
+		}
+	}
+
+	public String next() {
+		getPagination().nextPage();
+		recreateModel();
+		return "home";
+	}
+
+	public String previous() {
+		getPagination().previousPage();
+		recreateModel();
+		return "home";
 	}
 	
-	
-	
+
 	// Getters And Setters for fields...
+	/* Getters and Setters */
 	public String goTo() {
 		return getSelectedItem();
 	}
@@ -435,21 +533,40 @@ public class MangerBeanForInvoices {
 	public void setPaidBoolean(boolean isPaidBoolean) {
 		this.isPaidBoolean = isPaidBoolean;
 	}
-	
+
 	public OwnerEJB getEjbOwner() {
 		return ejbOwner;
 	}
-	
+
 	public void setEjbOwner(OwnerEJB ejbOwner) {
 		this.ejbOwner = ejbOwner;
 	}
-	
+
 	public String getFileName() {
 		return fileName;
 	}
-	
+
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
+	public String getMssg() {
+		return mssg;
+	}
+
+	public void setMssg(String mssg) {
+		this.mssg = mssg;
+	}
+
+	
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+
 	
 }

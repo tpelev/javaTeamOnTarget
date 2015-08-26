@@ -5,10 +5,15 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-//this class export information from one JSF to another JSF(see.xhtml) using nested Parameters in Command Button
+/**
+ * ManagedBean class export information from one JSF to another JSF(see.xhtml) 
+ * using nested Parameters in Command Button
+ * 
+ * @author Ilian Tegarkov
+ */
 @ManagedBean(name = "seeBean")
 public class MangerBeanForSee {
-	//class fields
+	/* Class Fields */
 	private String id;
 	private String cName;
 	private String address;
@@ -22,7 +27,7 @@ public class MangerBeanForSee {
 	private String invoiceDate;
 	private String eventDate;
 	
-	//methods needed to set and get parameters from command button
+	/* methods needed to set and get parameters from command button */
 	public String getOutcomeId() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		return this.id = getIdParam(fc);
@@ -154,7 +159,7 @@ public class MangerBeanForSee {
 
 	}
 	
-	//Getters and Setters
+	/* Getters and Setters */
 	public String getId() {
 		return id;
 	}
