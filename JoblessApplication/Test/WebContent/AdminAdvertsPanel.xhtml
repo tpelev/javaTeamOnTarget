@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<style>
+.Bimage {
+	background-image: url("resources/css/back.jpg");
+}
+
+.BigButton {
+	font-style: italic;
+	font-family: impact;
+	font-size: 18px;
+	color: #000000;
+	background-color: #198BC9;
+	height: 50px;
+	width: 200px;
+}
+
+.SmallButton {
+	font-style: italic;
+	font-family: arial;
+	font-size: 12px;
+	color: #000000;
+	background-color: #198BC9;
+	height: 20px;
+	width: 65px;
+}
+
+.BackButton {
+	font-family: arial;
+	font-size: 12px;
+	color: #000000;
+	background-color: #198BC9;
+	height: 20px;
+	width: 150px;
+}
+
+.ColumnHeight {
+	width: 30px;
+	text-align: center;
+}
+
+.RowWidth {
+	height: 10px;
+	text-align: center;
+}
+</style>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Advertisement panel</title>
+
+</h:head>
+<h:body styleClass="Bimage">
+
+	<h:form>
+		<h:commandButton styleClass="BackButton" action="AdminPanel.xhtml"
+			value="Admin home page">
+		</h:commandButton>
+
+		<h:form align="right">
+			<h:commandButton styleClass="BackButton"
+				action="#{LoginAsAdminB.logout}" value="Log out">
+			</h:commandButton>
+		</h:form>
+	</h:form>
+
+	<h1 style="font-style: italic;" align="center">Welcome to the
+		advertisement panel!</h1>
+
+	<h:form>
+
+		<h:panelGroup rendered="#{adverts.dtmdl.rowCount > 0}" style="">
+			<h4 align="center">
+				<h:commandButton styleClass="SmallButton"
+					action="#{adverts.previous}" value="Previous"
+					rendered="#{adverts.pagination.hasPreviousPage}">
+				</h:commandButton>
+				&nbsp;
+				<h:outputText
+					value="#{adverts.pagination.pageFirstItem + 1}
+						..#{adverts.pagination.pageLastItem + 1}/
+						#{adverts.pagination.itemsCount}">
+				</h:outputText>
+				&nbsp;
+				<h:commandButton styleClass="SmallButton" action="#{adverts.next}"
+					value="Next" rendered="#{adverts.pagination.hasNextPage}">
+				</h:commandButton>
+				&nbsp;
+			</h4>
+			<h3 align="center">
+
+				<h:dataTable style="width:80%;background:#4BAFE0"
+					value="#{adverts.dtmdl}" var="advertisement" headerClass="headers"
+					border="1" cellspacing="0" cellpadding="5" frame="border"
+					columnClasses="ColumnHeight" rowClasses="RowWidth">
+
+					<h:column headerClass="column1">
+						<f:facet name="header">ID</f:facet>
+						<h:outputText styleClass="ColumnSize" value="#{advertisement.id}">
+						</h:outputText>
+					</h:column>
+
+					<h:column headerClass="column1">
+						<f:facet name="header">Title</f:facet>
+						<h:outputText styleClass="ColumnSize"
+							value="#{advertisement.title}">
+						</h:outputText>
+					</h:column>
+					<h:column headerClass="column2">
+						<f:facet name="header">Category</f:facet>
+						<h:outputText value="#{advertisement.category.categorieName}">
+						</h:outputText>
+					</h:column>
+
+					<h:column headerClass="column3">
+						<f:facet name="header">Content</f:facet>
+						<div style="width: 100%; overflow-y: scroll; max-height: 90px;">
+							<h:outputText value="#{advertisement.content}">
+							</h:outputText>
+						</div>
+					</h:column>
+
+					<h:column headerClass="column4">
+						<f:facet name="header">Test</f:facet>
+						<h:outputText value="#{advertisement.test}">
+						</h:outputText>
+					</h:column>
+
+
+					<h:column headerClass="column4">
+						<f:facet name="header">Price</f:facet>
+						<h:outputText value="#{advertisement.price}">
+						</h:outputText>
+					</h:column>
+
+					<h:column headerClass="column5">
+						<f:facet name="header">Activity days</f:facet>
+						<h:outputText value="#{advertisement.activityDays}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Expiration date</f:facet>
+						<h:outputText value="#{advertisement.expirationDate}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Place</f:facet>
+						<h:outputText value="#{advertisement.place.placesName}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Is vip</f:facet>
+						<h:outputText value="#{advertisement.isVip}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Is aproved</f:facet>
+						<h:outputText value="#{advertisement.isApproved}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Is paid</f:facet>
+						<h:outputText value="#{advertisement.isPaid}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Is expired</f:facet>
+						<h:outputText value="#{advertisement.isExpired}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Option</f:facet>
+						<h:commandButton value="Edit" styleClass="SmallButton"
+							action="#{adverts.sendToUpdateAdv(advertisement)}">
+						</h:commandButton>
+						<br />
+						<h:commandButton value="Del" styleClass="SmallButton"
+							action="#{adverts.deleteAdvertisement(advertisement)}">
+						</h:commandButton>
+						<br />
+						<h:commandButton value="Approve" styleClass="SmallButton"
+							action="#{adverts.publishAdv(advertisement)}">
+						</h:commandButton>
+						<br />
+						<h:commandButton value="MakeViP" styleClass="SmallButton"
+							action="#{adverts.makeVip(advertisement)}">
+						</h:commandButton>
+					</h:column>
+				</h:dataTable>
+			</h3>
+		</h:panelGroup>
+	</h:form>
+	<h3 align="center">
+
+		<h:form>
+			<h:commandButton styleClass="BigButton" align="center"
+				value="Expired Ads" action="#{adverts.chekForExpire}">
+			</h:commandButton>
+		</h:form>
+	</h3>
+</h:body>
+</html>
