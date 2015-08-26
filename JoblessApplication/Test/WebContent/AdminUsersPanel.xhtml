@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<style> 
+		 .Bimage{background-image:url("resources/css/back.jpg"); } 
+		 .BigButton{font-style:italic;font-family:impact;font-size: 18px;color:#000000;background-color:#198BC9;height: 50px;width: 200px;}  
+		 .SmallButton{font-style:italic;font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 65px;}
+		 .BackButton{font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 150px ;}
+		 .ColumnHeight{width: 30px; text-align: center;}
+		 .RowWidth{height: 10px; text-align: center;}
+	</style>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Users panel</title>
+	
+</h:head>
+	<h:body styleClass="Bimage"> 
+		<h:form>
+			<h:commandButton 
+				styleClass="BackButton"
+				action="AdminPanel.xhtml" 
+				value="Admin home page">
+			</h:commandButton>
+	
+			<h:form align="right">
+				<h:commandButton 
+					styleClass="BackButton"
+					action="#{LoginAsAdminB.logout}" 
+					value="Log out">
+				</h:commandButton>
+			</h:form>
+		</h:form>
+	<h1 style="font-style: italic;"  align="center">Welcome to the user panel!</h1>
+		<h:form>
+			
+			<h:panelGroup rendered="#{companies.dtmdl.rowCount > 0}">
+				<h4 align="center">
+	          <h:commandButton action="#{users.previous}" styleClass="SmallButton"
+					value="Previous"
+					rendered="#{users.pagination.hasPreviousPage}"> </h:commandButton> &nbsp;
+					<h:outputText
+					value="#{users.pagination.pageFirstItem + 1}..#{users.pagination.pageLastItem + 1}/#{users.pagination.itemsCount}" /> &nbsp;
+	          <h:commandButton action="#{users.next}" styleClass="SmallButton"
+					value="Next"
+					rendered="#{users.pagination.hasNextPage}"> </h:commandButton> &nbsp;
+					</h4>
+					<h4 align="center">
+	  		 <h:dataTable 
+		  		 value="#{users.dtmdl}" 
+		  		 var="user" 
+		  		 style="width:80%;background:#4BAFE0"
+				 headerClass="headers" 
+				 border="1" 
+				 cellspacing="0" 
+				 cellpadding="5" 
+				 columnClasses="ColumnHeight" 
+				 rowClasses="RowWidth"
+				 frame="box">
+					<h:column>
+						<f:facet name="header">ID</f:facet>
+							<h:outputText 
+								value="#{user.id}">
+							</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">First name</f:facet>
+							<h:outputText 
+								value="#{user.firstName}">
+							</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Last name</f:facet>
+							<h:outputText 
+								value="#{user.lastName}">
+							</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Email</f:facet>
+							<h:outputText 
+								value="#{user.email}">
+							</h:outputText>
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">Options</f:facet>
+							<h:commandButton 
+								value="Edit" 
+								styleClass="SmallButton"
+								action="#{users.updateUserProfile(user)}" >
+							</h:commandButton>
+					</h:column>
+					
+				</h:dataTable>
+				</h4>
+			</h:panelGroup>
+		</h:form>
+	</h:body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html" 
+		xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<style>
+ 		.Bimage{background-image:url("resources/css/back.jpg"); } 
+		.BigButton{font-style:italic;font-family:impact;font-size: 18px;color:#000000;background-color:#198BC9;height: 50px;width: 200px;}  
+ 		.BackButton{font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 150px ;}
+	</style>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+	<title>Administration panel</title>
+</h:head>
+	<h:body styleClass="Bimage">
+	
+			<h:form align="right">
+				<h:commandButton
+					styleClass="BackButton"
+					action="#{LoginAsAdminB.logout}" 
+					value="Log out">
+				</h:commandButton>
+			</h:form>
+	
+	
+		<h1 style="font-style: italic;" align="center">Welcome to the administrator panel!</h1> 
+		
+			<h:form id="adminPanel">
+				<br/> 
+				<br/> 
+				<br/> 
+				<h2 align="center">
+					<h:panelGrid columns="2"
+								 styleClass="panel">	
+								 			 
+						<h:commandButton action="AdminAdvertsPanel.xhtml" 
+										 value="See all ads!"
+										 styleClass="BigButton">
+						</h:commandButton>  
+					<br/> 
+					<br/> 
+					<br/> 
+						<h:commandButton action="AdminUsersPanel.xhtml" 
+										 value="See all users!"
+										 styleClass="BigButton">
+						</h:commandButton>
+					<br/> 
+					<br/> 
+					<br/> 
+						<h:commandButton action="AdminCompaniesPanel.xhtml" 
+										 value="See all companies!"
+										 styleClass="BigButton">
+						</h:commandButton>
+		
+					</h:panelGrid>
+				</h2>
+			</h:form>
+	</h:body>
+</html>
