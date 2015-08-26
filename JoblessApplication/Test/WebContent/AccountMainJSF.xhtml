@@ -59,20 +59,28 @@
 				<f:selectItem itemValue="duePay.xhtml" itemLabel="Show due invoices" />
 			</h:selectOneMenu>
 			<p />
-			<h:commandButton class="myButton" value="Continue" action="#{invoiceBean.goTo}"
-				style="height:30px; width:150px" />
+			<h:commandButton class="myButton" value="Continue"
+				action="#{invoiceBean.goTo}" style="height:40px; width:150px" />
 		</h:form>
 
 		<h:form action="addNewInvoice.xhtml">
 			<br></br>
-			<h:commandButton class="myButton" value="New invoice" action="addNewInvoice.xhtml"
-				style="height:30px; width:150px" />
+			<h:commandButton class="myButton" value="New invoice"
+				action="addNewInvoice.xhtml" style="height:40px; width:150px" />
+		</h:form>
+		<h:form>
+			<div id="mainContainer">
+				<br></br>
+				<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+					action="HelpMenu.html" value="Get help here" />
+			</div>
 		</h:form>
 		<h:form>
 			<br></br>
 			<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"
 				style="font-size:25px;"></h:commandLink>
 		</h:form>
+
 	</center>
 </body>
 </html>

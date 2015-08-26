@@ -33,7 +33,6 @@
 	text-decoration: none;
 	text-shadow: 0px 1px 0px #2b665e;
 	text-align: center;
-	vertical-align: middle;
 }
 </style>
 </h:head>
@@ -196,17 +195,24 @@
 		</h:inputText>
 
 		<br> </br>
-		<h:commandButton value="Export" id="ComBut" class="myButton" 
+		<h:commandButton value="Export" id="ComBut" class="myButton"
 			action="#{invoiceBean.exportToExcelByDuePay}"
-			style="height:30px; width:100px" />
+			style="height:40px; width:100px" />
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
 		</h:outputText>
 	</h:form>
 	<h:form>
 		<br></br>
-		<h:commandButton value="Home" action="AccountMainJSF.xhtml" class="myButton" 
-			style="height:30px; width:100px" />
+		<h:commandButton value="Home" action="AccountMainJSF.xhtml"
+			class="myButton" style="height:40px; width:100px" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 

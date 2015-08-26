@@ -39,7 +39,7 @@
 <body bgcolor="#f6c593">
 	<h:form>
 		<br></br>
-		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout" 
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"
 			style="font-size:25px;"></h:commandLink>
 	</h:form>
 	<h:form>
@@ -52,8 +52,8 @@
 		</h:selectOneMenu>
 		<br> </br>
 
-		<h:commandButton action="#{invoiceBean.allInvoicesByCompany}"  class="myButton" 
-			value="Load" style="height:30px; width:100px" />
+		<h:commandButton action="#{invoiceBean.allInvoicesByCompany}"
+			class="myButton" value="Load" style="height:40px; width:100px" />
 		<br> </br>
 
 		<br></br>
@@ -174,18 +174,25 @@
 		<h:inputText id="fileName" value="#{invoiceBean.fileName}">
 		</h:inputText>
 		<br> </br>
-		<h:commandButton value="Export"  class="myButton" 
+		<h:commandButton value="Export" class="myButton"
 			action="#{invoiceBean.exportToExcelByCompany}"
-			style="height:30px; width:100px" />
-<br></br>
+			style="height:40px; width:100px" />
+		<br></br>
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
 		</h:outputText>
 	</h:form>
 	<h:form>
 		<br></br>
-		<h:commandButton value="Home"  class="myButton" action="AccountMainJSF.xhtml"
-			style="height:30px; width:100px" />
+		<h:commandButton value="Home" class="myButton"
+			action="AccountMainJSF.xhtml" style="height:40px; width:100px" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 </html>

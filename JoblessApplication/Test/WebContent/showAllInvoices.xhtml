@@ -209,7 +209,7 @@
 		</h:inputText>
 		<br></br>
 		<br> <h:commandButton class="myButton" value="Export" id="ComBut"
-				style="height:30px; width:100px"
+				style="height:40px; width:100px"
 				action="#{invoiceBean.exportToExcelShowAll}" /> </br>
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
@@ -219,7 +219,14 @@
 	</h:form>
 	<h:form>
 		<h:commandButton class="myButton" value="Home"
-			action="AccountMainJSF.xhtml" style="height:30px; width:100px" />
+			action="AccountMainJSF.xhtml" style="height:40px; width:100px" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 
 </body>

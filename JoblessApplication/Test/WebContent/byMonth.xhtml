@@ -6,7 +6,7 @@
 <h:head>
 	<h:outputStylesheet library="css" name="table-style.css" />
 	<title>Show invoices by month</title>
-		<style>
+	<style>
 .myButton {
 	-moz-box-shadow: 3px 2px 0px 0px #91b8b3;
 	-webkit-box-shadow: 3px 2px 0px 0px #91b8b3;
@@ -39,7 +39,8 @@
 <body bgcolor="#f6c593">
 	<h:form>
 		<br></br>
-		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout" style="font-size:25px;"></h:commandLink>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"
+			style="font-size:25px;"></h:commandLink>
 	</h:form>
 	<h:form>
 		<h1>Show invoices by month</h1>
@@ -53,12 +54,14 @@
 
 		Month:	<h:inputText id="month" required="true"
 			requiredMessage="Please enter month" value="#{invoiceBean.month}"
-			validatorMessage="The entered month is not valid!" style="width:50px;">
+			validatorMessage="The entered month is not valid!"
+			style="width:50px;">
 			<f:validateRegex pattern="0?[1-9]|1[012]" />
 		</h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;
 
-		<h:commandButton value="Load" class="myButton" 
-			action="#{invoiceBean.allInvoicesByMonth}" style="height:30px; width:100px"/>
+		<h:commandButton value="Load" class="myButton"
+			action="#{invoiceBean.allInvoicesByMonth}"
+			style="height:40px; width:100px" />
 		<br></br>
 		<br></br>
 		<h:dataTable id="bymonth" value="#{invoiceBean.invoiceList}"
@@ -180,17 +183,26 @@
 		<br></br>
 		<b>Enter file name:</b>
 		<h:inputText id="fileName" value="#{invoiceBean.fileName}">
-			</h:inputText> 
-		<br> <h:commandButton value="Export" class="myButton" 
-				action="#{invoiceBean.exportToExcelByMonth}" style="height:30px; width:100px"/> </br>
-				
+		</h:inputText>
+		<br> <h:commandButton value="Export" class="myButton"
+				action="#{invoiceBean.exportToExcelByMonth}"
+				style="height:40px; width:100px" /> </br>
+
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
 		</h:outputText>
 	</h:form>
 	<h:form>
 		<br></br>
-		<h:commandButton value="Home"  class="myButton" action="AccountMainJSF.xhtml" style="height:30px; width:100px"/>
+		<h:commandButton value="Home" class="myButton"
+			action="AccountMainJSF.xhtml" style="height:40px; width:100px" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 </html>

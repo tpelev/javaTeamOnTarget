@@ -64,7 +64,7 @@
 			<f:validateRegex pattern="0?[1-9]|[12]\d|3[01]" />
 		</h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<h:commandButton action="#{invoiceBean.allInvoicesByDay}" value="Load"
-			style="height:30px; width:100px"  class="myButton" />
+			style="height:40px; width:100px" class="myButton" />
 		<br></br>
 		<br></br>
 		<h:dataTable id="duepay" value="#{invoiceBean.invoiceList}"
@@ -190,7 +190,7 @@
 		</h:inputText>
 		<br> <h:commandButton value="Export"
 				action="#{invoiceBean.exportToExcelByDay}"
-				style="height:30px; width:100px" class="myButton"  /> </br>
+				style="height:40px; width:100px" class="myButton" /> </br>
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
 		</h:outputText>
@@ -198,7 +198,14 @@
 	<h:form>
 		<br></br>
 		<h:commandButton value="Home" action="AccountMainJSF.xhtml"
-			style="height:30px; width:100px"  class="myButton" />
+			style="height:40px; width:100px" class="myButton" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 </html>

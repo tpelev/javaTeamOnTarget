@@ -33,7 +33,6 @@
 	text-decoration: none;
 	text-shadow: 0px 1px 0px #2b665e;
 	text-align: center;
-	vertical-align: middle;
 }
 </style>
 </h:head>
@@ -91,10 +90,10 @@
 		<h:selectOneMenu id="test" value="#{invoiceBean.selectedItem}"
 			style="height:30px">
 			<f:selectItems value="#{invoiceBean.showAllCompaniesSelectOneMenu}" />
-		</h:selectOneMenu>
+		</h:selectOneMenu>&nbsp;&nbsp;
 
 		<h:commandButton action="#{invoiceBean.toCompanyByID}" value="Load"
-			style="height:30px; width:100px" class="myButton" />
+			style="height:40px; width:100px" class="myButton" />
 
 		<br></br>
 		<br></br>
@@ -196,7 +195,6 @@
 		<h:message for="day" errorStyle="color:red; display:block"></h:message>
 		<h:messages globalOnly="true" />
 
-
 		<br></br>
 		<br></br>Qunatity: 1
 		<br></br>Price: 100
@@ -207,9 +205,9 @@
 			<f:selectItem itemValue="0" itemLabel="0%" />
 			<f:selectItem itemValue="0.1" itemLabel="10%" />
 			<f:selectItem itemValue="0.2" itemLabel="20%" />
-		</h:selectOneMenu>
+		</h:selectOneMenu>&nbsp;&nbsp;
 		<h:commandButton id="test" action="#{invoiceBean.calculateTotalPrice}"
-			value="Calculate" style="height:30px; width:100px" class="myButton" >
+			value="Calculate" style="height:40px; width:100px" class="myButton">
 			<f:ajax execute="discount" render="result"></f:ajax>
 		</h:commandButton>
 		<br></br>
@@ -217,8 +215,6 @@
 		<br></br>
 	Total price: <h:outputText id="result"
 			value="#{invoiceBean.totalPrice}" />
-
-
 		<br></br>
 Deadline: 5 days
 <br></br>
@@ -230,8 +226,6 @@ Ways of payment:
 			<f:selectItem itemValue="true" itemLabel="Cash" />
 			<f:selectItem itemValue="false" itemLabel="Bank" />
 		</h:selectOneRadio>
-
-
 		<br></br>
 
 Is it paid? 
@@ -241,14 +235,21 @@ Is it paid?
 		</h:selectOneRadio>
 
 		<br></br>
-		<h:commandButton type="submit" value="Submit" class="myButton" 
-			action="#{invoiceBean.addInvoice}" style="height:30px; width:100px" />
+		<h:commandButton type="submit" value="Submit" class="myButton"
+			action="#{invoiceBean.addInvoice}" style="height:40px; width:100px" />
 		<br></br>
 		<br></br>
 	</h:form>
 	<h:form>
 		<h:commandButton value="Cancel" action="AccountMainJSF.xhtml"
-			style="height:30px; width:100px" class="myButton" />
+			style="height:40px; width:100px" class="myButton" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 </html>

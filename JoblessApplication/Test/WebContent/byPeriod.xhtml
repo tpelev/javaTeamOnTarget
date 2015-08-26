@@ -39,24 +39,28 @@
 <body bgcolor="#f6c593">
 	<h:form>
 		<br></br>
-		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout" style="font-size:25px;"></h:commandLink>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"
+			style="font-size:25px;"></h:commandLink>
 	</h:form>
 	<h:form>
 		<h1>Show invoices by period</h1>
 		<p>Enter year, month and click "Load"</p>
 		Start year:		<h:inputText id="startYear" required="true"
 			requiredMessage="Please enter start year" value="#{invoiceBean.year}"
-			validatorMessage="The entered start year is not valid!" style="width:50px;">
+			validatorMessage="The entered start year is not valid!"
+			style="width:50px;">
 			<f:validateRegex pattern="^(19|20)\d{2}$" />
 		</h:inputText>&nbsp;&nbsp;
 		Start month:	<h:inputText id="startMonth" required="true"
 			requiredMessage="Please enter month" value="#{invoiceBean.month}"
-			validatorMessage="The entered start month is not valid!" style="width:50px;">
+			validatorMessage="The entered start month is not valid!"
+			style="width:50px;">
 			<f:validateRegex pattern="0?[1-9]|1[012]" />
 		</h:inputText>&nbsp;&nbsp;
 		Start day:		<h:inputText id="startDay" required="true"
 			requiredMessage="Please enter day" value="#{invoiceBean.day}"
-			validatorMessage="The entered start day is not valid!" style="width:50px;">
+			validatorMessage="The entered start day is not valid!"
+			style="width:50px;">
 			<f:validateRegex pattern="0?[1-9]|[12]\d|3[01]" />
 		</h:inputText>
 		<br></br>
@@ -64,25 +68,29 @@
 		<br></br>
 			End year:&nbsp;&nbsp;<h:inputText id="endYear" required="true"
 			requiredMessage="Please enter year" value="#{invoiceBean.yearEnd}"
-			validatorMessage="The entered end year is not valid!" style="width:50px;">
+			validatorMessage="The entered end year is not valid!"
+			style="width:50px;">
 			<f:validateRegex pattern="^(19|20)\d{2}$" />
 		</h:inputText>&nbsp;&nbsp;
 
 		End month:&nbsp;&nbsp;<h:inputText id="endMonth" required="true"
 			requiredMessage="Please enter month" value="#{invoiceBean.monthEnd}"
-			validatorMessage="The entered end month is not valid!" style="width:51px;">
+			validatorMessage="The entered end month is not valid!"
+			style="width:51px;">
 			<f:validateRegex pattern="0?[1-9]|1[012]" />
 		</h:inputText>&nbsp;&nbsp;
 			
 		End day:&nbsp;&nbsp;<h:inputText id="endDay" required="true"
 			requiredMessage="Please enter day" value="#{invoiceBean.dayEnd}"
-			validatorMessage="The entered end day is not valid!" style="width:51px;">
+			validatorMessage="The entered end day is not valid!"
+			style="width:51px;">
 			<f:validateRegex pattern="0?[1-9]|[12]\d|3[01]" />
 		</h:inputText>
 		<br></br>
 		<br></br>
-		<h:commandButton value="Load" class="myButton" 
-			action="#{invoiceBean.allInvoicesByPeriod}" style="height:30px; width:100px"/>
+		<h:commandButton value="Load" class="myButton"
+			action="#{invoiceBean.allInvoicesByPeriod}"
+			style="height:40px; width:100px" />
 
 		<br></br>
 		<br></br>
@@ -205,11 +213,14 @@
 		<h:message for="endDay" errorStyle="color:red; display:block"></h:message>
 		<h:messages globalOnly="true" />
 
-		<br></br><b>Enter file name:</b>&nbsp;&nbsp;
+		<br></br>
+		<b>Enter file name:</b>&nbsp;&nbsp;
 		<h:inputText id="fileName" value="#{invoiceBean.fileName}">
-			</h:inputText>
-		<br></br> <h:commandButton value="Export" id="expBut" class="myButton" 
-				action="#{invoiceBean.exportToExcelByPeriod}" style="height:30px; width:100px"/>
+		</h:inputText>
+		<br></br>
+		<h:commandButton value="Export" id="expBut" class="myButton"
+			action="#{invoiceBean.exportToExcelByPeriod}"
+			style="height:40px; width:100px" />
 		<br></br>
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
@@ -217,7 +228,15 @@
 	</h:form>
 	<h:form>
 		<br></br>
-		<h:commandButton  class="myButton" value="Home" action="AccountMainJSF.xhtml" style="height:30px; width:100px"/>
+		<h:commandButton class="myButton" value="Home"
+			action="AccountMainJSF.xhtml" style="height:40px; width:100px" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 </html>

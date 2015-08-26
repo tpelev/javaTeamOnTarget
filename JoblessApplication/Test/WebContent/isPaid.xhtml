@@ -6,7 +6,7 @@
 <h:head>
 	<h:outputStylesheet library="css" name="table-style.css" />
 	<title>Is Paid</title>
-		<style>
+	<style>
 .myButton {
 	-moz-box-shadow: 3px 2px 0px 0px #91b8b3;
 	-webkit-box-shadow: 3px 2px 0px 0px #91b8b3;
@@ -33,7 +33,6 @@
 	text-decoration: none;
 	text-shadow: 0px 1px 0px #2b665e;
 	text-align: center;
-	vertical-align: middle;
 }
 </style>
 </h:head>
@@ -200,7 +199,7 @@
 		<br></br>
 		<h:commandButton value="Export"
 			action="#{invoiceBean.exportToExcelByExpectingPayments}"
-			style="height:30px; width:100px" class="myButton" />
+			style="height:40px; width:100px" class="myButton" />
 		<br></br>
 		<h:outputText id="outMsg" style="color: green;"
 			value="#{invoiceBean.mssg}">
@@ -209,7 +208,14 @@
 	<h:form>
 		<br></br>
 		<h:commandButton value="Home" action="AccountMainJSF.xhtml"
-			style="height:30px; width:100px" class="myButton" />
+			style="height:40px; width:100px" class="myButton" />
+	</h:form>
+	<h:form>
+		<div id="mainContainer">
+			<br></br>
+			<h:commandButton class="myButton" style="height: 40px;width: 150px;"
+				action="HelpMenu.html" value="Get help here" />
+		</div>
 	</h:form>
 </body>
 
