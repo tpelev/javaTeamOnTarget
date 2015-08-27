@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<link rel="stylesheet" type="text/css" href="resources/styleBlue.css" />
+<title>Advert</title>
+</head>
+<body>
+<h:form>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+	</h:form>
+	<h2>
+		<h:outputLabel value="#{index.selected.title}" />
+	</h2>
+
+	<h:outputLabel
+		value="Category: #{index.selected.category.categorieName}" />
+	<br />
+	<br />
+	<h:outputLabel
+		value="Comapy: #{index.selected.companyProfile.companyName}" />
+	<br />
+	<br />
+	<h:outputLabel value="Place: #{index.selected.place.placesName}" />
+	<br />
+	<br />
+	<h:outputText value="#{index.selected.content}" />
+	<br />
+	<p/>
+	<div id = "mainContainer">
+	<h:panelGrid columns="1">
+		<h:form>
+			<h:commandButton class="buttons"
+				action="advIndex.xhtml?faces-redirect=true" value="Back" />
+		</h:form>
+		<h:form>	
+			<h:commandButton class="buttons"
+				action="advEnterAnwers.xhtml?faces-redirect=true" value="Apply" />
+		</h:form>
+	</h:panelGrid>
+	</div>
+</body>
+</html>

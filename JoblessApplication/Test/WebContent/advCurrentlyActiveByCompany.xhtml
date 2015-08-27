@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<link rel="stylesheet" type="text/css" href="resources/styleActiveAdCompany.css" />
+<title>All Active Ads</title>
+</head>
+<body style="background-color : #FB8A51">
+	<h:form>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+	</h:form>
+	<h2>All Active Ads</h2>
+	<h:dataTable id="adTable" value="#{createAd.activeAdverts}" var="adv"
+		width="100%" border="1">
+		<h:column id="id">
+			<f:facet name="header">
+				<h:outputText value="ID" />
+			</f:facet>
+			<h:outputText value="#{adv.id}" />
+		</h:column>
+
+		<h:column id="Title">
+			<f:facet name="header">
+				<h:outputText value="Title" />
+			</f:facet>
+			<h:outputText value="#{adv.title}" />
+		</h:column>
+
+		<h:column id="Category">
+			<f:facet name="header">
+				<h:outputText value="Category" />
+			</f:facet>
+			<h:outputText value="#{adv.category.categorieName}" />
+		</h:column>
+
+		<h:column id="Place">
+			<f:facet name="header">
+				<h:outputText value="Place" />
+			</f:facet>
+			<h:outputText value="#{adv.place.placesName}" />
+		</h:column>
+
+		<h:column id="VIP">
+			<f:facet name="header">
+				<h:outputText value="Type" />
+			</f:facet>
+			<h:outputText style="color: red; font-weight: bold" value="VIP"
+				rendered="#{adv.isVip}" />
+			<h:outputText value="not vip" rendered="#{!adv.isVip}" />
+		</h:column>	
+	</h:dataTable>
+	<div id="mainContainer" align="center">
+		<h:panelGrid columns="1">
+			<h:form>
+				<h:commandButton class="buttons"
+					action="advTypeSelectionView.xhtml?faces-redirect=true" value="Create new ad" />
+			</h:form>
+		</h:panelGrid>
+	</div>
+</body>
+</html>

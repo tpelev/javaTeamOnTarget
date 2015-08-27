@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+	<style> 
+		 .Bimage{background-image:url("resources/css/back.jpg"); } 
+		 .BigButton{font-style:italic;font-family:impact;font-size: 18px;color:#000000;background-color:#198BC9;height: 30px;width: 100px;}  
+		 .SmallButton{font-style:italic;font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 65px;}
+		 .BackButton{font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 150px ;}
+		 .SelectOne{width: 90%;}
+	</style>
+	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Company panel</title>
+
+</head>
+
+		<h:body styleClass="Bimage" >
+			<h:form>
+				<h:commandButton 
+					styleClass="BackButton" 
+					action="AdminCompaniesPanel.xhtml?faces-redirect=true" 
+					value="Companies page">
+				</h:commandButton>
+		
+				<h:form align="right">
+				<h:commandButton 
+					styleClass="BackButton"
+					action="#{LoginAsAdminB.logout}" 
+					value="Log out">
+				</h:commandButton>
+				</h:form>
+			</h:form>	
+			
+			<h1  style="font-style: italic;" align="center" >
+				<br /> To update a company fill the form below and click "Edit"!</h1>
+				<br/>
+				
+			<h:form>
+						
+				<h4 align="center"> 
+				
+				<h:panelGrid 
+					bgcolor="#132332" 
+					id="panel" 
+					columns="2" 
+					border="1"
+					cellpadding="2" 
+					cellspacing="2"
+					style="text-align: center;background:#4BAFE0">
+		
+						<h:outputText 
+							align="center" 
+							value="Company name">
+						</h:outputText>
+						
+						<h:inputText 
+							id='compname' 
+							value="#{companies.companyName}" 
+							styleClass="SelectOne">
+						</h:inputText>
+		
+						<h:outputText 
+							align="center" 
+							value="Address" >
+						</h:outputText>
+						
+						<h:inputText 
+							 id='address'
+							 value="#{companies.address}" 
+							 styleClass="SelectOne"  >
+						 </h:inputText>
+		
+						<h:outputText 
+							align="center" 
+							value="Owner" >
+						</h:outputText>
+							
+						<h:inputText 
+							id='Mol' 
+							value="#{companies.MOL}" 
+							styleClass="SelectOne"
+							validatorMessage="Both first and last names should begin with capital letter!"> 			 
+							<f:validateRegex pattern="[A-Z][a-z]+(\s|,)[A-Z][a-z]{1,19}"></f:validateRegex>
+						</h:inputText>
+			
+						<h:outputText 
+							align="center" 
+							value="UIC" >
+						</h:outputText>
+						
+						<h:inputText 
+							id='Eik' 
+							value="#{companies.EIK}" 
+							styleClass="SelectOne" 
+							validatorMessage="UIC should contain 13 digits! ">
+							<f:validateRegex pattern="[0-9]{13}"></f:validateRegex>
+						</h:inputText>
+		
+						<h:outputText 
+							align="center" 
+							value="Email">
+						</h:outputText>
+					
+						<h:inputText 
+							id='email' 
+							value="#{companies.email}" 
+							required="false" 
+							styleClass="SelectOne"
+							validatorMessage="The email is not valid!">
+							<f:validateRegex pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+						</h:inputText>
+						
+						
+						
+							<h:outputText 
+								align="center"
+								value="companyType" >
+							 </h:outputText>
+							 
+					<h:selectOneMenu 
+					id="companyType" 
+					value="#{companies.companyType}"  
+					style="width:95%">
+						<f:selectItem id="type0" itemLabel="----------" itemValue="Undefined" />
+						<f:selectItem id="type1" itemLabel="AD" itemValue="AD" />
+						<f:selectItem id="type2" itemLabel="EOOD" itemValue="EOOD" />
+						<f:selectItem id="type3" itemLabel="EAD" itemValue="EAD" />
+						<f:selectItem id="type4" itemLabel="School" itemValue="School" />
+						<f:selectItem id="type5" itemLabel="ET" itemValue="Other" />
+						<f:selectItem id="type6" itemLabel="OOD" itemValue="Other" />
+						<f:selectItem id="type7" itemLabel="Other" itemValue="Other" />
+					</h:selectOneMenu>
+		
+				</h:panelGrid>
+				</h4><h3 align="center">
+				<h:message for="compname" errorStyle="color:red; display:block" />
+				<h:message for="address" errorStyle="color:red; display:block" />
+				<h:message for="Mol" errorStyle="color:red; display:block" />
+				<h:message for="Eik" errorStyle="color:red; display:block" />
+				<h:message for="email" errorStyle="color:red; display:block" />
+				</h3>
+					<h3 align="center">
+					<h:commandButton 
+						value="Edit" 
+						styleClass="BigButton"
+						action="#{companies.updateCompanyProfile}" >
+					</h:commandButton>
+					</h3>
+			</h:form>
+		</h:body>
+</html>

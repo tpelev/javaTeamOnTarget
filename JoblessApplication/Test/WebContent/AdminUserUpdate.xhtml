@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+	<style> 
+		 .Bimage{background-image:url("resources/css/back.jpg"); } 
+		 .BigButton{font-style:italic;font-family:impact;font-size: 18px;color:#000000;background-color:#198BC9;height: 30px;width: 100px;}  
+		 .SmallButton{font-style:italic;font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 65px;}
+		 .BackButton{font-family:arial;font-size: 12px;color:#000000;background-color:#198BC9;height: 20px;width: 150px ;}
+	</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>User panel</title>
+</head>
+
+	<h:body styleClass="Bimage" >
+		<h:form>
+				<h:commandButton 
+					styleClass="BackButton"
+					action="AdminUsersPanel.xhtml?faces-redirect=true" 
+					value="Users page">
+				</h:commandButton>
+	
+			<h:form align="right">
+				<h:commandButton 
+					styleClass="BackButton"
+					action="#{LoginAsAdminB.logout}" 
+					value="Log out">
+				</h:commandButton>
+			</h:form>
+		</h:form>
+		<h1 align="center" style="font-style: italic;">
+			<br /> To edit a user just fill the form below and click "Edit"! <br />
+			<br />
+			</h1>
+			
+		<h:form>
+				
+			
+			<h4 align="center">
+			
+			<h:panelGrid 
+			bgcolor="#132332" 
+			id="panel" 
+			columns="2" 
+			border="1"
+			cellpadding="2" 
+			cellspacing="2"
+			style="text-align: center;background:#4BAFE0">
+		
+					<h:outputText 
+						align="center" 
+						value="First name">
+					</h:outputText>
+				
+					<h:inputText 
+						id='firstname'
+						value="#{users.firstName}"
+						required="true" 
+						requiredMessage="Please enter first name!"
+						validatorMessage="First name should start with a capital letter!">
+						<f:validateRegex pattern="[A-Z]{1}[a-zA-Z]+"></f:validateRegex>
+					</h:inputText>
+		
+					<h:outputText 
+						align="center" 
+						value="Last name">
+					</h:outputText>
+		
+					<h:inputText 
+						id='lastname' 
+						value="#{users.lastName}" 
+						required="true"
+						requiredMessage="Please enter last name!"
+						validatorMessage="Last name should start with a capital letter!">
+						<f:validateRegex pattern="[A-Z]{1}[a-zA-Z]+"></f:validateRegex>
+					</h:inputText>
+		
+					<h:outputText 
+						align="center" 
+						value="Email">
+					</h:outputText>
+				
+					<h:inputText 
+						id='email' 
+						value="#{users.email}" 
+						required="true"
+						requiredMessage="Please enter email!"
+						validatorMessage="The email is not valid!">
+						<f:validateRegex pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+					</h:inputText>
+		
+			</h:panelGrid>
+			</h4><h3 align="center">
+			<h:message  for="firstname" errorStyle="color:red; display:block" />
+			<h:message for="lastname" errorStyle="color:red; display:block" />
+			<h:message for="email" errorStyle="color:red; display:block" />
+			<h:messages globalOnly="true" />
+			</h3>
+				<h3 align="center">
+				
+			<h:commandButton
+				 value="Edit" 
+				 styleClass="BigButton" 
+			      action="#{users.update}" >
+			</h:commandButton>
+					</h3>
+					
+		</h:form>
+</h:body>
+</html>

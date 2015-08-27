@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jobless Aplication Help</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+.accordion {
+	-webkit-box-shadow: 0px 75px 35px -55px rgba(10, 30, 65, 0.6);
+	-moz-box-shadow: 0px 75px 35px -55px rgba(10, 30, 65, 0.6);
+	box-shadow: 0px 75px 35px -55px rgba(10, 30, 65, 0.6);
+	font-family: Arial, Helvetica, sans-serif;
+	border-color: #505050;
+	border-style: solid;
+	border-width: 0px;
+	border-radius: 8px;
+	margin: 0 auto;
+	height: 290px;
+	width: 905px;
+}
+
+.accordion>ul>li, .accordion-title, .accordion-content,
+	.accordion-separator {
+	float: left;
+}
+
+.accordion>ul>li {
+	background-color: #1f1f1f;
+	margin-right: -700px;
+	margin-bottom: -0px;
+}
+
+.accordion-select:checked ~ .accordion-separator {
+	margin-right: 700px;
+	margin-bottom: 0px;
+}
+
+.accordion-title, .accordion-select {
+	background-color: #2d2d2d;
+	color: #ffffff;
+	width: 40px;
+	height: 290px;
+	font-size: 15px;
+}
+
+.accordion-title span {
+	margin-bottom: 20px;
+	margin-left: 20px;
+}
+
+.accordion-select:hover ~ .accordion-title, .accordion-select:checked ~
+	.accordion-title {
+	background-color: #3068cc;
+}
+
+.accordion-title span {
+	transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	-ms-writing-mode: lr-bt;
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	margin-left: 0px;
+	line-height: 40px;
+}
+
+.accordion-content {
+	background-color: #3e3e3e;
+	color: #f5f2f0;
+	height: 234px;
+	width: 644px;
+	padding: 28px;
+}
+
+.accordion-title, .accordion-select:checked ~ .accordion-content {
+	margin-right: 1px;
+	margin-bottom: 1px;
+}
+
+/* Do not change following properties, they aren't 
+generated automatically and are common for each slider. */
+.accordion {
+	overflow: hidden;
+}
+
+.accordion>ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 101%;
+}
+
+.accordion>ul>li, .accordion-title {
+	position: relative;
+}
+
+.accordion-select {
+	cursor: pointer;
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: 0;
+	margin: 0;
+	z-index: 1;
+}
+
+.accordion-title span {
+	display: block;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	white-space: nowrap;
+}
+
+.accordion-content {
+	position: relative;
+	overflow: auto;
+}
+
+.accordion-separator {
+	transition: margin 0.3s ease 0.1s;
+	-o-transition: margin 0.3s ease 0.1s;
+	-moz-transition: margin 0.3s ease 0.1s;
+	-webkit-transition: margin 0.3s ease 0.1s;
+}
+</style>
+</head>
+<body>
+	<h1 align="center">Jobless Help Page.</h1>
+	<h4 align="center">Find out how to use and navigate through our
+		application.</h4>
+	<div class="accordion">
+		<ul>
+			<li><input type="radio" name="select" class="accordion-select"
+				checked />
+				<div class="accordion-title">
+					<span>Installation and overview.</span>
+				</div>
+				<div class="accordion-content">
+					JoblessDB
+
+					<header> I. Installation and System Requirements </header>
+					<br>
+					<h5>JoblessDB is a J2EE Web application for job advertisements
+						/ job search.</h5>
+					<br>
+					<p>Software requirements:</p>
+					<br>
+					<p>
+						Server: GlassFish 4.0 <br>Database: MySQL <br>The
+						application requires the set up of connection pool and JDBC
+						resource.
+					</p>
+					<br>
+					<p>
+						Libraries: <br>JRE System Library [java-8-oracle] <br>JSF
+						2.2 (Mojarra 2.2.0) <br>MySQL JDBC Driver <br>Web App
+						Libraries <br>guava-18.0
+					</p>
+					<h4>II. Roles and levels of access:</h4>
+					<br>
+					<p>
+						Online registration is available only for User and Company roles
+						with different profile <br>specifications required for the
+						two types of users. <br> Administrators' / accountants'
+						profiles are available by default in the <br>initial
+						database. Owner information (necessary for the preparation of the
+						invoices) <br>is once added in the database and can be
+						accessed by <br>accountant(s) / administrator(s).
+					</p>
+					<h4>- Guest:</h4>
+					<p>
+						The guest user can view all job advertisements order by priority,
+						<br>search for advertisements (possible search keys: key word
+						in the title, location, category, company name, VIP status), <br>view
+						advertisement, answer / send inquiry to the company. <br>S/he
+						can also apply for standard advertisements via fulfilling /
+						submitting personal CV, writing / <br>submitting Cover
+						letter.
+					</p>
+					<h4>- User:</h4>
+					<p>
+						The user account inherits the basic functionality of the guest
+						user. However, this is a registered user and can also <br>apply
+						for VIP advertisements by filling the tests, included in the VIP
+						advertisement. User registration requires <br>first and last
+						name, valid e-mail, user name and password necessary for further
+						login. <br>Validation of the e-mail and check of user name
+						availability is added as well as validation (not null and more
+						than 5 symbols) <br>and confirmation of the password. If
+						invalid data (e-mail, user name or password) are provided, <br>the
+						registration form is rendered with corresponding messages output.
+						<br>After successful registration the user is invited to
+						login in order to access the corresponding functionality.
+					</p>
+					<h4>- Company:</h4>
+					<p>
+						The company account is oriented towards job providers. It allows a
+						registered company to submit a standard or VIP job advertisement.
+						<br>In order to access this functionality, the user has to be
+						registered. Information required for successful registration is: <br>company
+						name, type (), address, valid e-mail, EIK (Единен идентификационен
+						код; БУЛСТАТ), MOL (Материално отговорно лице), <br>as well
+						as user name and password necessary for login on the web-site.
+						Similarly to the User registration form validation of user name, <br>e-mail
+						and password is added. After successful registration the
+						company-user is invited to login in order to access <br>the
+						corresponding functionality.
+					</p>
+					<h4>- Administrator (or admin):</h4>
+					<p>
+						The admin accounts are initially set up in the database and can
+						not be registered online. The admin uses a user name and <br>password
+						in order to access the admin panel. S/he can view new and old job
+						advertisements, approve and publish new advertisements, <br>remove
+						old ones, change priority of the advertisements, update / delete
+						Users, approve / update Company users. <br>More information
+						is provided in the admin panel.
+					</p>
+					<h4>- Accountant:</h4>
+					<p>
+						Similarly to the admin account, the accountant profiles are set in
+						the database initially. <br>In order to access the
+						corresponding functionality, the accountant has to authenticate
+						her/himself with account user name and password. <br>The main
+						functionality of the accountant user is the control over the
+						payments connected with VIP advertisements and the <br>preparation
+						of the necessary documents. More information is provided in the
+						accountant panel.
+					</p>
+					<h4>- Owner:</h4>
+					<p>
+						Information about the Owner is kept in the Database and can be
+						accessed by th accountant for the <br>preparation of the
+						invoices for the paid VIP advertisements.
+					</p>
+
+				</div>
+				<div class="accordion-separator"></div></li>
+			<li><input type="radio" name="select" class="accordion-select" />
+				<div class="accordion-title">
+					<span>Login and Registration Help Tab</span>
+				</div>
+				<div class="accordion-content">
+					<h3>Login and Registration Help Tab</h3>
+					<h4>Find all the information needed to operate with login and
+						registration module.</h4>
+					<h4>MainPage</h4>
+					<h4>JoblessDB application provides several options to its
+						users as presented on the MainPage:</h4>
+					<h4>- Login options:</h4>
+					<p>
+						Four login options are available with respect to the different
+						roles. In order to access User, Company, Administrator or
+						Accountant modules, <br>the user has to authenticate
+						him/herself by providing username and password. While
+						Administrators' and Accountants' credentials are <br>initialized
+						and kept in the database, User and Company types of users have to
+						register online by following the corresponding links, <br>provided
+						on the MainPage (To register as user, click here. or To register
+						as company, click here., respectively). <br>Entered username
+						& password are compared with the information in the database and
+						if provided information is correct, <br>the successful login
+						redirects user to the required module.
+					</p>
+					<br>
+					<p>
+						In order to be able to publish advertisements, Companies have to
+						be approved by the Administrator who has the responsibility <br>to
+						verify the information provided by the Company at the
+						registration.
+					</p>
+					<p>- “Continue as Guest” allows the user only to view all job
+						advertisements.</p>
+					<h4>- Registration of User (To register as user, click here.)</h4>
+					<p>
+						In order to register the User has to provide First and Last name,
+						valid e-mail, username and password. <br>Registration will be
+						successful only if valid data are provided. Validation of the
+						provided e-mail is performed during the typing process. <br>Availability
+						of the username (i.e. whether the desired username is not already
+						used by another user) is also checked during the <br>registration
+						procedure. The validation of the password includes length (minimum
+						5 symbols) and confirmation of the entered password. <br>White
+						spaces are considered invalid input. Proper Error messages would
+						appear if provided e-mail, username or <br>password do not
+						match the validation criteria.
+					</p>
+					<h4>- Registration of Company (To register as company, click
+						here.)</h4>
+					<p>
+						In order to register the Company has to provide Company name,
+						type, address, e-mail, EIK (единен идентификационен код), <br>MOL(материално
+						отговорно лице), username and password. Company type (ET, EAD,
+						EOOD,...) can be chosen from a SelectOneMenu. <br>In case no
+						type is chosen, the type of the company-user will be set in the
+						database as "Undefined". <br>Similarly to the User
+						registration, Company registration will be successful only if
+						valid data are provided. <br>Validation of the provided
+						e-mail is performed during the typing process. Availability of the
+						username <br>(i.e. whether the desired username is not
+						already used by another Company) is also checked during the
+						registration procedure. <br>The validation of the password
+						includes length (minimum 5 symbols) and confirmation of the
+						entered password. <br>White spaces are considered invalid
+						input. Proper Error messages would appear if provided e-mail,
+						username or password <br>do not match the validation
+						criteria.
+					</p>
+					<br>
+					<p>
+						No validation of the EIK is considered as this information is
+						supposed to be verified by the Administrator. <br>After
+						successful registration the Company user is welcomed to login but
+						(s)he will be able to publish advertisements only <br>after
+						the Company profile is approved by the Administrator.
+					</p>
+				</div>
+				<div class="accordion-separator"></div></li>
+			<li><input type="radio" name="select" class="accordion-select" />
+				<div class="accordion-title">
+					<span>Accounting Help Tab</span>
+				</div>
+				<div class="accordion-content">
+					<h3>Accounting Help Tab</h3>
+					<h4>Find all the information needed to operate with the
+						Accounting module.</h4>
+					<h4>Accounting Main page.</h4>
+					<p>
+						On the main page there is one drop-down menu with filters, where
+						under different criteria the user may look for invoices. <br>When
+						the user choose filter he has to press Submit button to continue
+						to the chosen page. Also on the main page there is a button <br>"Add
+						new invoice" pressing which the user goes to page for adding new
+						invoice.
+					</p>
+					<h4>Show all invoices page</h4>
+					<p>
+						The page shows all invoices in the database in data table. At the
+						end of each column there is button “Full info” which takes <br>you
+						to page where you can see whole information about the current
+						invoice. And there is button "Make paid" which sets the <br>current
+						invoice from unpaid to paid. At the end of the page there is
+						button for "Export" to Excel table which shows message <br>for
+						success or failure, and also there is "Home" button which takes
+						you to the Main page.
+					</p>
+					<h4>Show all invoices by day page</h4>
+					<p>
+						Accordingly to the preceding page this one shows invoices replying
+						to the criteria taken from the input of the user <br>for
+						specific year, month and day. The page also provides the option
+						for "Export" to Excel table and "Home" buttons.
+					</p>
+					<h4>Show all invoices by month page</h4>
+					<p>
+						Accordingly to the preceding page this one shows invoices replying
+						to the criteria taken from the input of the <br>user for
+						specific year and month. The page also provides the option for
+						"Export" to Excel table and "Home" buttons.
+					</p>
+					<h4>Show all invoices by period page</h4>
+					<p>
+						This page provides to the user option to search for a invoice for
+						a distinct period of time. <br>The start period and the end
+						period of the search is taken from the user input.
+					</p>
+					<h4>Show all invoices by company name page</h4>
+					<p>
+						In this page the user can load all invoices for a distinct company
+						chosen from the drop-down menu <br>which automatically loads
+						the invoices for the company.
+					</p>
+					<h4>The Is paid page</h4>
+					<p>This page shows all waiting payment invoices.</p>
+					<h4>The Due payment page</h4>
+					<p>
+						The page provides information about all late invoices( there is
+						option for the client to pay the invoice in 5 days). <br>The
+						page automatically calculates the period for the user.
+					</p>
+				</div>
+				<div class="accordion-separator"></div></li>
+			<li><input type="radio" name="select" class="accordion-select" />
+				<div class="accordion-title">
+					<span>Users And Companies Help Tab</span>
+				</div>
+				<div class="accordion-content">
+					<h3>Users And Companies Help Tab</h3>
+					<h4>Find all the information needed to operate with the User
+						and Company Modules</h4>
+					<h4>-Companies</h4>
+					<p>Companies can create new ads. Each ad can be defined as
+						Regular, VIP or VIP with test.</p>
+					<p>Regular advertisements</p>
+					<p>
+						Those are free of charge. They do not have to possibility to have
+						a test. <br>All guests can apply to them via sending an email
+						to the company. <br>This ad will remain active for five up to
+						thirty days.
+					</p>
+					<h4>- VIP ADS</h4>
+					<p>
+						Those advertisements are paid. Guests can see and make an inquiry
+						about the AD. Only logged users can apply <br>via writing and
+						sending CV and Cover letter. This ad will remain active for five
+						up to thirty days.
+					</p>
+					<h4>VIP ads with test</h4>
+					<p>
+						Those advertisements are paid. Companies can create a test. Guests
+						can see and make an inquiry about the AD. <br>Only logged
+						users can apply via taking the test and/or writing and sending CV
+						and Cover letter. <br>This ad will remain active for five up
+						to thirty days.
+					</p>
+					<h4>-Users</h4>
+					<p>Users of the company can be logged or guests</p>
+					<h4>- Guests</h4>
+					<p>Have to possibility to see all the currently active ads. Can
+						apply to ads via sending an email to the company.</p>
+					<h4>- Logged Users</h4>
+					<p>
+						Have to possibility to see all the currently active ads. Can apply
+						to all ads by writing and sending CV and cover letter. <br>Can
+						take test if the advertisement has one. Applying to the ad, will
+						send the relevant data automatically.
+					</p>
+				</div>
+				<div class="accordion-separator"></div></li>
+			<li><input type="radio" name="select" class="accordion-select" />
+				<div class="accordion-title">
+					<span>Administration Help Tab</span>
+				</div>
+				<div class="accordion-content">
+					<h4>Find all the information needed to operate with Administration module.</h4>
+					<h4>- Administration Panel options</h4>
+					<p>Tree options are available for redirecting to other panels
+						AdvertismentPanel, CompanyPanel and UserPanel.</p>
+					<h4>-First option AdvertismentPanel</h4>
+					<p>When the first one, called “See all Ads”, is clicked it
+						evokes event that displays a table with ads. Every ad has four
+						buttons – update, publish, delete and make VIP.When pressed update
+						it evokes event that open ".xhtml" file that have fields for
+						updating the Ad and suitable button. Upon pressing it, a database
+						connection is ensured and new values for the corresponding
+						Advertisment are set. The second button is “publish”. Every ad has
+						validation time. The expiration date is calculated by taking the
+						activity days and adding the current date plus one more day. This
+						information is set in the field “Expired”. Also the field
+						“Approved” becomes “true”. The button “delete” erase the ads. When
+						clicked, it evokes event that delete the ad through its id.
+						Advertisment with expired date can be checked through “Expired
+						Ads” if there are Expired then make the field "isExpired" to
+						"true", located at the bottom of the screen.</p>
+					<h4>-Second option CompanyPanel</h4>
+
+					<p>All information for the companies is shown. When pressed
+						update it evokes event that open ".xhtml" file that have fields
+						for updating the CompanyProfile and suitable button. Upon pressing
+						it, a database connection is ensured and new values for the
+						corresponding CompanyProfile. Company existence should be checked.
+						There are two possibilities for that – 1 for approval and 2 for
+						disapproval. When the status is 1, then the company is legal and
+						the company can publish ads. If the company is checked and the
+						administrator has not confirmed the existence of ad, the status
+						becomes 2 and the “disapproved” button should be clicked so the
+						company can not publish ads.</p>
+
+					<h4>-Third option UserPanel</h4>
+					<p>All information for the users is shown.When pressed update
+						it evokes event that open ".xhtml" file that have fields for
+						updating the UserProfile and suitable button. Upon pressing it, a
+						database connection is ensured and new values for the
+						corresponding UserProfile are set.</p>
+				</div>
+				<div class="accordion-separator"></div></li>
+		</ul>
+	</div>
+	<div style="text-align: center; margin-top: 50px;">
+		<a href="MainPage.xhtml"
+			style="color: #568EEA; text-decoration: none;"> Created by "Login
+			And Registration module". Back to main.</a>
+	</div>
+</body>
+</html>

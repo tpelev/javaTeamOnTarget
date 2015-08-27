@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<link rel="stylesheet" type="text/css" href="resources/styleIndex.css" />
+<title>Welcome</title>
+</head>
+<h:body>
+	<h:form>
+		<h:panelGrid id="panel" columns="8" width="400">
+			<f:facet name="header">
+				<h1>
+					<h:outputText value="Search Options" />
+				</h1>
+			</f:facet>
+
+			<h:outputLabel value="Companies" />
+			<h:selectOneMenu id="companies" value="#{index.selectedCompany}">
+				<f:selectItems value="#{index.companies}" var="company"
+					itemValue="#{company.companyName}"
+					itemLabel="#{company.companyName}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Categories" />
+			<h:selectOneMenu id="categories" value="#{index.selectedCategory}">
+				<f:selectItems value="#{index.categories}" var="category"
+					itemValue="#{category.categorieName}"
+					itemLabel="#{category.categorieName}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Places" />
+			<h:selectOneMenu id="places" value="#{index.selectedPlace}">
+				<f:selectItems value="#{index.places}" var="place"
+					itemValue="#{place.placesName}" itemLabel="#{place.placesName}" />
+			</h:selectOneMenu>
+			<h:selectBooleanCheckbox id="vip" value="#{index.vip}" />VIP 
+		
+			<h:inputText id="keyword" value="#{index.keyword}" />
+
+			<h:commandButton class="buttons" id="searchId" value="search"
+				action="#{index.search}">
+				<f:ajax execute="companies categories places vip keyword searchId"
+					render="adTable prev next" />
+			</h:commandButton>
+		</h:panelGrid>
+
+		<h:dataTable id="adTable" value="#{index.currentAds}" var="adv"
+			width="100%" border="1">
+			<h:column id="Title">
+				<f:facet name="header">
+					<h:outputText value="Title" />
+				</f:facet>
+				<h:outputText value="#{adv.title}" />
+			</h:column>
+
+			<h:column id="Category">
+				<f:facet name="header">
+					<h:outputText value="Category" />
+				</f:facet>
+				<h:outputText value="#{adv.category.categorieName}" />
+			</h:column>
+
+			<h:column id="Place">
+				<f:facet name="header">
+					<h:outputText value="Place" />
+				</f:facet>
+				<h:outputText value="#{adv.place.placesName}" />
+			</h:column>
+
+			<h:column id="VIP">
+				<f:facet name="header">
+					<h:outputText value="Type" />
+				</f:facet>
+				<h:outputText style="color: red; font-weight: bold" value="VIP"
+					rendered="#{adv.isVip}" />
+				<h:outputText value="not vip" rendered="#{!adv.isVip}" />
+			</h:column>
+
+			<h:column id="action">
+				<h:commandButton class="buttons" value="view"
+					action="#{index.selectAd}">
+					<f:setPropertyActionListener target="#{index.selected}"
+						value="#{adv}" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		<div width="100px" height="50px" align="right">
+			<br />
+			<h:panelGrid columns="2" cellspacing="2">
+				<h:commandButton class="buttons" id="prev" value="prev"
+					disabled="#{index.prevDisable}" action="#{index.prev}">
+					<f:ajax execute="prev" render="adTable next prev" />
+				</h:commandButton>
+				<h:commandButton class="buttons" id="next" value="next"
+					align="right" disabled="#{index.nextDisable}"
+					action="#{index.next}">
+					<f:ajax execute="next" render="adTable prev next" />
+				</h:commandButton>
+			</h:panelGrid>
+		</div>
+	</h:form>
+</h:body>
+</html>

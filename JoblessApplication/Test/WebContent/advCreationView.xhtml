@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<link rel="stylesheet" type="text/css" href="resources/styleRed.css" />
+<title>Create New Ad</title>
+</head>
+<body>
+	<h:form>
+		<h:panelGrid align="center" id="panel" columns="2" cellspacing="2">
+			<f:facet name="header">
+				<h2>
+					<h:outputText value="Create your own advertisement below" />
+				</h2>
+			</f:facet>
+
+			<h:outputLabel value="Category" />
+			<h:selectOneMenu id="category" value="#{createAd.cathegory}"
+				style="width: 349px; ">
+				<f:selectItems value="#{createAd.showAllCategories}" />
+			</h:selectOneMenu>
+
+			<h:outputText value="Title" />
+			<h:inputText id="title" value="#{createAd.title}" style="width: 348px; " />
+
+
+			<h:outputText value="Days active" />
+			<h:inputText id="days" value="#{createAd.days}"
+				style="width: 348px; " />
+
+			<h:outputText value="Content" />
+			<h:inputTextarea id="text" value="#{createAd.content}"
+				style="width: 348px; height: 184px; " />
+
+			<h:outputLabel value="City" />
+			<h:selectOneMenu value="#{createAd.country}" id="city"
+				style="width: 349px; ">
+				<f:selectItems value="#{createAd.showAllPlaces}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<br />
+		<div id="mainContainer">
+			<h:commandButton class="buttons" align="center" value="Submit"
+				action="#{createAd.saveNewAd}">
+				<f:ajax execute="category title days text city"
+					render="validation" />
+			</h:commandButton>	
+			</div>	
+		<br/><br/><br/>
+		<h:dataTable id="validation" value="#{createAd.errors}" var="error"
+			align="center">
+			<h:column>
+				<h:outputText value="#{error}" />
+			</h:column>
+		</h:dataTable>	
+	</h:form>
+</body>
+</html>
