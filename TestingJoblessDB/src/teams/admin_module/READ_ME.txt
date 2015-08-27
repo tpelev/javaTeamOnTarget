@@ -1,1 +1,0 @@
-All Administration files are created here!
