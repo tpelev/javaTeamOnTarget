@@ -25,7 +25,7 @@
 			</h:selectOneMenu>
 
 			<h:outputText value="Title" />
-			<h:inputText value="#{createAd.title}" style="width: 348px; " />
+			<h:inputText id="title" value="#{createAd.title}" style="width: 348px; " />
 
 
 			<h:outputText value="Days active" />
@@ -37,7 +37,7 @@
 				style="width: 348px; height: 184px; " />
 
 			<h:outputLabel value="City" />
-			<h:selectOneMenu value="#{createAd.country}" id="country"
+			<h:selectOneMenu value="#{createAd.country}" id="city"
 				style="width: 349px; ">
 				<f:selectItems value="#{createAd.showAllPlaces}" />
 			</h:selectOneMenu>
@@ -46,7 +46,7 @@
 		<div id="mainContainer">
 			<h:commandButton class="buttons" align="center" value="Submit"
 				action="#{createAd.saveNewAd}">
-				<f:ajax execute="refNum publisher days text country"
+				<f:ajax execute="category title days text city"
 					render="validation" />
 			</h:commandButton>	
 			</div>	
