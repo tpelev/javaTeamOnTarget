@@ -55,7 +55,7 @@ public class AddAdManagedBean {
 	public String setVipWithTest() {
 		setVip(true);
 		setVipWithTest(true);
-		return "choose_num_of_quest.xhtml?faces-redirect=true";
+		return "advNumberOfQuestions.xhtml?faces-redirect=true";
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class AddAdManagedBean {
 	 */
 	public String activeAdvertsAndRedirect(){
 		activeAdverts = query.getAdvertisementByCompanyName(companyUserName);
-		return "view_active_ads_company.xhtml?faces-redirect=true";
+		return "advCurrentlyActiveByCompany.xhtml?faces-redirect=true";
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class AddAdManagedBean {
 	public String setVipWithoutTest() {
 		setVip(true);
 		setVipWithTest(false);
-		return "create_new_ad.xhtml?faces-redirect=true";
+		return "advCreationView.xhtml?faces-redirect=true";
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class AddAdManagedBean {
 	public String setRegularAd() {
 		setVip(false);
 		setVipWithTest(false);
-		return "create_new_ad.xhtml?faces-redirect=true";
+		return "advCreationView.xhtml?faces-redirect=true";
 	}
 
 	// Ad Publishing Methods
@@ -120,7 +120,7 @@ public class AddAdManagedBean {
 				query.createAdvertisement(getCompanyUserName(), getTitle(),
 						getContent(), "", false, getCountry(), getCathegory());
 			}
-			return "success_add_ad.xhtml?faces-redirect=true";
+			return "advSuccessfullyAdded.xhtml?faces-redirect=true";
 		}
 		return "";
 	}
@@ -129,7 +129,7 @@ public class AddAdManagedBean {
 	 * Creates an array list with the size of the selected number of questions
 	 * for the test. The number is selected by user in xhtml file. Method also
 	 * adds count number values to each question. Redirects to
-	 * "enter_questions.xhtml" where user can assign the question's text
+	 * "advQuestionsCreation.xhtml" where user can assign the question's text
 	 * accordingly to number
 	 * 
 	 * @return Redirect to question submitting page
@@ -144,7 +144,7 @@ public class AddAdManagedBean {
 			test.setQuestionNum(String.valueOf(i) + ".");
 			questions.add(test);
 		}
-		return "enter_questions.xhtml?faces-redirect=true";
+		return "advQuestionsCreation.xhtml?faces-redirect=true";
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class AddAdManagedBean {
 			jArray.put(j);
 		}
 		result = jArray.toString();
-		return "create_new_ad.xhtml?faces-redirect=true";
+		return "advCreationView.xhtml?faces-redirect=true";
 	}
 
 	/**

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<link rel="stylesheet" type="text/css" href="resources/styleRed.css" />
+	<title>Create Ad</title>
+</h:head>
+<body>
+	<h:form>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout"></h:commandLink>
+	</h:form>
+	<h2>
+		<h:outputText value="Create new advertisement"></h:outputText>
+	</h2>
+	<h:form>
+	<div  id="mainContainer" >
+		<h:panelGrid columns="1">			
+				<h:commandButton class="buttons" value="VIP with test"
+					action="#{createAd.setVipWithTest}" />
+				<h:commandButton class="buttons" value="VIP without test"
+					action="#{createAd.setVipWithoutTest}" />
+				<h:commandButton class="buttons" value="Regular"
+					action="#{createAd.setRegularAd}" />	
+				<h:commandButton class="buttons" value="Active ads"
+					action="#{createAd.activeAdvertsAndRedirect}" />		
+		</h:panelGrid>
+		</div>
+	</h:form>
+	<br />
+	<h:outputText value="*Note that VIP Ads will cost you" />
+</body>
+</html>
