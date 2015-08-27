@@ -18,7 +18,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
 @ManagedBean(name = "ChangeCompanyPass")
 @SessionScoped
 public class ChangeCompanyPassManagedBean {
@@ -56,6 +55,18 @@ public class ChangeCompanyPassManagedBean {
 		this.loginPassword = loginPassword;
 	}
 
+	/**
+	 * Generate a random password
+	 * 
+	 * @param rnd
+	 *            random number needed to generate password
+	 * @param characters
+	 *            Chars to choose from when generating password
+	 * @param length
+	 *            The lenght of the password
+	 * @return loginPassword
+	 * @author Tihomir_Pelev
+	 */
 	public String generateNewPassword(Random rnd, String characters, int length) {
 		char[] text = new char[length];
 		for (int i = 0; i < length; i++) {
@@ -65,6 +76,11 @@ public class ChangeCompanyPassManagedBean {
 		return this.loginPassword;
 	}
 
+	/**
+	 * Generates a new password,hashing that password and updates it in database
+	 * 
+	 * @author Tihomir_Pelev
+	 */
 	public void updateCompanyPassword() {
 		Random rnd = new Random();
 		this.loginPassword = generateNewPassword(rnd, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
@@ -73,15 +89,21 @@ public class ChangeCompanyPassManagedBean {
 		changePass.updatePass(pass);
 	}
 
+	/**
+	 * Sends a new password to email if the login name and e-mail are valid in
+	 * database
+	 * 
+	 * @return redirect
+	 * @author Tihomir_Pelev
+	 */
 	public String sendNewPassword() {
 		if (changePass.findCompanyEmail(loginName, email)) {
 			updateCompanyPassword();
 			String userEmail = changePass.getEmail();
-			StringBuilder sb = new StringBuilder();			
+			StringBuilder sb = new StringBuilder();
 			sb.append("Your new password for joblessdb is: " + getLoginPassword());
 			String to = userEmail;// change accordingly
 			String from = "awwwwws@gmail.com";// change accordingly
-			// String host = "localhost";//or IP address
 			try {
 
 				Message message = new MimeMessage(mailSession);
@@ -89,9 +111,7 @@ public class ChangeCompanyPassManagedBean {
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 				message.setSubject("New password for your JOBLESS account");
 				message.setText("You have requested new password from Jobless\n" + sb.toString());
-				// Send message
 				Transport.send(message);
-				System.out.println("message sent successfully....");
 
 			} catch (MessagingException mex) {
 				mex.printStackTrace();
@@ -99,10 +119,17 @@ public class ChangeCompanyPassManagedBean {
 			return "loginAsCompany?faces-redirect=true";
 		}
 
-		// message for username and email are not correct
 		return "loginAsCompany?faces-redirect=true";
 	}
 
+	/**
+	 * Checks for valid e-mail and login name and returns message
+	 * 
+	 * @param e
+	 *            component system event
+	 * @author Galina_Petrova
+	 * @author Slavka_Peleva
+	 */
 	public void validate(ComponentSystemEvent e) {
 		UIForm form = (UIForm) e.getComponent();
 		UIInput nameInput = (UIInput) form.findComponent("username");
@@ -114,7 +141,7 @@ public class ChangeCompanyPassManagedBean {
 			String email = pwdInput.getValue().toString();
 
 			try {
-				
+
 				if (!changePass.findCompanyEmail(userName, email)) {
 					FacesContext fc = FacesContext.getCurrentInstance();
 					fc.addMessage(form.getClientId(), new FacesMessage("Invalid username or email!"));

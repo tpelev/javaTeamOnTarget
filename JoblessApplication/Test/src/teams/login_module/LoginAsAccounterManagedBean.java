@@ -20,7 +20,6 @@ public class LoginAsAccounterManagedBean {
 	public String accounterUserName;
 	private String passAccounter;
 
-	
 	public String getAccounterUserName() {
 		return accounterUserName;
 	}
@@ -36,11 +35,18 @@ public class LoginAsAccounterManagedBean {
 	public void setPassAccounter(String passAccounter) {
 		this.passAccounter = passAccounter;
 	}
-	
+
+	/**
+	 * Logs in the accountant
+	 * 
+	 * @return redirect
+	 * @author Tihomiir_Pelev
+	 * @author Slavka_Peleva
+	 */
 	public String loginAccounter() {
 
 		String userName = this.getAccounterUserName();
-		String password = this.getPassAccounter();		
+		String password = this.getPassAccounter();
 
 		try {
 			Accounter account = accounter.getAccountUserName(accounterUserName);
@@ -60,12 +66,19 @@ public class LoginAsAccounterManagedBean {
 			return "loginAsAccount?faces-redirect=true";
 		}
 	}
-	
+
+	/**
+	 * Validates the inputs for user name and password
+	 * 
+	 * @param e
+	 *            Component system event
+	 * @author Galina_Petrova
+	 * 
+	 */
 	public void validate(ComponentSystemEvent e) {
 		UIForm form = (UIForm) e.getComponent();
 		UIInput nameInput = (UIInput) form.findComponent("username");
 		UIInput pwdInput = (UIInput) form.findComponent("password");
-
 		String userName = nameInput.getValue().toString();
 		String password = pwdInput.getValue().toString();
 
@@ -84,6 +97,5 @@ public class LoginAsAccounterManagedBean {
 		}
 
 	}
-
 
 }

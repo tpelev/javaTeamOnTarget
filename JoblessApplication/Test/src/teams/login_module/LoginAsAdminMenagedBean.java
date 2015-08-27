@@ -10,9 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.http.HttpSession;
 
-
 import model.Admin;
-
 
 @ManagedBean(name = "LoginAsAdminB")
 @SessionScoped
@@ -24,7 +22,6 @@ public class LoginAsAdminMenagedBean {
 	private String pass;
 	private String msg;
 
-	
 	public String getAdminUserName() {
 		return adminUserName;
 
@@ -50,7 +47,12 @@ public class LoginAsAdminMenagedBean {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	
+
+	/**
+	 * Logs in the admin
+	 * @return redirect
+	 * @author Tihomiir_Pelev
+	 */
 	public String loginAdmin() {
 
 		String userName = this.getAdminUserName();
@@ -75,12 +77,26 @@ public class LoginAsAdminMenagedBean {
 			return "loginAsAdmin?faces-redirect=true";
 		}
 	}
-	public String logout(){
+
+	/**
+	 * Logs out any user and invalidates the session
+	 * 
+	 * @return redirect
+	 * @author Tihomiir_Pelev
+	 */
+	public String logout() {
 		HttpSession session = SessionBean.getSession();
 		session.invalidate();
 		return "MainPage.xhtml?faces-redirect=true";
 	}
 
+	/**
+	 * Validates the inputs for user name and password
+	 * 
+	 * @param e Component system event
+	 * @author Galina_Petrova
+	 * 
+	 */
 	public void validate(ComponentSystemEvent e) {
 		UIForm form = (UIForm) e.getComponent();
 		UIInput nameInput = (UIInput) form.findComponent("username");
@@ -104,5 +120,5 @@ public class LoginAsAdminMenagedBean {
 		}
 
 	}
-	
+
 }

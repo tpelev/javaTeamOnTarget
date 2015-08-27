@@ -45,6 +45,15 @@ public class ChangeUserPassEJB {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Finds if the e-mail address of the current object exists in the database
+	 * @param loginName holds login name
+	 * @param email holds email
+	 * @return boolean
+	 * @author Tihomir_Pelev
+	 * @author Slavka_Peleva
+	 */
 	public boolean findUserEmail(String loginName, String email) {
 		boolean isExist = false;
 		UserProfile up = findUserObject(loginName);
@@ -58,8 +67,11 @@ public class ChangeUserPassEJB {
 	}
 
 	/**
-	 * @param loginName
-	 * @return
+	 * Getting user profile object corresponding to the given user name
+	 * @param loginName holds login name
+	 * @return UserProfile object
+	 * @author Tihomir_Pelev
+	 * @author Slavka_Peleva
 	 */
 	private UserProfile findUserObject(String loginName) {
 		UserProfile up = new UserProfile();
@@ -69,6 +81,12 @@ public class ChangeUserPassEJB {
 		return up;
 	}
 	
+	/**
+	 * Finds user's id and sets a new password
+	 * @param password holds password
+	 * @author Tihomir_Pelev
+	 * @author Slavka_Peleva
+	 */
 	public void updatePass(String password) {
 		User user = em.find(User.class, this.id);
 		user.setLoginPassword(password);	

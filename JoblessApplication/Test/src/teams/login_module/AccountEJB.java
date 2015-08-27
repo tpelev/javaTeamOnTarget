@@ -18,14 +18,27 @@ public class AccountEJB {
 	@PersistenceContext
 	private EntityManager em;
     
-	// Getting the accounter object from the database 
+	
+	/**
+	 * Getting the accountant object from the database 
+	 * @param userName holds username
+	 * @return accounter
+	 * @author Slavka Peleva
+	 */
 	public Accounter getAccountUserName(String userName){
 		Query query = em.createQuery("SELECT a FROM Accounter a WHERE a.loginName = '"+userName+"'");
 		Accounter accounter = (Accounter)query.getSingleResult();
 		return accounter;
 	}
 	
-	// Validating user name and password for the current object
+	
+	/**
+	 * Validating user name and password for the current object
+	 * @param userName holds username
+	 * @param password holds password
+	 * @return boolean
+	 * @author Slavka Peleva
+	 */
 	public boolean validateUserNameAndPassword(String userName, String password){
 		try {	
 			Accounter account = getAccountUserName(userName);

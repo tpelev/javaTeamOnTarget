@@ -6,7 +6,16 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
 public class HashingAlgorithm {
-	public static String hashing(String loginName, String loginPassword){
+
+	/**
+	 * Hashing the password
+	 * @param loginName Current user's login name
+	 * @param loginPassword Current user's password 
+	 * @return hs.toString
+	 * @author Tihomiir_Pelev
+	 * 
+	 */
+	public static String hashing(String loginName, String loginPassword) {
 		HashFunction hash = Hashing.sha256();
 		String salt = hash.newHasher().putString(loginName, Charsets.UTF_8).hash().toString();
 		String pass = hash.newHasher().putString(loginPassword, Charsets.UTF_8).hash().toString();

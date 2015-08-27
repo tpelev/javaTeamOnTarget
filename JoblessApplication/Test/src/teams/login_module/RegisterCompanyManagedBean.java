@@ -1,6 +1,5 @@
 package teams.login_module;
 
-
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -9,7 +8,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.ValidatorException;
-
 
 @ManagedBean(name = "RegisterCompany")
 @SessionScoped
@@ -29,7 +27,6 @@ public class RegisterCompanyManagedBean {
 	private String token;
 	private String messagge;
 
-	
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -95,7 +92,6 @@ public class RegisterCompanyManagedBean {
 		this.loginPassword = loginPassword;
 	}
 
-
 	public String getSault() {
 		return sault;
 	}
@@ -119,31 +115,56 @@ public class RegisterCompanyManagedBean {
 	public void setMessagge(String messagge) {
 		this.messagge = messagge;
 	}
-	
+
+	/**
+	 * Adds company in the database
+	 *
+	 * @return redirect
+	 * @author Slavka_Peleva
+	 * @author Galina_Petrova
+	 * @author Tihomir_Pelev
+	 */
 	public String addCompany() {
 		if (!company.companyExists(loginName)) {
-				company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik, this.mol,
-						this.loginName, HashingAlgorithm.hashing(loginName, loginPassword), this.sault, this.token);
-				return "loginAsCompany.xhtml?faces-redirect=true";
-		}else{
+			company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik, this.mol,
+					this.loginName, HashingAlgorithm.hashing(loginName, loginPassword), this.sault, this.token);
+			return "loginAsCompany.xhtml?faces-redirect=true";
+		} else {
 			return "loginRegisterAsCompany.xhtml?faces-redirect=true";
 		}
-		
-	}
-	
 
+	}
+
+	/**
+	 * Checks for existing user name
+	 * 
+	 * @param f
+	 *            Faces Context
+	 * @param c
+	 *            UIComponent
+	 * @param obj
+	 *            Object
+	 * @author Slavka_Peleva
+	 * @author Galina_Petrova
+	 */
 	public void isExists(FacesContext f, UIComponent c, Object obj) {
-		if (company.companyExists(this.loginName)) {		
+		if (company.companyExists(this.loginName)) {
 			throw new ValidatorException(new FacesMessage("Username already exists!"));
 		}
 
 	}
-	
-	public void showMessageForValidUserName(){
+
+	/**
+	 * Returns message if company exists in database
+	 * 
+	 * @author Slavka_Peleva
+	 * @author Galina_Petrova
+	 * @author Tihomir_Pelev
+	 */
+	public void showMessageForValidUserName() {
 		if (company.companyExists(this.loginName)) {
 			this.setMessagge("Username already exists");
-		}
-		else{
+		} else {
 			this.setMessagge("");
 		}
 	}

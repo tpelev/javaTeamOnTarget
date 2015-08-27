@@ -22,6 +22,14 @@ public class NameValidator implements Validator {
 		namePattern = Pattern.compile(NAME_PATTERN);
 	}
 
+	/**
+	 * Validates the inputs for first and last name
+	 * @param context FacesContext
+	 * @param component UIComponent
+	 * @param value Object
+	 * @author Galina_Petrova
+	 * @author Zahra_Harira
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 

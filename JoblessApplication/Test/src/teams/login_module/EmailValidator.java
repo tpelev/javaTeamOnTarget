@@ -23,6 +23,15 @@ public class EmailValidator implements Validator {
 		pattern = Pattern.compile(EMAIL_PATTERN);
 	}
 
+	/**
+	 * Validates the e-mail input
+	 * 
+	 * @param context FacesContext
+	 * @param component UIComponent
+	 * @param value Object
+	 * @author Galina_Petrova
+	 * @author Slavka_Peleva
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
@@ -34,13 +43,11 @@ public class EmailValidator implements Validator {
 
 		}
 		if (!matcher.matches()) {
-
 			FacesMessage msg = new FacesMessage("E-mail validation failed.", "Invalid E-mail format.");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(msg);
 
 		}
-		
 
 	}
 }

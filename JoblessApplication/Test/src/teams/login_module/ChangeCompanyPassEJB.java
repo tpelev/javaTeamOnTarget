@@ -1,6 +1,5 @@
 package teams.login_module;
 
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +19,6 @@ public class ChangeCompanyPassEJB {
 	private String email;
 	private int id;
 
-	
 	public String getLoginName() {
 		return loginName;
 	}
@@ -44,7 +42,18 @@ public class ChangeCompanyPassEJB {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	/**
+	 * Finds if the e-mail address of the current object exists in the database
+	 * 
+	 * @param loginName
+	 *            holds login name for compnay
+	 * @param email
+	 *            holds email for company
+	 * @return boolean
+	 * @author Tihomir_Pelev
+	 * @author Slavka_Peleva
+	 */
 	public boolean findCompanyEmail(String loginName, String email) {
 
 		boolean isExist = false;
@@ -59,7 +68,15 @@ public class ChangeCompanyPassEJB {
 		return isExist;
 	}
 
-	
+	/**
+	 * Getting company profile object corresponding to the given user name
+	 * 
+	 * @param loginName
+	 *            holds login name
+	 * @return CompanyProfile object
+	 * @author Tihomir_Pelev
+	 * @author Slavka_Peleva
+	 */
 	private CompanyProfile findCompanyObject(String loginName) {
 		CompanyProfile cp = new CompanyProfile();
 		Query query = em.createQuery("SELECT cp FROM CompanyProfile cp where cp.company.loginName='" + loginName + "'");
@@ -67,10 +84,18 @@ public class ChangeCompanyPassEJB {
 		return cp;
 	}
 
+	/**
+	 * Finds company's id and sets a new password
+	 * 
+	 * @param password
+	 *            holds password
+	 * @author Tihomir_Pelev
+	 * @author Slavka_Peleva
+	 */
 	public void updatePass(String password) {
 		Company company = em.find(Company.class, this.id);
-		company.setLoginPassword(password);	
+		company.setLoginPassword(password);
 		em.persist(company);
-	
+
 	}
 }

@@ -55,6 +55,11 @@ public class LoginAsCompanyManagedBean {
 		this.addManagerBean = addManagerBean;
 	}
 
+	/**
+	 * Logs in the company
+	 * @return redirect
+	 * @author Tihomiir_Pelev
+	 */
 	public String loginCompany() {
 
 		String userName = this.getCompanyUserName();
@@ -68,7 +73,6 @@ public class LoginAsCompanyManagedBean {
 			if (hashedPass.equals(companyLog.getLoginPassword())) {
 				HttpSession session = SessionBean.getSession();
 				session.setAttribute("company", userName);
-
 				addManagerBean.setCompanyUserName(userName);
 				return "advTypeSelectionView?faces-redirect=true";
 			} else {
@@ -84,6 +88,13 @@ public class LoginAsCompanyManagedBean {
 		}
 	}
 
+	/**
+	 * Validates the inputs for user name and password
+	 * 
+	 * @param e Component system event
+	 * @author Galina_Petrova
+	 * 
+	 */
 	public void validate(ComponentSystemEvent e) {
 		UIForm form = (UIForm) e.getComponent();
 		UIInput nameInput = (UIInput) form.findComponent("username");

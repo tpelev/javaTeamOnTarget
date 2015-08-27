@@ -10,35 +10,43 @@ import javax.faces.validator.ValidatorException;
 @FacesValidator("confirmPasswordValidator")
 public class ConfirmPasswordValidator implements Validator {
 
-
-
+	/**
+	 * validates password input
+	 * 
+	 * @param context FacesContext
+	 * @param component UIComponent
+	 * @param value Object
+	 * @author Galina_Petrova
+	 * @author Slavka_Peleva
+	 * @author Zahra_Harira
+	 */
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-	     String password = (String) value;
-	        String confirm = (String) component.getAttributes().get("confirm");
+		String password = (String) value;
+		String confirm = (String) component.getAttributes().get("confirm");
 
-	        if (password == null || confirm == null) {
-	            FacesMessage msg1 = new FacesMessage("Password null", "Please enter password");
-	            msg1.setSeverity(FacesMessage.SEVERITY_ERROR);
-	            throw new ValidatorException(msg1);
-	        }
+		if (password == null || confirm == null) {
+			FacesMessage msg1 = new FacesMessage("Password null", "Please enter password");
+			msg1.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(msg1);
+		}
 
-	        if (!password.equals(confirm)) {
-	        	FacesMessage msg = new FacesMessage("Password missmatch", "Passwords don't match");
-	            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-	            throw new ValidatorException(msg);
-	        }
-	        if (password.length() < 5) {
-	        	FacesMessage msg5 = new FacesMessage("Password short", "Password is too short");
-	            msg5.setSeverity(FacesMessage.SEVERITY_ERROR);
-	            throw new ValidatorException(msg5);
-			}
-	        if (password.contains(" ")) {
-	        	FacesMessage msg5 = new FacesMessage("Password space", "Invalid format.");
-	            msg5.setSeverity(FacesMessage.SEVERITY_ERROR);
-	            throw new ValidatorException(msg5);
-			}
-		
+		if (!password.equals(confirm)) {
+			FacesMessage msg = new FacesMessage("Password missmatch", "Passwords don't match");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(msg);
+		}
+		if (password.length() < 5) {
+			FacesMessage msg5 = new FacesMessage("Password short", "Password is too short");
+			msg5.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(msg5);
+		}
+		if (password.contains(" ")) {
+			FacesMessage msg5 = new FacesMessage("Password space", "Invalid format.");
+			msg5.setSeverity(FacesMessage.SEVERITY_ERROR);
+			throw new ValidatorException(msg5);
+		}
+
 	}
 
 }

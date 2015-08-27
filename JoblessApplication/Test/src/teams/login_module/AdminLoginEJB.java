@@ -15,7 +15,13 @@ public class AdminLoginEJB {
 	@PersistenceContext
 	private EntityManager em;
 	
-	// Get admin object from the database
+	
+	/**
+	 * Get Admin object from the database
+	 * @param userName holds admin's username
+	 * @return admin
+	 * @author Tihomir Pelev
+	 */
 	public Admin getAdminUserName(String userName){
 		Admin admin;
 		try{
@@ -26,7 +32,14 @@ public class AdminLoginEJB {
 		}
 		return admin;
 	}
-	// Validating user name and password for the current object
+	
+	/**
+	 * Validating user name and password for the current object
+	 * @param userName holds admin's username
+	 * @param password holds amdin's password
+	 * @return boolean
+	 * @author Tihomir Pelev
+	 */
 	public boolean validateUserNameAndPassword(String userName, String password){
 		try {
 			Admin admin = getAdminUserName(userName);

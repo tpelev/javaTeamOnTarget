@@ -49,13 +49,15 @@ public class LoginAsUserMenagedBean {
 		this.indexBean = indexBean;
 	}
 
+	/**
+	 * Logs in the admin
+	 * @return redirect
+	 * @author Tihomiir_Pelev
+	 */
 	public String loginUser() {
-
 		String userName = this.getUserUserName();
-
 		String password = this.getPassUser();
 		System.out.println("entered pass" + password);
-
 		try {
 			User test = user.getUserUserName(userUserName);
 			String hashedPass = HashingAlgorithm.hashing(userName, password);
@@ -78,6 +80,13 @@ public class LoginAsUserMenagedBean {
 		}
 	}
 
+	/**
+	 * Validates the inputs for user name and password
+	 * 
+	 * @param e Component system event
+	 * @author Galina_Petrova
+	 * 
+	 */
 	public void validate(ComponentSystemEvent e) {
 		UIForm form = (UIForm) e.getComponent();
 		UIInput nameInput = (UIInput) form.findComponent("username");
