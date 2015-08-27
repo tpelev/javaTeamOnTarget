@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name="invoices")
 @NamedQueries({
-	@NamedQuery(name = "Invoice.findAllLatePayment", query = "SELECT i FROM Invoice i WHERE i.duePayment = :duePayment"),
+	@NamedQuery(name = "Invoice.findAllLatePayment", query = "SELECT i FROM Invoice i WHERE i.duePayment = :duePayment AND i.isPayed = :isPayed"),
 	@NamedQuery(name = "Invoice.findAllByPeriod", query = "SELECT i FROM Invoice i WHERE i.invoiceDate >= :invoiceDate AND i.invoiceDate <= :invoiceDate2"),
 	@NamedQuery(name = "Invoice.findAllWaitingPayments", query = "SELECT i FROM Invoice i WHERE i.isPayed = :isPayed"),
     @NamedQuery(name = "Invoice.findAll", query = "SELECT i FROM Invoice i"),

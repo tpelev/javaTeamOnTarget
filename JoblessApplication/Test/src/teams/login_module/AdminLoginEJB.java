@@ -6,11 +6,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.google.common.base.Charsets;
-import com.google.common.hash.HashCode;
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
-
 import model.Admin;
 
 @Stateless
@@ -20,6 +15,7 @@ public class AdminLoginEJB {
 	@PersistenceContext
 	private EntityManager em;
 	
+	// Get admin object from the database
 	public Admin getAdminUserName(String userName){
 		Admin admin;
 		try{
@@ -30,6 +26,7 @@ public class AdminLoginEJB {
 		}
 		return admin;
 	}
+	// Validating user name and password for the current object
 	public boolean validateUserNameAndPassword(String userName, String password){
 		try {
 			Admin admin = getAdminUserName(userName);
@@ -44,12 +41,4 @@ public class AdminLoginEJB {
 			return false;
 		}	
 	}
-	public String hashing(String loginName, String loginPassword){
-		HashFunction hash = Hashing.sha256();
-		String salt = hash.newHasher().putString(loginName, Charsets.UTF_8).hash().toString();
-		String pass = hash.newHasher().putString(loginPassword, Charsets.UTF_8).hash().toString();
-		HashCode hs = hash.newHasher().putString(pass, Charsets.UTF_8).putString(salt, Charsets.UTF_8).hash();
-		return hs.toString();
-	}
-
 }

@@ -8,11 +8,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
-import com.google.common.base.Charsets;
-import com.google.common.hash.HashCode;
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
-
 @ManagedBean(name = "RegisterUser")
 @SessionScoped
 public class RegisterUserManagedBean {
@@ -27,24 +22,7 @@ public class RegisterUserManagedBean {
 	private String token;
 	private String msg;
 
-	public String addUser() {
-		if (!registerUser.userExists(this.loginName)) {
-			registerUser.addUser(this.firstName, this.lastName, this.email, this.loginName, 
-					registerUser.hashing(getLoginName(), getLoginPassword()),
-					this.sault, this.token);
-			return "LoginAsUser.xhtml";
-		}else{
-			return "RegisterAsUser.xhtml";
-		}
-
-	}
 	
-	public void isExists(FacesContext f, UIComponent c, Object obj) {
-		if (registerUser.userExists(this.loginName)) {		
-			throw new ValidatorException(new FacesMessage("Username already exists!"));
-		}
-
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -111,6 +89,26 @@ public class RegisterUserManagedBean {
 		this.msg = msg;
 		
 	}
+	
+	public String addUser() {
+		if (!registerUser.userExists(this.loginName)) {
+			registerUser.addUser(this.firstName, this.lastName, this.email, this.loginName, 
+					HashingAlgorithm.hashing(getLoginName(), getLoginPassword()),
+					this.sault, this.token);
+			return "loginAsUser.xhtml?faces-redirect=true";
+		}else{
+			return "loginRegisterAsUser.xhtml?faces-redirect=true";
+		}
+
+	}
+	
+	public void isExists(FacesContext f, UIComponent c, Object obj) {
+		if (registerUser.userExists(this.loginName)) {		
+			throw new ValidatorException(new FacesMessage("Username already exists!"));
+		}
+
+	}
+	
 	public void checkUserNameExisting(){
 		if (registerUser.userExists(this.loginName)) {
 			this.setMsg("Username already exists");

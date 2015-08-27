@@ -44,29 +44,29 @@
 			<p />
 			<h:selectOneMenu id="accMenu" value="#{invoiceBean.selectedItem}"
 				style="height:30px; width:200px">
-				<f:selectItem itemValue="showAllInvoices.xhtml"
+				<f:selectItem itemValue="accountShowAllInvoices.xhtml?faces-redirect=true"
 					itemLabel="Show all invoices" />
-				<f:selectItem itemValue="byDay.xhtml"
+				<f:selectItem itemValue="accountByDay.xhtml?faces-redirect=true"
 					itemLabel="Show invoices by day" />
-				<f:selectItem itemValue="byMonth.xhtml"
+				<f:selectItem itemValue="accountByMonth.xhtml?faces-redirect=true"
 					itemLabel="Show invoices by month" />
-				<f:selectItem itemValue="byPeriod.xhtml"
+				<f:selectItem itemValue="accountByPeriod.xhtml?faces-redirect=true"
 					itemLabel="Show invoices by period" />
-				<f:selectItem itemValue="byCompany.xhtml"
+				<f:selectItem itemValue="accountByCompany.xhtml?faces-redirect=true"
 					itemLabel="Show invoices by company" />
-				<f:selectItem itemValue="isPaid.xhtml"
+				<f:selectItem itemValue="accountIsPaid.xhtml?faces-redirect=true"
 					itemLabel="Show expecting payments" />
-				<f:selectItem itemValue="duePay.xhtml" itemLabel="Show due invoices" />
+				<f:selectItem itemValue="accountDuePay.xhtml?faces-redirect=true" itemLabel="Show due invoices" />
 			</h:selectOneMenu>
 			<p />
 			<h:commandButton class="myButton" value="Continue"
 				action="#{invoiceBean.goTo}" style="height:40px; width:150px" />
 		</h:form>
 
-		<h:form action="addNewInvoice.xhtml">
+		<h:form action="accountAddNewInvoice.xhtml">
 			<br></br>
 			<h:commandButton class="myButton" value="New invoice"
-				action="addNewInvoice.xhtml" style="height:40px; width:150px" />
+				action="accountAddNewInvoice.xhtml?faces-redirect=true" style="height:40px; width:150px" />
 		</h:form>
 		<h:form>
 			<div id="mainContainer">

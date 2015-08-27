@@ -343,28 +343,28 @@ public class ReviewAdManagedBean {
 	 * Select the ad view based on user status and ad type.
 	 * 
 	 * @return The corresponding view. guest_view_ad.xhtml if the user is a
-	 *         Guest advVipViewTest.xhtml.xhtml is returned if the user is logged
-	 *         and the ad has a test. advLoggedView.xhtml is returned if the
+	 *         Guest vip_ad_view_test.xhtml is returned if the user is logged
+	 *         and the ad has a test. logged_view_ad.xhtml is returned if the
 	 *         user is logged and the ad doesn't have a test.
 	 *         
 	 * @author Martin
 	 */
 	public String selectAd() {
 		if (!isLogged) {
-			return "advGuestView.xhtml?faces-redirect=true";
+			return "guest_view_ad.xhtml?faces-redirect=true";
 		}
 		if (selected.getIsVip() && !selected.getTest().equals("")) {
 			fillTest();
-			return "advVipViewTest.xhtml?faces-redirect=true";
+			return "vip_ad_view_test.xhtml?faces-redirect=true";
 		}
-		return "advLoggedView.xhtml?faces-redirect=true";
+		return "logged_view_ad.xhtml?faces-redirect=true";
 	}
 
 	/**
 	 * Sends the answers written by the user to the company via email
 	 * 
-	 * @return The corresponding view. advEmailSentError.xhtml will be returned
-	 *         if there was an error. advEmailSentSuccessfully.xhtml if
+	 * @return The corresponding view. email_sent_error.xhtml will be returned
+	 *         if there was an error. email_sent_successfully.xhtml if
 	 *         everything went successfully
 	 *     
 	 * @author Metodi
@@ -394,16 +394,16 @@ public class ReviewAdManagedBean {
 			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(),
 					from, to);
 		} catch (MessagingException mex) {
-			return "advEmailSentError.xhtml?faces-redirect=true";
+			return "email_sent_error.xhtml?faces-redirect=true";
 		}
-		return "advEmailSentSuccessfully.xhtml?faces-redirect=true";
+		return "email_sent_successfully.xhtml?faces-redirect=true";
 	}
 
 	/**
 	 * Sends cover letter and CV to the company with the data added by the user
 	 * 
-	 * @return The corresponding view. advEmailSentError.xhtml will be returned
-	 *         if there was an error. advEmailSentSuccessfully.xhtml if
+	 * @return The corresponding view. email_sent_error.xhtml will be returned
+	 *         if there was an error. email_sent_successfully.xhtml if
 	 *         everything went successfully
 	 *         
 	 * @author Sneja
@@ -428,9 +428,9 @@ public class ReviewAdManagedBean {
 			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(),
 					from, to);
 		} catch (MessagingException mex) {
-			return "advEmailSentError.xhtml?faces-redirect=true";
+			return "email_sent_error.xhtml?faces-redirect=true";
 		}
-		return "advEmailSentSuccessfully.xhtml?faces-redirect=true";
+		return "email_sent_successfully.xhtml?faces-redirect=true";
 	}
 
 	/**

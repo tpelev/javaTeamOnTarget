@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import model.User;
 import teams.user_module.ReviewAdManagedBean;
 
-
 @ManagedBean(name = "LoginAsUser")
 @SessionScoped
 public class LoginAsUserMenagedBean {
@@ -26,59 +25,6 @@ public class LoginAsUserMenagedBean {
 	public String userUserName;
 	private String passUser;
 
-	public String loginUser() {
-
-		String userName = this.getUserUserName();
-
-		String pass1 = this.getPassUser();
-		System.out.println("entered pass" + pass1);
-
-		try {
-			User test = user.getAdminUserName(userUserName);
-			String hashedPass = user.hashing(userName, pass1);
-			if (hashedPass.equals(test.getLoginPassword())) {
-				HttpSession session = SessionBean.getSession();
-				session.setAttribute("user", userName);
-				indexBean.setLogged(true);
-				indexBean.setUserName(userName);
-				return "index.xhtml";
-			}else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Incorect User name or password!", "Please enter correct user name and password"));
-				return "LoginAsUser";
-			}
-
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Incorect User name or password!", "Please enter correct user name and password"));
-			return "LoginAsUser";
-		}
-	}
-
-	public void validate(ComponentSystemEvent e) {
-		UIForm form = (UIForm) e.getComponent();
-		UIInput nameInput = (UIInput) form.findComponent("username");
-		UIInput pwdInput = (UIInput) form.findComponent("pass1");
-
-		String userName = nameInput.getValue().toString();
-		String pass1 = pwdInput.getValue().toString();
-
-		try {
-			User test = user.getAdminUserName(userName);
-			String hashedPass = user.hashing(userName, pass1);
-			if (!hashedPass.equals(test.getLoginPassword())) {
-				FacesContext fc = FacesContext.getCurrentInstance();
-				fc.addMessage(form.getClientId(), new FacesMessage("Invalid username or password!"));
-				fc.renderResponse();
-			}
-		} catch (Exception ex) {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			fc.addMessage(form.getClientId(), new FacesMessage("Invalid username or password!"));
-			fc.renderResponse();
-		}
-
-	  }
-	
 	public String getUserUserName() {
 		return userUserName;
 	}
@@ -103,5 +49,56 @@ public class LoginAsUserMenagedBean {
 		this.indexBean = indexBean;
 	}
 
-	
+	public String loginUser() {
+
+		String userName = this.getUserUserName();
+
+		String password = this.getPassUser();
+		System.out.println("entered pass" + password);
+
+		try {
+			User test = user.getUserUserName(userUserName);
+			String hashedPass = HashingAlgorithm.hashing(userName, password);
+			if (hashedPass.equals(test.getLoginPassword())) {
+				HttpSession session = SessionBean.getSession();
+				session.setAttribute("user", userName);
+				indexBean.setLogged(true);
+				indexBean.setUserName(userName);
+				return "advIndex.xhtml?faces-redirect=true";
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Incorect User name or password!", "Please enter correct user name and password"));
+				return "loginAsUser?faces-redirect=true";
+			}
+
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Incorect User name or password!", "Please enter correct user name and password"));
+			return "loginAsUser?faces-redirect=true";
+		}
+	}
+
+	public void validate(ComponentSystemEvent e) {
+		UIForm form = (UIForm) e.getComponent();
+		UIInput nameInput = (UIInput) form.findComponent("username");
+		UIInput pwdInput = (UIInput) form.findComponent("password");
+
+		String userName = nameInput.getValue().toString();
+		String password = pwdInput.getValue().toString();
+
+		try {
+			User test = user.getUserUserName(userName);
+			String hashedPass = HashingAlgorithm.hashing(userName, password);
+			if (!hashedPass.equals(test.getLoginPassword())) {
+				FacesContext fc = FacesContext.getCurrentInstance();
+				fc.addMessage(form.getClientId(), new FacesMessage("Invalid username or password!"));
+				fc.renderResponse();
+			}
+		} catch (Exception ex) {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage(form.getClientId(), new FacesMessage("Invalid username or password!"));
+			fc.renderResponse();
+		}
+
+	}
 }

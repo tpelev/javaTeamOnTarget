@@ -36,6 +36,7 @@ public class AdvertsController {
 	private String price;
 	private String place;
 	private boolean isVip;
+	private String chekIsExpire;
 
 	// Pagination
 	@SuppressWarnings("rawtypes")
@@ -94,7 +95,7 @@ public class AdvertsController {
 	// class Advertisement
 	public String sendToUpdateAdv(Advertisement advertisement) {
 		setAdvertisement(advertisement);
-		return "AdminUpdateAdverts.xhtml";
+		return "AdminUpdateAdverts.xhtml?faces-redirect=true";
 	}
 
 	// Passing parameters to query for update Advertisement and refreshing the
@@ -104,7 +105,7 @@ public class AdvertsController {
 				Double.valueOf(getPrice()), getPlace(), isVip());
 		dtmdl = null;
 		getDtmdl();
-		return "AdminAdvertsPanel.xhtml";
+		return "AdminAdvertsPanel.xhtml?faces-redirect=true";
 	}
 
 	// Delete Advertisement
@@ -144,6 +145,7 @@ public class AdvertsController {
 	// Checking if Advertisement is expired
 	public void chekForExpire() {
 		advertsDaoBean.chekForExpiredDate();
+		setChekIsExpire("Done Cheking");
 	}
 
 	// Dynamically filling "selectOneMenu" with info from dataBase
@@ -227,5 +229,15 @@ public class AdvertsController {
 	public void setVip(boolean isVip) {
 		this.isVip = isVip;
 	}
+
+	public String getChekIsExpire() {
+		return chekIsExpire;
+	}
+
+	public void setChekIsExpire(String chekIsExpire) {
+		this.chekIsExpire = chekIsExpire;
+	}
+	
+	
 	// End of Set and Get methods
 }

@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>See</title>
+</h:head>
+<h:body bgcolor="#f6c593">
+	<h:form>
+		<h:commandLink action="#{LoginAsAdminB.logout}" value="Logout" style="font-size:25px;"></h:commandLink>
+	</h:form>
+	<h:form>
+		<dd>
+			<h2>
+				Invoice Number:
+				<h:outputFormat value="#{seeBean.outcomeId}" />
+			</h2>
+		</dd>
+		<br />
+		<dd>
+			<h2>
+				Invoice Date:
+				<h:outputFormat value="#{seeBean.outcomeInvoiceDate}" />
+			</h2>
+			<br></br>
+		</dd>
+
+		<br></br>Supplier
+			<br></br>
+		<table border="1">
+			<tr>
+				<th>Company Name</th>
+				<td><h:outputText
+						value="#{ownerBean.ownerInformation.companyName}" /></td>
+			</tr>
+			<tr>
+				<th>Address</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.adress}" /></td>
+			</tr>
+			<tr>
+				<th>MOL</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.mol}" /></td>
+			</tr>
+			<tr>
+				<th>EIK</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.eik}" /></td>
+			</tr>
+			<tr>
+				<th>E-mail</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.email}" /></td>
+			</tr>
+			<tr>
+				<th>Iban</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.iban}" /></td>
+			</tr>
+			<tr>
+				<th>BIC</th>
+				<td><h:outputText value="#{ownerBean.ownerInformation.bic}" /></td>
+			</tr>
+			<tr>
+				<th>Phone Number</th>
+				<td><h:outputText
+						value="#{ownerBean.ownerInformation.phoneNumber}" /></td>
+			</tr>
+		</table>
+	</h:form>
+	<br></br>Demander
+		<h:form>
+		<h:dataTable id="demander" value="#{seeBean}" var="companies"
+			border="1" styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Company name" />
+				</f:facet>
+				<h:outputFormat value="#{companies.outcomeCompanyName}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Address" />
+				</f:facet>
+				<h:outputFormat value="#{companies.outcomeAdress}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="MOL" />
+				</f:facet>
+				<h:outputFormat value="#{companies.outcomeMol}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="EIK" />
+				</f:facet>
+				<h:outputFormat value="#{companies.outcomeEik}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="E-mail" />
+				</f:facet>
+				<h:outputFormat value="#{companies.outcomeEmail}" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+	<br></br>
+	<br></br>
+	<h:form>
+		<dd>
+			Description: VIP Invoice<br></br>
+		</dd>
+		<dd>
+			Quantity: 1<br></br>
+		</dd>
+		<dd>
+			Price: 100<br></br>
+		</dd>
+		<dd>
+			Tax: 20%<br></br>
+		</dd>
+		<dd>
+			Tax amount: 20<br></br>
+		</dd>
+		<dd>
+			Discount:
+			<h:outputText value="#{seeBean.outcomeDiscount}" />
+		</dd>
+		<dd>
+			Total price:
+			<h:outputText value="#{seeBean.outcomeTotalPrice}" />
+		</dd>
+		<dd>
+			Event Date:
+			<h:outputText value="#{seeBean.outcomeEventDate}" />
+		</dd>
+		<dd>
+			Deadline: 5 days<br></br>
+		</dd>
+		<dd>
+			Cash:
+			<h:outputText value="#{seeBean.outcomeIsCash}" />
+		</dd>
+		<dd>
+			Payed:
+			<h:outputText value="#{seeBean.outcomeIsPaid}" />
+		</dd>
+		<br></br>
+		<br></br>
+		<br></br>
+		<input type="button" onclick="window.print(); return false;"
+			value="Print" style="height:30px; width:80px" />
+		<br></br>
+		<br></br>
+		<h:commandButton value="Home" action="accountMainJSF.xhtml?faces-redirect=true" style="height:30px; width:80px"/>
+	</h:form>
+</h:body>
+</html>
+

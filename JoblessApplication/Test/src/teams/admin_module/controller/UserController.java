@@ -77,7 +77,7 @@ public class UserController {
 	public String updateUserProfile(UserProfile userProfile) {
 		setUserProfile(userProfile);
 
-		return "AdminUserUpdate.xhtml";
+		return "AdminUserUpdate.xhtml?faces-redirect=true";
 	}
 
 
@@ -87,7 +87,7 @@ public class UserController {
 		userDaoBean.updateUserProfile(userProfile.getId(), getFirstName(), getLastName(), getEmail());
 		dtmdl = null;
 		getdtmdl();
-		return "AdminUsersPanel.xhtml";
+		return "AdminUsersPanel.xhtml?faces-redirect=true";
 	}
 	
 	

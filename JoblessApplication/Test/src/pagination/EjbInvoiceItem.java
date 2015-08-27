@@ -13,14 +13,23 @@ import javax.persistence.criteria.Root;
 import model.Invoice;
 
 
+/**
+ * EJB Class needed for JSF Pagination
+ * @author Sava Savov
+ *
+ */
 @Singleton
 public class EjbInvoiceItem {
 	
-	@PersistenceContext(unitName="Test")
-    private EntityManager em;
+	@PersistenceContext
+    private EntityManager em; //creating Entity Manager
   
-	public List<Invoice> getAllItems(){
-		
+	/**
+	 * use a NamedQuery from Invoice JPA Class
+	 * getting all Invoices from DB
+	 * @return  List<Invoice>
+	 */
+	public List<Invoice> getAllItems(){		
 		List<Invoice> invList = null;
 
 		TypedQuery<Invoice> query = em.createQuery("Invoice.findAll",Invoice.class);		
@@ -28,6 +37,7 @@ public class EjbInvoiceItem {
 		
 		return invList;
 	}
+	
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public int count() {
     	
@@ -38,6 +48,10 @@ public class EjbInvoiceItem {
         return ((Long) q.getSingleResult()).intValue();
     }
   
+    /**
+     * @param range
+     * @return List<Invoice>
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
    public List<Invoice> findRange(int[] range) {
 	   

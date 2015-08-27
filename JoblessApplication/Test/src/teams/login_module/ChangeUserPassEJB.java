@@ -21,36 +21,6 @@ public class ChangeUserPassEJB {
 	private String email;
 	private int id;
 
-	public boolean findUserEmail(String loginName, String email) {
-		boolean isExist = false;
-		UserProfile up = findUserObject(loginName);
-		if (up.getUser().getLoginName().equals(loginName) && up.getEmail().equals(email)) {
-			setFirstName(up.getFirstName());
-			setEmail(up.getEmail());
-			setId(up.getUser().getId());
-			isExist = true;
-		}
-		return isExist;
-	}
-
-	/**
-	 * @param loginName
-	 * @return
-	 */
-	private UserProfile findUserObject(String loginName) {
-		UserProfile up = new UserProfile();
-		Query query = em.createQuery("SELECT up FROM UserProfile up where up.user.loginName='" + loginName + "'");
-		
-		up = (UserProfile) query.getSingleResult();
-		return up;
-	}
-
-	public void updatePass(String password) {
-		User user = em.find(User.class, this.id);
-		user.setLoginPassword(password);	
-		em.persist(user);
-	
-	}
 
 	public String getFirstName() {
 		return loginName;
@@ -74,6 +44,36 @@ public class ChangeUserPassEJB {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	public boolean findUserEmail(String loginName, String email) {
+		boolean isExist = false;
+		UserProfile up = findUserObject(loginName);
+		if (up.getUser().getLoginName().equals(loginName) && up.getEmail().equals(email)) {
+			setFirstName(up.getFirstName());
+			setEmail(up.getEmail());
+			setId(up.getUser().getId());
+			isExist = true;
+		}
+		return isExist;
+	}
+
+	/**
+	 * @param loginName
+	 * @return
+	 */
+	private UserProfile findUserObject(String loginName) {
+		UserProfile up = new UserProfile();
+		Query query = em.createQuery("SELECT up FROM UserProfile up where up.user.loginName='" + loginName + "'");
+		
+		up = (UserProfile) query.getSingleResult();
+		return up;
+	}
+	
+	public void updatePass(String password) {
+		User user = em.find(User.class, this.id);
+		user.setLoginPassword(password);	
+		em.persist(user);
+	
 	}
 
 }

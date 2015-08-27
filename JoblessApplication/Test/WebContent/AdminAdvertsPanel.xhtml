@@ -58,7 +58,7 @@
 <h:body styleClass="Bimage">
 
 	<h:form>
-		<h:commandButton styleClass="BackButton" action="AdminPanel.xhtml"
+		<h:commandButton styleClass="BackButton" action="AdminPanel.xhtml?faces-redirect=true"
 			value="Admin home page">
 		</h:commandButton>
 
@@ -208,7 +208,9 @@
 			<h:commandButton styleClass="BigButton" align="center"
 				value="Expired Ads" action="#{adverts.chekForExpire}">
 			</h:commandButton>
+			
 		</h:form>
+		<h:outputText value="#{adverts.chekIsExpire}"/>
 	</h3>
 </h:body>
 </html>

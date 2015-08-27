@@ -106,9 +106,9 @@ ul {
 
 			<div>
 				<h:outputText style="color: white;" value="Password : "></h:outputText>
-				<h:inputSecret id="pass1" style="width: 200px;"
+				<h:inputSecret id="password" style="width: 200px;"
 					value="#{LoginAsAccounter.passAccounter}"></h:inputSecret>
-				<h:message for="pass1">
+				<h:message for="password">
 				</h:message>
 				<br />
 			</div>
@@ -125,7 +125,7 @@ ul {
 	<h:form>
 		<div id="mainContainer">
 			<h:commandButton class="myButton" style="height: 50px;width: 150px "
-				action="MainPage.xhtml" value="Back to main" />
+				action="MainPage.xhtml?faces-redirect=true" value="Back to main" />
 					<br />
 					<br />
 					<br />
@@ -135,7 +135,7 @@ ul {
 	
 	<h:form>
 		<div id="mainContainer">
-			<h:commandButton class="myButton" style="height: 50px;width: 150px;"  action="HelpMenu.html"
+			<h:commandButton class="myButton" style="height: 50px;width: 150px;"  action="HelpMenu.html?faces-redirect=true"
 				value="Get help here" />
 		</div>
 	</h:form>

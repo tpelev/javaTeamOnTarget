@@ -20,15 +20,25 @@ import org.apache.poi.ss.usermodel.Font;
 import model.Invoice;
 
 
-//class to export from html table to excel file
+
+
+/**
+ * class to export from html table to excel file
+ * @author Save Savov, Sergei Slavov
+ *
+ */
 public class Export {
 
+	/* Class Fields */
 	private FileOutputStream fileOut;
 	private HSSFWorkbook wb = new HSSFWorkbook();
 	private HSSFCellStyle headerStyle = wb.createCellStyle();
 	private String fileName;
 
-	// constructor
+	/**
+	 * Constructor
+	 * @param fiString
+	 */
 	public Export(String fiString) {
 		
 		HSSFFont headerFont = wb.createFont();
@@ -46,7 +56,15 @@ public class Export {
 		}
 	}
 
-	// method to create xls table and export information to it
+	/**
+	 * Method to create .xls table from Dynamic HTML table
+	 * and export information to it
+	 * @param lstInvoices
+	 * @return boolean
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @author Save Savov, Sergei Slavov
+	 */
 	public boolean generateSimpleExcelReport(List<Invoice> lstInvoices) {
 		try {
 			HSSFSheet sheet3 = wb.createSheet("Invoice DETAILS");
@@ -177,11 +195,22 @@ public class Export {
 		}
 	}
 
-	// setters and getters
+	/**
+	 * Getter for File Name
+	 * @param fileName
+	 * @return String
+	 * @author Save Savov, Sergei Slavov
+	 */
 	public String getFileName() {
 		return fileName;
 	}
 
+	/**
+	 * Setter for FileName
+	 * if file name is empty set Current Date
+	 * @param fileName
+	 * @author Kaloyan Tsvetkov
+	 */
 	public void setFileName(String fileName) {
 		//if file is empty file Name = current date.
 		if (fileName.equals("") || fileName.isEmpty()) {
@@ -191,10 +220,14 @@ public class Export {
 		}
 	}
 
-	// return current date
+	/**
+	 * Private Method getting PC current Date
+	 * @return String
+	 * @author Kaloyan Tsvetkov
+	 */
 	private String getCurrentDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //creating and initializing SimpleDateFormatObject
+		Date date = new Date(); //creating and initializing Date Object
 		return dateFormat.format(date);
 	}
 }

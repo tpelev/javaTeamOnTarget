@@ -1,8 +1,5 @@
 package teams.login_module;
 
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -32,46 +29,7 @@ public class RegisterCompanyManagedBean {
 	private String token;
 	private String messagge;
 
-	public String addCompany() {
-		if (!company.companyExists(loginName)) {
-				company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik, this.mol,
-						this.loginName, company.hashing(loginName, loginPassword), this.sault, this.token);
-				return "LoginAsCompany.xhtml";
-		}else{
-			return "RegisterAsCompany.xhtml";
-		}
-		
-	}
 	
-//	Needs new ejb
-	
-//	public void updateCompanyPassword(){
-//		if (company.companyExists(loginName)) {
-//			Random rnd = null;
-//			String newPassword = company.generateNewPassword(rnd, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", 10);
-//			company.updatePassword(this.loginName, company.hashing(loginName, newPassword));
-//		}
-//	}
-	
-	
-
-	public void isExists(FacesContext f, UIComponent c, Object obj) {
-		if (company.companyExists(this.loginName)) {		
-			throw new ValidatorException(new FacesMessage("Username already exists!"));
-		}
-
-	}
-
-	public void validEmail(FacesContext f, UIComponent c, Object obj) {
-		EmailValidator ev = new EmailValidator();
-		ev.validate(f, c, obj);
-	}
-	
-	public void validPass(FacesContext f, UIComponent c, Object obj){
-		ConfirmPasswordValidator confirmPass = new ConfirmPasswordValidator();
-		confirmPass.validate(f, c, obj);
-	}
-
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -126,7 +84,7 @@ public class RegisterCompanyManagedBean {
 
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
-		this.test();
+		this.showMessageForValidUserName();
 	}
 
 	public String getLoginPassword() {
@@ -162,7 +120,26 @@ public class RegisterCompanyManagedBean {
 		this.messagge = messagge;
 	}
 	
-	public void test(){
+	public String addCompany() {
+		if (!company.companyExists(loginName)) {
+				company.addCompany(this.companyName, this.companyType, this.adress, this.email, this.eik, this.mol,
+						this.loginName, HashingAlgorithm.hashing(loginName, loginPassword), this.sault, this.token);
+				return "loginAsCompany.xhtml?faces-redirect=true";
+		}else{
+			return "loginRegisterAsCompany.xhtml?faces-redirect=true";
+		}
+		
+	}
+	
+
+	public void isExists(FacesContext f, UIComponent c, Object obj) {
+		if (company.companyExists(this.loginName)) {		
+			throw new ValidatorException(new FacesMessage("Username already exists!"));
+		}
+
+	}
+	
+	public void showMessageForValidUserName(){
 		if (company.companyExists(this.loginName)) {
 			this.setMessagge("Username already exists");
 		}

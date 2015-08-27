@@ -82,7 +82,7 @@ public class CompanyController {
 	public String sendToUpdate(CompanyProfile companyProfile) {
 
 		setCompanyProfile(companyProfile);
-		return "AdminUpdateCompany.xhtml";
+		return "AdminUpdateCompany.xhtml?faces-redirect=true";
 	}
 
 	// Passing parameters to query for update CompanyProfile and refreshing the
@@ -92,7 +92,7 @@ public class CompanyController {
 				getEmail(), getCompanyType());
 		dtmdl = null;
 		getdtmdl();
-		return "AdminCompaniesPanel.xhtml";
+		return "AdminCompaniesPanel.xhtml?faces-redirect=true";
 	}
 
 	// Query for setting cow "status" to "1" ("1" is Approve) in dataBase

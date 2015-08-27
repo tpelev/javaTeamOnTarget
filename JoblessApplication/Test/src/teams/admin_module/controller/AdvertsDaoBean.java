@@ -74,7 +74,7 @@ public class AdvertsDaoBean {
 			tempAdvs.setPrice(price);
 			tempAdvs.setIsVip(isVip);
 			tempAdvs.setPlace(placeObj);
-		
+
 			entityManager.flush();
 		}
 	}
@@ -101,11 +101,12 @@ public class AdvertsDaoBean {
 			for (int i = 0; i < listOfApprovalsAdvs.size(); i++) {
 				Date expiredDate = listOfApprovalsAdvs.get(i).getExpirationDate();
 				Date currentDate = dateFormat.parse(getCurrentDate());
-
-				if (expiredDate.compareTo(currentDate) > 0) {
-					listOfApprovalsAdvs.get(i).setIsExpired(false);
-				} else {
-					listOfApprovalsAdvs.get(i).setIsExpired(true);
+				if (expiredDate != null) {
+					if (expiredDate.compareTo(currentDate) > 0) {
+						listOfApprovalsAdvs.get(i).setIsExpired(false);
+					} else {
+						listOfApprovalsAdvs.get(i).setIsExpired(true);
+					}
 				}
 
 			}
