@@ -41,7 +41,7 @@
 			<h:inputText id="keyword" value="#{index.keyword}" />
 
 			<h:commandButton class="buttons" id="searchId" value="search"
-				action="#{index.search}">
+				action="#{index.initFirstPage}">
 				<f:ajax execute="companies categories places vip keyword searchId"
 					render="adTable prev next" />
 			</h:commandButton>
