@@ -21,7 +21,7 @@
 		<dd>
 			<h2>
 				Invoice Date:
-				<h:outputFormat value="#{seeBean.outcomeInvoiceDate}" />
+				<h:outputFormat value="#{seeBean.invoiceDate}" />
 			</h2>
 			<br></br>
 		</dd>
@@ -75,31 +75,31 @@
 				<f:facet name="header">
 					<h:outputText value="Company name" />
 				</f:facet>
-				<h:outputFormat value="#{companies.outcomeCompanyName}" />
+				<h:outputFormat value="#{companies.cName}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="Address" />
 				</f:facet>
-				<h:outputFormat value="#{companies.outcomeAdress}" />
+				<h:outputFormat value="#{companies.address}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
-					<h:outputText value="MOL" />
+					<h:outputText value="MOL111" />
 				</f:facet>
-				<h:outputFormat value="#{companies.outcomeMol}" />
+				<h:outputFormat value="#{companies.mol}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="EIK" />
 				</f:facet>
-				<h:outputFormat value="#{companies.outcomeEik}" />
+				<h:outputFormat value="#{companies.eik}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">
 					<h:outputText value="E-mail" />
 				</f:facet>
-				<h:outputFormat value="#{companies.outcomeEmail}" />
+				<h:outputFormat value="#{companies.email}" />
 			</h:column>
 		</h:dataTable>
 	</h:form>
@@ -123,26 +123,26 @@
 		</dd>
 		<dd>
 			Discount:
-			<h:outputText value="#{seeBean.outcomeDiscount}" />
+			<h:outputText value="#{seeBean.discount}" />
 		</dd>
 		<dd>
 			Total price:
-			<h:outputText value="#{seeBean.outcomeTotalPrice}" />
+			<h:outputText value="#{seeBean.totalPrice}" />
 		</dd>
 		<dd>
 			Event Date:
-			<h:outputText value="#{seeBean.outcomeEventDate}" />
+			<h:outputText value="#{seeBean.eventDate}" />
 		</dd>
 		<dd>
 			Deadline: 5 days<br></br>
 		</dd>
 		<dd>
 			Cash:
-			<h:outputText value="#{seeBean.outcomeIsCash}" />
+			<h:outputText value="#{seeBean.isCash}" />
 		</dd>
 		<dd>
 			Payed:
-			<h:outputText value="#{seeBean.outcomeIsPaid}" />
+			<h:outputText value="#{seeBean.isPaid}" />
 		</dd>
 		<br></br>
 		<br></br>

@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import model.Invoice;
+import model.entity.Invoice;
 
 
 /**
@@ -27,7 +27,7 @@ public class EjbInvoiceItem {
 	/**
 	 * use a NamedQuery from Invoice JPA Class
 	 * getting all Invoices from DB
-	 * @return  List<Invoice>
+	 * @return  List - List from JPA Invoice
 	 */
 	public List<Invoice> getAllItems(){		
 		List<Invoice> invList = null;
@@ -49,8 +49,8 @@ public class EjbInvoiceItem {
     }
   
     /**
-     * @param range
-     * @return List<Invoice>
+     * @param range - int[] range
+     * @return List - List from JPA Invoice
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
    public List<Invoice> findRange(int[] range) {

@@ -17,15 +17,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Font;
 
-import model.Invoice;
-
-
-
+import model.entity.Invoice;
 
 /**
  * class to export from html table to excel file
- * @author Save Savov, Sergei Slavov
- *
+ * @author Sava Savov
+ * @author Sergei Slavov
  */
 public class Export {
 
@@ -37,7 +34,7 @@ public class Export {
 
 	/**
 	 * Constructor
-	 * @param fiString
+	 * @param fiString - to set File Name
 	 */
 	public Export(String fiString) {
 		
@@ -59,11 +56,11 @@ public class Export {
 	/**
 	 * Method to create .xls table from Dynamic HTML table
 	 * and export information to it
-	 * @param lstInvoices
-	 * @return boolean
+	 * @param lstInvoices - List from Invoice
+	 * @return boolean - success export or not
 	 * @throws FileNotFoundException
 	 * @throws IOException
-	 * @author Save Savov, Sergei Slavov
+	 * @author Sava Savov, Sergei Slavov
 	 */
 	public boolean generateSimpleExcelReport(List<Invoice> lstInvoices) {
 		try {
@@ -197,9 +194,8 @@ public class Export {
 
 	/**
 	 * Getter for File Name
-	 * @param fileName
-	 * @return String
-	 * @author Save Savov, Sergei Slavov
+	 * @return String - file Name
+	 * @author Sava Savov, Sergei Slavov
 	 */
 	public String getFileName() {
 		return fileName;
@@ -208,8 +204,8 @@ public class Export {
 	/**
 	 * Setter for FileName
 	 * if file name is empty set Current Date
-	 * @param fileName
-	 * @author Kaloyan Tsvetkov
+	 * @param fileName - String file name 
+	 * @author Sava Savov, Sergei Slavov
 	 */
 	public void setFileName(String fileName) {
 		//if file is empty file Name = current date.
@@ -222,8 +218,8 @@ public class Export {
 
 	/**
 	 * Private Method getting PC current Date
-	 * @return String
-	 * @author Kaloyan Tsvetkov
+	 * @return String - current Date
+	 * @author Sava Savov, Sergei Slavov
 	 */
 	private String getCurrentDate() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //creating and initializing SimpleDateFormatObject

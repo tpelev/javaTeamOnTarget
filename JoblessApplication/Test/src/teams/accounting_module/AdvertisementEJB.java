@@ -8,14 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import model.Advertisement;
-
+import model.entity.Advertisement;
 
 
 /**
  * EJB Class manipulating Advertisement JPA Class
  * 
- * @author Kaloyan Tsvetkov
+ * @author Teodora Miteva
  */
 @Stateless
 @SessionScoped
@@ -29,9 +28,9 @@ public class AdvertisementEJB {
 	 * getting  All VIP Advertisements that are not Payed and don't have a invoice for them, by CompanyProfile id
 	 * NamedQuery parameters are: isVip set to true, isPayed set to false, hasInvoice set to false and id set to metod param.
 	 *  {@link Advertisement}
-	 * @param id
-	 * @return List<Advertisement>
-	 * @author Kaloyan Tsvetkov
+	 * @param id - Integer Advertisement ID
+	 * @return List - List<Advertisement> from NamedQuery
+	 * @author Teodora Miteva
 	 */
 	public List<Advertisement> showAllVipNonPayedAdvertisement(int id){
 		List<Advertisement> advList = null;
@@ -50,9 +49,9 @@ public class AdvertisementEJB {
 	 * Method update current Advertisement Object in DataBase
 	 * set Column hasInvoice to true
 	 * for writing in DB is used flush() method
-	 * @param id
-	 * @return void
-	 * @author Kaloyan Tsvetkov
+	 * @param id - Integer Advertisement ID
+	 * @return List - List<Advertisement> from NamedQuery
+	 * @author Teodora Miteva
 	 */
 	public void updateAdvertToHasInvoice(int id){
 		Advertisement advTemp = entityManager.find(Advertisement.class, id); //find Advertisement by primary key(int id)
@@ -64,9 +63,8 @@ public class AdvertisementEJB {
 	 * Method update current Advertisement Object in DataBase
 	 * set Column IsPaid to true
 	 * for writing in DB is used flush() method
-	 * @param id
-	 * @return void
-	 * @author Kaloyan Tsvetkov
+	 * @param id -  Advertisement ID
+	 * @author Teodora Miteva
 	 */
 	public void updateAdvertToIsPayed(int id){
 		Advertisement advTemp = entityManager.find(Advertisement.class, id); //find Advertisement by primary key(int id)

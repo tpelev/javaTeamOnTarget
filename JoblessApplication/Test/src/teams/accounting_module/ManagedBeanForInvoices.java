@@ -10,10 +10,10 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-import model.Advertisement;
-import model.CompanyProfile;
-import model.Invoice;
-import model.Owner;
+import model.entity.Advertisement;
+import model.entity.CompanyProfile;
+import model.entity.Invoice;
+import model.entity.Owner;
 import pagination.EjbInvoiceItem;
 import pagination.PaginationHelper;
 
@@ -79,7 +79,7 @@ public class ManagedBeanForInvoices {
 	 * Geting all invoices from DataBase
 	 * using NamedQuery "Invoice.findAll"
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> getAllInvoices() {
@@ -91,7 +91,7 @@ public class ManagedBeanForInvoices {
 	 * Geting all invoices by Day
 	 * using NamedQuery "Invoice.findByInvoiceDate"
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> allInvoicesByDay() {
@@ -102,7 +102,7 @@ public class ManagedBeanForInvoices {
 	/**
 	 * Getting all invoices by Month
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> allInvoicesByMonth() {
@@ -113,7 +113,7 @@ public class ManagedBeanForInvoices {
 	/**
 	 * Getting all invoices by Month
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> allInvoicesByPeriod() {
@@ -126,7 +126,7 @@ public class ManagedBeanForInvoices {
 	/**
 	 * Getting all invoices by CompanyProfile
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> allInvoicesByCompany() {
@@ -141,7 +141,7 @@ public class ManagedBeanForInvoices {
 	/**
 	 * Getting all invoices by expecting payments (by isPayed Column)
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> getAllInvoicesByExpectingPayments() {
@@ -152,7 +152,7 @@ public class ManagedBeanForInvoices {
 	/**
 	 * Getting all invoices by late payments (by duePayment Column)
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> getAllInvoicesByLatePayments() {
@@ -163,7 +163,6 @@ public class ManagedBeanForInvoices {
 	/**
 	 * Write a new Invoice to DataBase
 	 * {@link Invoice}
-	 * @return void
 	 * @author Kaloyan Tsvetkov
 	 */
 	public void addInvoice() {
@@ -211,7 +210,7 @@ public class ManagedBeanForInvoices {
 
 	/**
 	 * method for dynamic Select One Menu for CompanyProfiles
-	 * @return List<SelectItem>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<SelectItem> getShowAllCompaniesSelectOneMenu() {
@@ -225,7 +224,7 @@ public class ManagedBeanForInvoices {
 
 	/**
 	 * method for dynamic Select One Menu for Advertisements
-	 * @return List<SelectItem>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<SelectItem> getShowAllAdvertisementsSelectOneMenu() {
@@ -248,7 +247,6 @@ public class ManagedBeanForInvoices {
 
 	/**
 	 * calculating total price
-	 * @return void
 	 * @author Kaloyan Tsvetkov
 	 */
 	public void calculateTotalPrice() {

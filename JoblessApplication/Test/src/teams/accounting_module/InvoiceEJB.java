@@ -14,9 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import model.CompanyProfile;
-import model.Invoice;
-
+import model.entity.CompanyProfile;
+import model.entity.Invoice;
 
 /**
  * EJB Class manipulating Invoice JPA Class
@@ -32,8 +31,8 @@ public class InvoiceEJB {
 	
 	/**
 	 * Getting invoice by ID
-	 * @param Integer
-	 * @return Invoice Object
+	 * @param id - Integer Invoice id
+	 * @return Invoice Object - usig  entityManager.find()
 	 * @author Kaloyan Tsvetkov
 	 */
 	public Invoice showInvoiceByID(int id){
@@ -45,7 +44,7 @@ public class InvoiceEJB {
 	 * Getting all invoices from DataBase
 	 * using NamedQuery "Invoice.findAll"
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllInvoices(){
@@ -61,7 +60,7 @@ public class InvoiceEJB {
 	 * Getting all invoices by Day
 	 * using NamedQuery "Invoice.findByInvoiceDate"
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllInvoicesByDay(String invDate){
@@ -82,9 +81,9 @@ public class InvoiceEJB {
 	 * using NamedQuery "Invoice.findAllByPeriod"
 	 * Using private Methods getLastDayFromMonth() and getFirstDayOfMonth()
 	 * {@link Invoice}
-	 * @param month Integer
-	 * @param year Integer
-	 * @return List<Invoice>
+	 * @param month - Integer for Month (MM)
+	 * @param year - Integer for Year (YYYY)
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllInvoicesByMonth(int month, int year){
@@ -108,8 +107,8 @@ public class InvoiceEJB {
 	 * Getting all invoices by CompanyProfile
 	 * using NamedQuery "Invoice.findByCompanyId"
 	 * {@link Invoice}
-	 * @param id Integer
-	 * @return List<Invoice>
+	 * @param id - Integer for CompanyProfile id
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllInvoicesByCompani(int id){
@@ -125,8 +124,8 @@ public class InvoiceEJB {
 	/**
 	 * Geting CompanyProfile by id
 	 * {@link CompanyProfile}
-	 * @param id Integer
-	 * @return CompanyProfile Object
+	 * @param id - Integer for CompanyProfile id
+	 * @return CompanyProfile - Object from CompanyProfile
 	 * @author Kaloyan Tsvetkov
 	 */
 	public CompanyProfile allCompaniesByName(int compid){
@@ -138,7 +137,7 @@ public class InvoiceEJB {
 	 * Geting all invoices by expecting payments (by isPayed Column)
 	 * using NamedQuery "Invoice.findAllWaitingPayments"
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllExpectingPayments(){
@@ -156,7 +155,7 @@ public class InvoiceEJB {
 	 * using NamedQuery "Invoice.findAllLatePayment"
 	 * and private method updateInvoiceByLatePayment()
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllLatePayments(){
@@ -174,7 +173,7 @@ public class InvoiceEJB {
 	 * Geting all invoices by Period
 	 * using NamedQuery "Invoice.findAllByPeriod"
 	 * {@link Invoice}
-	 * @return List<Invoice>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<Invoice> showAllInvoicesByPeriod(String startDate, String endDate){
@@ -193,8 +192,7 @@ public class InvoiceEJB {
 	/**
 	 * Write a new Invoice to DataBase
 	 * {@link Invoice}
-	 * @param invoiceObj Invoice 
-	 * @return void
+	 * @param invoiceObj - JPA Invoice Object 
 	 * @author Kaloyan Tsvetkov
 	 */
 	public void addInvoice(Invoice invoiceObj){
@@ -220,7 +218,7 @@ public class InvoiceEJB {
 	 * using NamedQuery "CompanyProfile.findAll"
 	 * and private method updateInvoiceByLatePayment()
 	 * {@link CompanyProfile}
-	 * @return List<CompanyProfile>
+	 * @return List - List from JPA Invoice
 	 * @author Kaloyan Tsvetkov
 	 */
 	public List<CompanyProfile> showAllCompanies(){
@@ -236,7 +234,7 @@ public class InvoiceEJB {
 	 * using NamedQuery "CompanyProfile.findAll"
 	 * and private method updateInvoiceByLatePayment()
 	 * {@link CompanyProfile}
-	 * @return List<CompanyProfile>
+	 * @return List - List from JPA Invoice
 	 * @author Teodora Miteva
 	 * @author Kaloyan Tsvetkov
 	 */
@@ -271,7 +269,7 @@ public class InvoiceEJB {
 	/**
 	 * Update Invoice to Paid using is_Payed Column
 	 * {@link Invoice}
-	 * @return List<CompanyProfile>
+	 * @return List - List from JPA Invoice
 	 * @author Ilian Tegarkov
 	 * @author Teodora Miteva
 	 * @author Kaloyan Tsvetkov
@@ -285,7 +283,7 @@ public class InvoiceEJB {
 
 	/**
 	 * Private method returning current date
-	 * @return String
+	 * @return String - String for current Date
 	 * @author Ilian Tegarkov
 	 */
 	private String getCurrentDate() {
@@ -297,7 +295,7 @@ public class InvoiceEJB {
 	
 	/**
 	 * Private method calculate end day to paid Invoice
-	 * @return String
+	 * @return String - String for last Date of month
 	 * @author Ilian Tegarkov
 	 */
 	private String calculateEndDay(String date, int days) {
@@ -312,7 +310,7 @@ public class InvoiceEJB {
 
 	/**
 	 * Private method calculate last day of Month
-	 * @return String
+	 * @return String - String for last Date of month
 	 * @author Ilian Tegarkov
 	 */
 	private String getLastDayFromMonth(int month, int year) {
@@ -340,9 +338,9 @@ public class InvoiceEJB {
 	
 	/**
 	 * Private method calculate first day of Month
-	 * @param month Integer
-	 * @param year Integer
-	 * @return String
+	 * @param month - Integer (MM)
+	 * @param year - Integer (YYYY)
+	 * @return String - String for first Date of month
 	 * @author Ilian Tegarkov
 	 */
 	private String getFirstDayOfMonth(int month, int year){
@@ -356,8 +354,8 @@ public class InvoiceEJB {
 	
 	/**
 	 * Private method converting from String to Date
-	 * @return Date
-	 * @param date String
+	 * @return Date - Object from Date
+	 * @param date - String date (yyyy-MM-dd)
 	 * @throws ParseException
 	 * @author Ilian Tegarkov
 	 */

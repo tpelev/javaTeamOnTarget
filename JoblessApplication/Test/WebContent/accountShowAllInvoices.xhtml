@@ -180,18 +180,6 @@
 					<h:commandButton value=" Full Info  " action="accountSee.xhtml"
 						style="height:30px; width:80px">
 						<f:param name="id" value="#{invoices.id}" />
-						<f:param name="cName"
-							value="#{invoices.companyProfile.companyName}" />
-						<f:param name="address" value="#{invoices.companyProfile.adress}" />
-						<f:param name="mol" value="#{invoices.companyProfile.mol}" />
-						<f:param name="eik" value="#{invoices.companyProfile.eik}" />
-						<f:param name="email" value="#{invoices.companyProfile.email}" />
-						<f:param name="discount" value="#{invoices.discount}" />
-						<f:param name="totalPrice" value="#{invoices.totalPrice}" />
-						<f:param name="isCash" value="#{invoices.isCash}" />
-						<f:param name="isPaid" value="#{invoices.isPayed}" />
-						<f:param name="invoiceDate" value="#{invoices.invoiceDate}" />
-						<f:param name="eventDate" value="#{invoices.eventDate}" />
 					</h:commandButton>
 					<br></br>
 					<h:commandButton value="Make Paid" disabled="#{invoices.isPayed}"
@@ -219,7 +207,8 @@
 	</h:form>
 	<h:form>
 		<h:commandButton class="myButton" value="Home"
-			action="accountMainJSF.xhtml?faces-redirect=true" style="height:40px; width:100px" />
+			action="accountMainJSF.xhtml?faces-redirect=true"
+			style="height:40px; width:100px" />
 	</h:form>
 	<h:form>
 		<div id="mainContainer">

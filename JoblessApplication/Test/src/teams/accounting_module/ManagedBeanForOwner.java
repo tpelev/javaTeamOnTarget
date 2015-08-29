@@ -3,16 +3,14 @@ package teams.accounting_module;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
-import model.Owner;
-
-
+import model.entity.Owner;
 
 
 /**
  * ManagedBean class using {@link OwnerEJB} methods
  * needet to set Owner information in JSFs (HTML pages)
  * 
- * @author Kaloyan Tsvetkov
+ * @author Sergei Slavov
  */
 @ManagedBean(name = "ownerBean")
 public class ManagedBeanForOwner {
@@ -25,8 +23,8 @@ public class ManagedBeanForOwner {
 	 * Method to get Owner information fom DataBase
 	 * calling  OwnerEJB getOwnerInformation(int) method
 	 * {@link OwnerEJB}
-	 * @return Owner Object
-	 * @author Kaloyan Tsvetkov
+	 * @return Owner - Object from JPA Owner
+	 * @author Sergei Slavov
 	 */
 	public Owner getOwnerInformation(){
 		setOwner(ejbOwner.getOwnerInformation(1)); //call OwnerEJB getOwnerInformation(int) method

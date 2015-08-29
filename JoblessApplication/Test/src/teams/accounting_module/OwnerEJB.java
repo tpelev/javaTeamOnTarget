@@ -5,14 +5,13 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import model.Owner;
-
+import model.entity.Owner;
 
 
 /**
  * EJB Class manipulating Owner JPA Class
  * 
- * @author Kaloyan Tsvetkov
+ * @author Sergei Slavov
  */
 @Stateless
 @SessionScoped
@@ -23,9 +22,9 @@ public class OwnerEJB {
 	
 	/**
 	 * Method to get Owner information fom DataBase
-	 * @param id
+	 * @param id - Integer Owner id
 	 * @return Owner Object
-	 * @author Kaloyan Tsvetkov
+	 * @author Sergei Slavov
 	 */
 	public Owner getOwnerInformation(int id){
 		Owner owner = entityManager.find(Owner.class, id); //find Owner by primary key(int id)

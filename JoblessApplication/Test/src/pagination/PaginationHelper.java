@@ -18,13 +18,13 @@ public abstract class PaginationHelper {
 
 	/**
 	 * abstract method
-	 * @return Integer
+	 * @return Integer - Items Count
 	 */
 	public abstract int getItemsCount();
 
 	/**
 	 * abstract method
-	 * @return DataModel
+	 * @return DataModel - Page Data Model
 	 */
 	@SuppressWarnings("rawtypes")
 	public abstract DataModel createPageDataModel();
