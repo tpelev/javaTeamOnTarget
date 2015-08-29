@@ -30,7 +30,7 @@ import org.json.JSONObject;
 public class ReviewAdManagedBean {
 
 	@EJB
-	private SessionBean queries;
+	private QueriesEJB queries;
 	@Resource(name = "mailSession")
 	private Session mailSession;
 	// logIn
@@ -233,7 +233,7 @@ public class ReviewAdManagedBean {
 		category.setCategorieName("All");
 		categories = queries.allCategories();
 		categories.add(category);
-		
+
 		initFirstPage();
 	}
 
@@ -241,12 +241,13 @@ public class ReviewAdManagedBean {
 	/**
 	 * Method showing the initial ads.
 	 * 
-	 * @author Zlatina 
+	 * @author Zlatina
 	 */
 
-	private void initFirstPage() {
+	public void initFirstPage() {
 		pageIndex = 1;
-		recordsTotal = (int) queries.countAds(keyword, selectedPlace, selectedCategory, selectedCompany, isVip);
+		recordsTotal = (int) queries.countAds(keyword, selectedPlace,
+				selectedCategory, selectedCompany, isVip);
 		pages = recordsTotal / RECORDS;
 
 		if (recordsTotal % RECORDS > 0) {
@@ -271,7 +272,8 @@ public class ReviewAdManagedBean {
 	 */
 	private void updateModel() {
 		int fromIndex = getFirst();
-		currentAds = queries.searchAdsOnCurrentPage(keyword, selectedPlace, selectedCategory, selectedCompany, isVip, fromIndex, RECORDS);
+		currentAds = queries.searchAdsOnCurrentPage(keyword, selectedPlace,
+				selectedCategory, selectedCompany, isVip, fromIndex, RECORDS);
 	}
 
 	/**
@@ -307,20 +309,11 @@ public class ReviewAdManagedBean {
 	}
 
 	// end changing pages
-	/**
-	 * Search Method. Run a query and populates the list with ads Refreshes the
-	 * list with shown ads as side effect
-	 * 
-	 * @author tina 
-	 */
-	public void search() {		
-		initFirstPage();
-	}
 
 	/**
 	 * Fills the test of the ad by taking the questions from the database
 	 * 
-	 * @author tina
+	 * @author Zlatina
 	 */
 	private void fillTest() {
 		String test = selected.getTest();
@@ -342,30 +335,30 @@ public class ReviewAdManagedBean {
 	 * Select the ad view based on user status and ad type.
 	 * 
 	 * @return The corresponding view. guest_view_ad.xhtml if the user is a
-	 *         Guest vip_ad_view_test.xhtml is returned if the user is logged
-	 *         and the ad has a test. logged_view_ad.xhtml is returned if the
-	 *         user is logged and the ad doesn't have a test.
-	 *         
+	 *         Guest advVipViewTest.xhtml.xhtml is returned if the user is
+	 *         logged and the ad has a test. advLoggedView.xhtml is returned if
+	 *         the user is logged and the ad doesn't have a test.
+	 * 
 	 * @author Martin
 	 */
 	public String selectAd() {
 		if (!isLogged) {
-			return "guest_view_ad.xhtml?faces-redirect=true";
+			return "advGuestView.xhtml?faces-redirect=true";
 		}
 		if (selected.getIsVip() && !selected.getTest().equals("")) {
 			fillTest();
-			return "vip_ad_view_test.xhtml?faces-redirect=true";
+			return "advVipViewTest.xhtml?faces-redirect=true";
 		}
-		return "logged_view_ad.xhtml?faces-redirect=true";
+		return "advLoggedView.xhtml?faces-redirect=true";
 	}
 
 	/**
 	 * Sends the answers written by the user to the company via email
 	 * 
-	 * @return The corresponding view. email_sent_error.xhtml will be returned
-	 *         if there was an error. email_sent_successfully.xhtml if
+	 * @return The corresponding view. advEmailSentError.xhtml will be returned
+	 *         if there was an error. advEmailSentSuccessfully.xhtml if
 	 *         everything went successfully
-	 *     
+	 * 
 	 * @author Metodi
 	 */
 	public String sendTest() {
@@ -385,30 +378,33 @@ public class ReviewAdManagedBean {
 			sb.append(test.getQuestionNum() + test.getQuestionDescription()
 					+ "\n" + test.getAnswer() + "\n");
 		}
-		sb.append("CV: \n");
-		sb.append(cv + "\n");
-		sb.append("CL: \n");
-		sb.append(cl + "\n");
+		if (!cv.isEmpty()) {
+			sb.append("CV: \n");
+			sb.append(cv + "\n");
+		}
+		if (!cl.isEmpty()) {
+			sb.append("CL: \n");
+			sb.append(cl + "\n");
+		}
 		try {
 			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(),
 					from, to);
 		} catch (MessagingException mex) {
-			return "email_sent_error.xhtml?faces-redirect=true";
+			return "advEmailSentError.xhtml?faces-redirect=true";
 		}
-		return "email_sent_successfully.xhtml?faces-redirect=true";
+		return "advEmailSentSuccessfully.xhtml?faces-redirect=true";
 	}
 
 	/**
 	 * Sends cover letter and CV to the company with the data added by the user
 	 * 
-	 * @return The corresponding view. email_sent_error.xhtml will be returned
-	 *         if there was an error. email_sent_successfully.xhtml if
+	 * @return The corresponding view. advEmailSentError.xhtml will be returned
+	 *         if there was an error. advEmailSentSuccessfully.xhtml if
 	 *         everything went successfully
-	 *         
+	 * 
 	 * @author Sneja
 	 */
 	public String sendCVandCL() {
-
 		String companyEmail = selected.getCompanyProfile().getEmail();
 		UserProfile userProf = queries.getUserProfileByUsername(getUserName());
 
@@ -419,17 +415,21 @@ public class ReviewAdManagedBean {
 		sb.append("Name: " + userProf.getFirstName() + " "
 				+ userProf.getLastName() + "\n");
 		sb.append("Email: " + userProf.getEmail() + "\n");
-		sb.append("CV: \n");
-		sb.append(cv + "\n");
-		sb.append("CL: \n");
-		sb.append(cl + "\n");
+		if (!cv.isEmpty()) {
+			sb.append("CV: \n");
+			sb.append(cv + "\n");
+		}
+		if (!cl.isEmpty()) {
+			sb.append("CL: \n");
+			sb.append(cl + "\n");
+		}
 		try {
 			sendEmail("JOBLESS - Ad ID: " + selected.getId(), sb.toString(),
 					from, to);
 		} catch (MessagingException mex) {
-			return "email_sent_error.xhtml?faces-redirect=true";
+			return "advEmailSentError.xhtml?faces-redirect=true";
 		}
-		return "email_sent_successfully.xhtml?faces-redirect=true";
+		return "advEmailSentSuccessfully.xhtml?faces-redirect=true";
 	}
 
 	/**
