@@ -2,11 +2,16 @@ package teams.user_module;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import model.Advertisement;
 import model.Category;
 import model.CompanyProfile;
@@ -27,26 +32,11 @@ public class SessionBean {
 	}
 
 	/**
-	 * Creates a query extracting all not expired and approved by admin ads.
-	 * 
-	 * @return List with all valid ads
-	 * 
-	 * @author Sneja, Metodi, Martin
-	 */
-	public List<Advertisement> showAllAdAproved() {
-		TypedQuery<Advertisement> quer = manager
-				.createQuery(
-						"Select c from Advertisement c where c.isApproved = true and c.isExpired = false ORDER BY c.isVip DESC",
-						Advertisement.class);
-		return quer.getResultList();
-	}
-
-	/**
 	 * Creates a query that retrieves all available places
 	 * 
 	 * @return list of Places
 	 * 
-	 * @author Sneja, Metodi, Martin
+	 * @author Sneja
 	 */
 	public List<Place> allPlaces() {
 		return manager.createQuery("Select c from Place c", Place.class)
@@ -58,7 +48,7 @@ public class SessionBean {
 	 * 
 	 * @return list of Category
 	 * 
-	 * @author Sneja, Metodi, Martin
+	 * @author Metodi
 	 */
 	public List<Category> allCategories() {
 		return manager.createQuery("Select c from Category c", Category.class)
@@ -70,7 +60,7 @@ public class SessionBean {
 	 * 
 	 * @return list of CompanyProfile
 	 * 
-	 * @author Sneja, Metodi, Martin
+	 * @author Martin
 	 */
 	public List<CompanyProfile> allCompanies() {
 		return manager.createQuery("Select c from CompanyProfile c",
@@ -78,47 +68,128 @@ public class SessionBean {
 	}
 
 	/**
-	 * Method creating a StringBuilder depending on the search parameters
-	 * submitted by user. StringBuilder is converted to a query String
+	 * Method creating a Criteria Query depending on the search parameters
+	 * submitted by user. The returned list is grouped by ten entries for each call.
 	 * 
-	 * @return List from Advertisement answering to search parameters provided
+	 * @return List of ten Advertisements answering to search parameters provided
 	 *         by user
 	 *         
-	 *  @author tina
+	 *  @author Zlatina, Metodi, Martin, Sneja, Damian
 	 */
-	public List<Advertisement> searchAds(String word, String idPlace,
-			String idCategory, String idCompany, String isVip) {
+	public List<Advertisement> searchAdsOnCurrentPage(String word, String placeName,
+			String categoryName, String companyName, boolean isVip, int from, int elementsPerPage) {
+		
+		CriteriaBuilder cb = manager.getCriteriaBuilder();
+		CriteriaQuery <Advertisement> cq = cb.createQuery(Advertisement.class);
+		Root <Advertisement> adv = cq.from(Advertisement.class);
+		Join <Advertisement, Category> category = adv.join("category");
+		Join <Advertisement, Place> place = adv.join("place");
+		Join <Advertisement, CompanyProfile> compProf = adv.join("companyProfile");
+		
+		
+		if (word.equalsIgnoreCase("")) {
+			word = "%";
+		}
+		if (placeName.equalsIgnoreCase("all")) {
+			placeName = "%";
+		}
+		if (categoryName.equalsIgnoreCase("all")) {
+			categoryName = "%";
+		}
+		if (companyName.equalsIgnoreCase("all")) {
+			companyName ="%";
+		}
+		
+		if (isVip == true) {
+			cq.where(cb.like(adv.get("title"), "%"+word+"%"),
+					cb.like(category.get("categorieName"), categoryName), 
+					cb.like(place.get("placesName"), placeName),
+					cb.like(compProf.get("companyName"), companyName),
+					cb.isTrue(adv.get("isApproved")),
+					cb.isFalse(adv.get("isExpired")),
+					cb.isTrue(adv.get("isVip")));
+			
+		}else{
+			cq.where(cb.like(adv.get("title"), "%"+word+"%"),
+					cb.like(category.get("categorieName"), categoryName), 
+					cb.like(place.get("placesName"), placeName),
+					cb.like(compProf.get("companyName"), companyName),
+					cb.isTrue(adv.get("isApproved")),
+					cb.isFalse(adv.get("isExpired")));
+			cq.orderBy(cb.desc(adv.get("isVip")));
+		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append("Select a From Advertisement a Where ");
-
-		if (!word.equalsIgnoreCase("")) {
-			sb.append(" a.title Like '%" + word + "%' and ");
-		}
-		if (!idPlace.equalsIgnoreCase("all")) {
-			sb.append(" a.place.placesName = '" + idPlace + "' and ");
-		}
-		if (!idCategory.equalsIgnoreCase("all")) {
-			sb.append(" a.category.categorieName = '" + idCategory + "' and ");
-		}
-		if (!idCompany.equalsIgnoreCase("all")) {
-			sb.append(" a.companyProfile.companyName = '" + idCompany
-					+ "' and ");
-		}
-		if (isVip.equals("true")) {
-			sb.append(" a.isVip = " + isVip + " and ");
-		}
-		sb.append(" a.isApproved = true and a.isExpired = false ");
-
-		if (!isVip.equals("true")) {
-			sb.append(" ORDER BY a.isVip DESC");
-		}
-
-		TypedQuery<Advertisement> q = manager.createQuery(sb.toString(),
-				Advertisement.class);
-
-		return q.getResultList();
+		
+		
+		TypedQuery<Advertisement> quer = manager
+				.createQuery(cq);
+		quer.setFirstResult(from);
+		quer.setMaxResults(elementsPerPage);
+		
+		return quer.getResultList();
 	}
+	
+	/**
+	 * Method creating a Criteria Query depending on the search parameters
+	 * submitted by user. The number of entries is returned
+	 * 
+	 * 
+	 * @param word
+	 * @param placeName
+	 * @param categoryName
+	 * @param companyName
+	 * @param isVip
+	 * @return The number of entries by the given criteria
+	 * 
+	 * @author Damian, Zlatina, Metodi, Martin, Sneja
+	 */
+	
+	public long countAds(String word, String placeName,
+			String categoryName, String companyName, boolean isVip) {
+		
+		CriteriaBuilder cb = manager.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+		Root <Advertisement> adv = cq.from(Advertisement.class);
+		Join <Advertisement, Category> category = adv.join("category");
+		Join <Advertisement, Place> place = adv.join("place");
+		Join <Advertisement, CompanyProfile> compProf = adv.join("companyProfile");
+		cq.select(cb.count(adv));
+		if (word.equalsIgnoreCase("")) {
+			word = "%";
+		}
+		if (placeName.equalsIgnoreCase("all")) {
+			placeName = "%";
+		}
+		if (categoryName.equalsIgnoreCase("all")) {
+			categoryName = "%";
+		}
+		if (companyName.equalsIgnoreCase("all")) {
+			companyName ="%";
+		}
+		
+		if (isVip == true) {
+			cq.where(cb.like(adv.get("title"), "%"+word+"%"),
+					cb.like(category.get("categorieName"), categoryName), 
+					cb.like(place.get("placesName"), placeName),
+					cb.like(compProf.get("companyName"), companyName),
+					cb.isTrue(adv.get("isApproved")),
+					cb.isFalse(adv.get("isExpired")),
+					cb.isTrue(adv.get("isVip")));
+			
+		}else{
+			cq.where(cb.like(adv.get("title"), "%"+word+"%"),
+					cb.like(category.get("categorieName"), categoryName), 
+					cb.like(place.get("placesName"), placeName),
+					cb.like(compProf.get("companyName"), companyName),
+					cb.isTrue(adv.get("isApproved")),
+					cb.isFalse(adv.get("isExpired")));
+			cq.orderBy(cb.desc(adv.get("isVip")));
+		}		
+		TypedQuery<Long> quer = manager.createQuery(cq);		
+		return quer.getSingleResult();
+	}
+	
+	
 
 	/**
 	 * Method that creates an ad. Information about the current logged user is
@@ -127,7 +198,7 @@ public class SessionBean {
 	 *
 	 * @return an object from Advertisement, containing all required ads fields.
 	 * 
-	 * @author Sneja, Metodi, Martin
+	 * @author Sneja, Metodi, Martin, Damian, Sneja
 	 */
 	public Advertisement createAdvertisement(String userName, String title,
 			String content, String test, boolean is_vip, String placeName,
@@ -189,7 +260,7 @@ public class SessionBean {
 	 * 
 	 * @return The Advertisement of the corresponding company username
 	 * 
-	 * @author tina
+	 * @author Zlatina, Medoti, Martin, Sneja, Damian
 	 */
 	public List<Advertisement> getAdvertisementByCompanyName(String userName) {
 		TypedQuery<CompanyProfile> queryCP = manager.createQuery(

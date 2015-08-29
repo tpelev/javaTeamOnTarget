@@ -44,7 +44,6 @@ public class ReviewAdManagedBean {
 
 	// pages
 	private List<Advertisement> currentAds; // ads on page
-	private List<Advertisement> allAds;
 	private static final int RECORDS = 10; // number of ads on page
 	private int pageIndex; // current page
 	private int recordsTotal; // all ads
@@ -54,7 +53,7 @@ public class ReviewAdManagedBean {
 
 	// select Ad
 	private Advertisement selected;
-	private String keyword;
+	private String keyword = "";
 	private String selectedPlace = "All";
 	private String selectedCompany = "All";
 	private String selectedCategory = "All";
@@ -234,7 +233,7 @@ public class ReviewAdManagedBean {
 		category.setCategorieName("All");
 		categories = queries.allCategories();
 		categories.add(category);
-		allAds = queries.showAllAdAproved();
+		
 		initFirstPage();
 	}
 
@@ -242,12 +241,12 @@ public class ReviewAdManagedBean {
 	/**
 	 * Method showing the initial ads.
 	 * 
-	 * @author tina 
+	 * @author Zlatina 
 	 */
 
 	private void initFirstPage() {
 		pageIndex = 1;
-		recordsTotal = allAds.size();
+		recordsTotal = (int) queries.countAds(keyword, selectedPlace, selectedCategory, selectedCompany, isVip);
 		pages = recordsTotal / RECORDS;
 
 		if (recordsTotal % RECORDS > 0) {
@@ -267,17 +266,17 @@ public class ReviewAdManagedBean {
 		updateModel();
 	}
 
+	/**
+	 * Updates the list, which is visualized on the main page.
+	 */
 	private void updateModel() {
 		int fromIndex = getFirst();
-		int toIndex = getFirst() + RECORDS;
-
-		if (toIndex > this.recordsTotal) {
-			toIndex = this.recordsTotal;
-		}
-
-		currentAds = allAds.subList(fromIndex, toIndex);
+		currentAds = queries.searchAdsOnCurrentPage(keyword, selectedPlace, selectedCategory, selectedCompany, isVip, fromIndex, RECORDS);
 	}
 
+	/**
+	 * Moves to the next page and updates the list
+	 */
 	public void next() {
 		if (pageIndex < pages) {
 			pageIndex++;
@@ -289,6 +288,9 @@ public class ReviewAdManagedBean {
 		updateModel();
 	}
 
+	/**
+	 * Moves to the previous page and updates the list
+	 */
 	public void prev() {
 		if (pageIndex > 1) {
 			pageIndex--;
@@ -311,10 +313,7 @@ public class ReviewAdManagedBean {
 	 * 
 	 * @author tina 
 	 */
-	public void search() {
-		String isVipStr = String.valueOf(isVip);
-		allAds = queries.searchAds(keyword, selectedPlace, selectedCategory,
-				selectedCompany, isVipStr);
+	public void search() {		
 		initFirstPage();
 	}
 
